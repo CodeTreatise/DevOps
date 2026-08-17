@@ -776,3 +776,76 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
   .module-grid { grid-template-columns: 1fr; }
   .to-top { right: 14px; bottom: 14px; }
 }
+
+/* ---------- certifications view ---------- */
+.cert-phase {
+  background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius-sm);
+  padding: 13px 16px; margin-bottom: 12px;
+}
+.cert-phase .phase-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cert-phase h3 { font-size: 13.5px; margin: 0; }
+.cert-card {
+  background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius);
+  padding: 16px 18px; margin-bottom: 14px; backdrop-filter: blur(10px);
+}
+.cert-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cert-meta { font-size: 12px; color: var(--text-dim); }
+.cert-facts { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.cert-why { font-size: 13px; color: var(--text-dim); line-height: 1.55; margin-bottom: 6px; }
+.cert-why b { color: var(--accent); }
+.cert-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+/* ---------- system design view ---------- */
+.sd-problem { margin-bottom: 10px; }
+.sd-problem summary { font-size: 13.5px !important; }
+
+/* ---------- resume kit ---------- */
+.resume-lines { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; }
+.resume-line {
+  font-family: var(--mono); font-size: 12px; color: var(--cyan);
+  background: rgba(0,0,0,.25); border: 1px dashed var(--stroke-2);
+  border-radius: 6px; padding: 7px 12px;
+}
+
+/* ---------- lab checklists ---------- */
+.lab-prog { margin-left: 8px; font-size: 11px; color: var(--text-dim); font-family: var(--mono); }
+.lab-list { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+.lab-item {
+  display: flex; gap: 10px; align-items: flex-start; cursor: pointer;
+  padding: 8px 10px; border-radius: 8px; border: 1px solid transparent;
+  transition: background .12s, border-color .12s;
+}
+.lab-item:hover { background: rgba(109,141,255,.06); border-color: var(--stroke); }
+.lab-item input { margin-top: 3px; accent-color: var(--green); cursor: pointer; }
+.lab-item span { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; }
+.lab-item.lab-done span { color: var(--text-faint); text-decoration: line-through; opacity: .75; }
+.lab-verify { color: var(--green); opacity: .85; font-size: 11.5px; }
+.lab-item.lab-done .lab-verify { color: var(--text-faint); }
+
+/* ---------- application tracker ---------- */
+.tracker-form {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px; margin-bottom: 12px;
+}
+.tracker-form input, .tracker-form select {
+  font-family: var(--font); font-size: 13px; color: var(--text);
+  background: rgba(0,0,0,.28); border: 1px solid var(--stroke); border-radius: 8px;
+  padding: 8px 11px; outline: none; transition: border-color .12s;
+}
+.tracker-form input:focus, .tracker-form select:focus { border-color: rgba(109,141,255,.6); }
+.tracker-form select option { background: #0b1020; }
+.tracker-export { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.tracker-row {
+  background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius-sm);
+  padding: 11px 14px; margin-bottom: 9px; display: flex; flex-direction: column; gap: 5px;
+}
+.tracker-main { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.tracker-sub { font-size: 12px; color: var(--text-faint); display: flex; flex-wrap: wrap; gap: 4px; }
+.tracker-sub a { color: var(--accent); }
+.tracker-actions { display: flex; align-items: center; gap: 7px; }
+.tracker-actions select {
+  font-family: var(--font); font-size: 12px; color: var(--text);
+  background: rgba(0,0,0,.28); border: 1px solid var(--stroke); border-radius: 7px; padding: 4px 8px;
+}
+.tracker-actions select option { background: #0b1020; }
+.tracker-actions .ghost-btn { padding: 4px 10px; font-size: 12px; }

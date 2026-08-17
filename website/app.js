@@ -11,6 +11,9 @@
 
   const $view = document.getElementById("view");
   const PROGRESS_KEY = "platform-path-progress-v1";
+  const TRACKER_KEY = "platform-path-tracker-v1";
+  const LABS_KEY = "platform-path-labs-v1";
+  const TRACKER_STAGES = ["📝 Applied", "🔍 Screening", "🧪 Tech R1", "🧪 Tech R2", "🏢 HR / Managerial", "🎉 Offer", "❌ Rejected", "⏸ On hold"];
 
   /* ---------------- helpers ---------------- */
   function esc(s) {
@@ -78,6 +81,37 @@
   function modulePct(m) {
     const s = moduleStats(m);
     return s.items ? Math.round((moduleDone(m) / s.items) * 100) : 0;
+  }
+
+  /* ---------------- application tracker ---------------- */
+  function getApps() {
+    try { return JSON.parse(localStorage.getItem(TRACKER_KEY) || "[]"); }
+    catch (e) { return []; }
+  }
+  function saveApps(list) {
+    localStorage.setItem(TRACKER_KEY, JSON.stringify(list));
+  }
+  function appStats(list) {
+    const st = { total: list.length };
+    TRACKER_STAGES.forEach((s) => {
+      st[s] = list.filter((a) => a.stage === s).length;
+    });
+    st.offers = st["🎉 Offer"];
+    st.pipeline = list.filter((a) => !["❌ Rejected", "⏸ On hold", "🎉 Offer"].includes(a.stage)).length;
+    return st;
+  }
+
+  /* ---------------- lab checklists ---------------- */
+  function getLabDone() {
+    try { return JSON.parse(localStorage.getItem(LABS_KEY) || "{}"); }
+    catch (e) { return {}; }
+  }
+  function labKey(mId, i) { return mId + "::" + i; }
+  function toggleLab(mId, i, checked) {
+    const d = getLabDone();
+    const k = labKey(mId, i);
+    if (checked) d[k] = 1; else delete d[k];
+    localStorage.setItem(LABS_KEY, JSON.stringify(d));
   }
 
   function updateProgressUI() {
@@ -614,6 +648,254 @@
     $view.innerHTML = html;
   }
 
+  /* ---------------- company question sets ---------------- */
+  function viewCompanyQs() {
+    const cq = D.companyQs;
+    if (!cq) { $view.innerHTML = '<div class="empty-state">Company Q-Sets missing — regenerate from the JSON</div>'; return; }
+    let html = '<div class="appendix"><h1>🎯 Company Question Sets</h1>';
+    html += '<p class="sec-desc">Most-asked questions per hiring tier, each linked to where the full answer lives in your answer banks. Drill these BEFORE applying — not during.</p>';
+    html += '<ol class="playbook-list">' + (cq.howToUse || []).map((h) => "<li>" + esc(h) + "</li>").join("") + "</ol>";
+    (cq.tiers || []).forEach((t) => {
+      html += '<section class="company-cat"><div class="phase-head"><h2>' + esc(t.name) + "</h2>" +
+        '<span class="ph-badge">' + (t.questions || []).length + " must-know</span></div>";
+      html += '<div class="phase-goal">' + esc(t.pattern) + "</div>";
+      html += '<div class="table-wrap"><table><thead><tr><th>#</th><th>Question</th><th>Where the answer lives</th></tr></thead><tbody>';
+      (t.questions || []).forEach((q, i) => {
+        html += "<tr><td>" + (i + 1) + '</td><td><b>' + esc(q.q) + "</b></td><td style='color:var(--text-dim);font-size:12px'>" + esc(q.where) + "</td></tr>";
+      });
+      html += "</tbody></table></div></section>";
+    });
+    html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(cq.source) + "</p>";
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- certifications ---------------- */
+  function viewCerts() {
+    const cd = D.certs;
+    if (!cd) { $view.innerHTML = '<div class="empty-state">Certifications data missing — regenerate from the JSON</div>'; return; }
+    let html = '<div class="appendix"><h1>🎓 Certification Timeline</h1>';
+    html += "<p class=\"sec-desc\">Why each cert, when to take it in your path, what the exam is like, how to prep — and what it's worth. Prices checked 2026-08-17; verify before booking.</p>";
+    html += '<div class="phase-goal">' + esc(cd.strategy) + "</div>";
+
+    // timeline
+    html += "<h2>🗓 When to take each cert</h2>";
+    (cd.timeline || []).forEach((ph) => {
+      html += '<div class="cert-phase"><div class="phase-head"><h3>📌 ' + esc(ph.phase) + "</h3></div>" +
+        '<div class="phase-goal">' + esc(ph.recommendation) + "</div>";
+      if (ph.certs && ph.certs.length) {
+        html += '<div class="co-modules">' + ph.certs.map((c) => {
+          const cc = (cd.certs || []).find((x) => x.id === c);
+          return '<a href="#" class="mod-chip" data-anchor="cert-' + esc(c) + '">' + esc(cc ? cc.name : c) + "</a>";
+        }).join(" ") + "</div>";
+      }
+      html += "</div>";
+    });
+
+    // cert cards
+    html += "<h2>📇 The certs, explained</h2>";
+    (cd.certs || []).forEach((c) => {
+      html += '<div class="cert-card" id="cert-' + esc(c.id) + '">';
+      html += '<div class="cert-head"><div class="co-name">' + esc(c.name) + "</div>" +
+        '<div class="cert-meta">' + esc(c.org) + " · <b>" + esc(c.cost) + "</b></div></div>";
+      html += '<div class="cert-facts"><span class="role-tag">🕐 ' + esc(c.exam) + "</span>" +
+        '<span class="role-tag">📅 Validity: ' + esc(c.validity) + "</span>" +
+        '<span class="role-tag">📍 Module: ' + esc(c.module) + "</span></div>";
+      html += '<div class="cert-why"><b>Why — </b>' + esc(c.why) + "</div>";
+      html += '<div class="cert-why"><b>When — </b>' + esc(c.when) + "</div>";
+      html += '<div class="rb-label" style="margin-top:10px">How to prep</div><ol class="playbook-list">' +
+        (c.how || []).map((h) => "<li>" + esc(h) + "</li>").join("") + "</ol>";
+      if (c.links && c.links.length) {
+        html += '<div class="cert-links">' + c.links.map((l) =>
+          '<a class="mod-chip link" href="' + esc(l.url) + '" target="_blank" rel="noopener">🔗 ' + esc(l.name) + "</a>"
+        ).join(" ") + "</div>";
+      }
+      html += "</div>";
+    });
+
+    html += "<h2>📈 ROI order</h2>";
+    html += '<ul class="facts-list">' + (cd.roi || []).map((r) => "<li>" + esc(r) + "</li>").join("") + "</ul>";
+    html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(cd.source) + "</p>";
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- system design ---------------- */
+  function viewSysDesign() {
+    const sd = D.systemDesign;
+    if (!sd) { $view.innerHTML = '<div class="empty-state">System Design data missing — regenerate from the JSON</div>'; return; }
+    let html = '<div class="appendix"><h1>🧠 System Design for DevOps</h1>';
+    html += '<p class="sec-desc">The interview round where you architect infrastructure, not app code. Practice the framework, then drill the 8 scenarios below out loud.</p>';
+    html += '<div class="phase-goal">' + esc(sd.what) + "</div>";
+
+    // framework
+    html += "<h2>🏗 The 6-step answer framework</h2>";
+    html += '<div class="table-wrap"><table><thead><tr><th>Step</th><th>What to say</th></tr></thead><tbody>';
+    (sd.framework.steps || []).forEach((s) => {
+      html += "<tr><td><b>" + esc(s.step) + "</b></td><td>" + esc(s.detail) + "</td></tr>";
+    });
+    html += "</tbody></table></div>";
+
+    // problems
+    html += "<h2>📝 Practice scenarios (" + (sd.problems || []).length + ")</h2>";
+    (sd.problems || []).forEach((p) => {
+      html += '<details class="research-block sd-problem">';
+      html += "<summary><span class='caret'>▶</span> " + esc(p.id) + " — " + esc(p.title) + "</summary>";
+      if (p.modules && p.modules.length) {
+        html += '<div class="co-modules">📚 Uses: ' + p.modules.map((m) => {
+          const mm = moduleById(m);
+          return '<a href="#" class="mod-chip" data-view="module:' + esc(m) + '">' + esc(m) + (mm ? " · " + esc(shortTitle(mm.title)) : "") + "</a>";
+        }).join(" ") + "</div>";
+      }
+      html += '<div class="rb-label">Walkthrough</div><ol class="playbook-list">' +
+        (p.walkthrough || []).map((w) => "<li>" + esc(w) + "</li>").join("") + "</ol>";
+      if (p.talk_track) html += '<div class="cert-why"><b>🎙 Talk track — </b>' + esc(p.talk_track) + "</div>";
+      html += "</details>";
+    });
+
+    html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(sd.source) + "</p>";
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- resume kit ---------------- */
+  function viewResume() {
+    const rd = D.resumeTemplate;
+    if (!rd) { $view.innerHTML = '<div class="empty-state">Resume data missing — regenerate from the JSON</div>'; return; }
+    let html = '<div class="appendix"><h1>📄 Resume Kit — Platform/DevOps tuned</h1>';
+    html += '<p class="sec-desc">ATS-first template with fill-in blanks, metric formulas, and per-job-type keyword centers. Build 3 master resumes from this.</p>';
+
+    html += "<h2>⚠️ ATS rules (non-negotiable)</h2>";
+    html += '<ul class="facts-list">' + (rd.ats || []).map((a) => "<li>" + esc(a) + "</li>").join("") + "</ul>";
+
+    html += "<h2>🧩 Section-by-section template</h2>";
+    const t = rd.template || {};
+    const sec = (title, obj) => {
+      if (!obj) return "";
+      let h = '<details class="research-block" open><summary><span class="caret">▶</span> ' + title + "</summary>";
+      if (obj.note) h += '<div class="phase-goal">' + esc(obj.note) + "</div>";
+      if (obj.lines) h += '<div class="resume-lines">' + obj.lines.map((l) => '<div class="resume-line">' + esc(l) + "</div>").join("") + "</div>";
+      if (obj.example) h += '<div class="cert-why"><b>Example — </b>' + esc(obj.example) + "</div>";
+      if (obj.groups) h += '<ul class="facts-list">' + obj.groups.map((g) => "<li>" + esc(g) + "</li>").join("") + "</ul>";
+      if (obj.examples) {
+        obj.examples.forEach((ex) => {
+          h += '<div class="cert-card" style="margin-top:10px"><div class="co-name">' + esc(ex.name) + "</div>" +
+            '<ul class="facts-list">' + (ex.bullets || []).map((b) => "<li>" + esc(b) + "</li>").join("") + "</ul></div>";
+        });
+      }
+      if (obj.bullet_verbs) h += '<div class="cert-why"><b>Verbs — </b>' + esc(obj.bullet_verbs.join(", ")) + "</div>";
+      if (obj.metric_examples) h += '<div class="cert-why"><b>Metrics that land — </b>' + esc(obj.metric_examples.join(" | ")) + "</div>";
+      if (obj.if_no_job_history) h += '<div class="phase-goal" style="margin-top:8px">💡 ' + esc(obj.if_no_job_history) + "</div>";
+      h += "</details>";
+      return h;
+    };
+    html += sec("Header", t.header) + sec("Summary", t.summary) + sec("Skills", t.skills) +
+      sec("Projects (your A06 capstone + B05 GitOps)", t.projects) + sec("Experience", t.experience) +
+      sec("Education & Certifications", t.education_certs);
+
+    html += "<h2>🎯 Keyword centers per job type</h2>";
+    if (rd.jds && rd.jds.centers) {
+      Object.entries(rd.jds.centers).forEach(([k, v]) => {
+        html += '<div class="cert-card" style="margin-top:10px"><div class="co-name">' + esc(k) + "</div>" +
+          '<div class="co-stack">' + esc(v.join(" · ")) + "</div></div>";
+      });
+    }
+
+    html += "<h2>✅ Pre-send checklist</h2>";
+    html += '<ul class="facts-list">' + (rd.checklist || []).map((c) => "<li>" + esc(c) + "</li>").join("") + "</ul>";
+    html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(rd.source) + "</p>";
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- lab checklists ---------------- */
+  function viewLabs() {
+    const ld = D.labs;
+    if (!ld) { $view.innerHTML = '<div class="empty-state">Labs data missing — regenerate from the JSON</div>'; return; }
+    const done = getLabDone();
+    let total = 0, checked = 0;
+    ld.modules.forEach((m) => (m.items || []).forEach((it, i) => {
+      total++;
+      if (done[labKey(m.id, i)]) checked++;
+    }));
+    const pct = total ? Math.round((checked / total) * 100) : 0;
+    let html = '<div class="appendix"><h1>🧪 Hands-on Lab Checklists</h1>';
+    html += "<p class=\"sec-desc\">Do the action for real → confirm the 'verify' line → tick it. 'Seen it in a video' doesn't count. Progress saves in your browser.</p>";
+    html += '<div class="chips"><span class="chip">✅ <b>' + checked + "/" + total + "</b> labs done</span>" +
+      '<span class="chip">📊 <b>' + pct + "%</b> complete</span></div>";
+    html += '<ol class="playbook-list">' + (ld.howToUse || []).map((h) => "<li>" + esc(h) + "</li>").join("") + "</ol>";
+    (ld.modules || []).forEach((m) => {
+      const mTotal = (m.items || []).length;
+      const mDone = (m.items || []).filter((it, i) => done[labKey(m.id, i)]).length;
+      const mm = moduleById(m.id);
+      html += '<details class="research-block lab-module"' + (mDone === mTotal && mTotal > 0 ? "" : " open") + ">";
+      html += "<summary><span class='caret'>▶</span> " + esc(m.id) + " — " + esc(m.title) +
+        ' <span class="lab-prog">' + mDone + "/" + mTotal + "</span></summary>";
+      html += '<div class="lab-list">';
+      (m.items || []).forEach((it, i) => {
+        const id = labKey(m.id, i);
+        const chk = done[id] ? "checked" : "";
+        html += '<label class="lab-item"><input type="checkbox" data-lab="' + esc(id) + '" ' + chk + "> " +
+          '<span><b>Do:</b> ' + esc(it.do) + '<br><span class="lab-verify">✔ Verify: ' + esc(it.verify) + "</span></span></label>";
+      });
+      html += "</div></details>";
+    });
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- application tracker view ---------------- */
+  function viewTracker() {
+    const list = getApps();
+    const st = appStats(list);
+    let html = '<div class="appendix"><h1>🗂 Application Tracker</h1>';
+    html += '<p class="sec-desc">Track every application. Data lives in YOUR browser (localStorage) — nothing is uploaded anywhere. Export to CSV/JSON to back up or open in Excel.</p>';
+    html += '<div class="chips">' +
+      '<span class="chip">📋 <b>' + st.total + "</b> total</span>" +
+      '<span class="chip">🚀 <b>' + st.pipeline + "</b> in pipeline</span>" +
+      '<span class="chip">🎉 <b>' + st.offers + "</b> offers</span>" +
+      '<span class="chip">❌ <b>' + st["❌ Rejected"] + "</b> rejected</span>" +
+      "</div>";
+
+    // add form
+    html += '<details class="research-block" open><summary><span class="caret">▶</span> ➕ Add application</summary><div class="rb-body">';
+    html += '<div class="tracker-form">';
+    html += '<input id="tr-company" placeholder="Company (e.g. Razorpay)" autocomplete="off">';
+    html += '<input id="tr-role" placeholder="Role (e.g. Platform Engineer)" autocomplete="off">';
+    html += '<input id="tr-date" type="date" value="' + new Date().toISOString().slice(0, 10) + '">';
+    html += '<select id="tr-stage">' + TRACKER_STAGES.map((s) => '<option>' + esc(s) + "</option>").join("") + "</select>";
+    html += '<input id="tr-link" placeholder="Job link (optional)" autocomplete="off">';
+    html += '<input id="tr-notes" placeholder="Notes (recruiter name, date, follow-up…)" autocomplete="off">';
+    html += '<button id="tr-add" class="co-apply" style="text-align:center">➕ Save application</button>';
+    html += "</div></div></details>";
+
+    // export buttons
+    html += '<div class="tracker-export"><button id="tr-export-csv" class="ghost-btn">⬇ Export CSV</button> ' +
+      '<button id="tr-export-json" class="ghost-btn">⬇ Export JSON</button> ' +
+      '<button id="tr-clear" class="ghost-btn">🗑 Clear all</button></div>';
+
+    if (!list.length) {
+      html += '<div class="empty-state" style="margin-top:20px">No applications yet — add your first one above. Tip: open the 🏢 Companies view, pick a company, and paste its careers link here.</div>';
+    } else {
+      html += "<h2>📋 Applications</h2>";
+      list.forEach((a, i) => {
+        const status = a.stage === "❌ Rejected" ? "unverified" : "verified";
+        html += '<div class="tracker-row"><div class="tracker-main">' +
+          '<b>' + esc(a.company) + "</b>" +
+          (a.role ? ' <span class="co-loc">' + esc(a.role) + "</span>" : "") +
+          '<span class="badge ' + status + '">' + esc(a.stage) + "</span></div>" +
+          '<div class="tracker-sub">' + (a.date ? "🗓 " + esc(a.date) : "") +
+          (a.link ? ' · <a href="' + esc(a.link) + '" target="_blank" rel="noopener">link</a>' : "") +
+          (a.notes ? " · " + esc(a.notes) : "") + "</div>" +
+          '<div class="tracker-actions">' +
+          '<select data-tr-stage="' + i + '">' + TRACKER_STAGES.map((s) => '<option' + (s === a.stage ? " selected" : "") + ">" + esc(s) + "</option>").join("") + "</select> " +
+          '<button class="ghost-btn" data-tr-del="' + i + '">🗑</button></div></div>';
+      });
+    }
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
   function render() {
     renderSidebar();
     if (currentView === "overview") viewOverview();
@@ -622,6 +904,12 @@
     else if (currentView === "crosscheck") viewCrossCheck();
     else if (currentView === "sources") viewSources();
     else if (currentView === "companies") viewCompanies();
+    else if (currentView === "companyqs") viewCompanyQs();
+    else if (currentView === "certs") viewCerts();
+    else if (currentView === "sysdesign") viewSysDesign();
+    else if (currentView === "resume") viewResume();
+    else if (currentView === "labs") viewLabs();
+    else if (currentView === "tracker") viewTracker();
     else if (currentView.startsWith("module:")) viewModule(currentView.slice(7));
     window.scrollTo(0, 0);
   }
@@ -643,10 +931,90 @@
       render();
       return;
     }
+    const anch = e.target.closest("a[data-anchor]");
+    if (anch) {
+      e.preventDefault();
+      const el = document.getElementById(anch.dataset.anchor);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    // application tracker: add / delete / clear
+    if (e.target.id === "tr-add") {
+      e.preventDefault();
+      const company = document.getElementById("tr-company").value.trim();
+      if (!company) { alert("Company name is required."); return; }
+      const list = getApps();
+      list.push({
+        company: company,
+        role: document.getElementById("tr-role").value.trim(),
+        date: document.getElementById("tr-date").value,
+        stage: document.getElementById("tr-stage").value,
+        link: document.getElementById("tr-link").value.trim(),
+        notes: document.getElementById("tr-notes").value.trim(),
+        added: new Date().toISOString()
+      });
+      saveApps(list);
+      viewTracker();
+      return;
+    }
+    if (e.target.id === "tr-export-csv") {
+      e.preventDefault();
+      const rows = [["company", "role", "date", "stage", "link", "notes"]].concat(
+        getApps().map((x) => [x.company, x.role, x.date, x.stage, x.link, x.notes])
+      );
+      const csv = rows.map((r) => r.map((c) => '"' + String(c == null ? "" : c).replace(/"/g, '""') + '"').join(",")).join("\n");
+      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+      const dl = document.createElement("a");
+      dl.href = url; dl.download = "applications.csv"; dl.click();
+      URL.revokeObjectURL(url);
+      return;
+    }
+    if (e.target.id === "tr-export-json") {
+      e.preventDefault();
+      const url = URL.createObjectURL(new Blob([JSON.stringify(getApps(), null, 2)], { type: "application/json" }));
+      const dl = document.createElement("a");
+      dl.href = url; dl.download = "applications.json"; dl.click();
+      URL.revokeObjectURL(url);
+      return;
+    }
+    if (e.target.id === "tr-clear") {
+      e.preventDefault();
+      if (confirm("Delete ALL applications? This cannot be undone.")) {
+        localStorage.removeItem(TRACKER_KEY);
+        viewTracker();
+      }
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.trDel !== undefined) {
+      e.preventDefault();
+      const idx = parseInt(e.target.dataset.trDel, 10);
+      const list = getApps();
+      if (confirm('Delete "' + (list[idx] ? list[idx].company : "") + '"?')) {
+        list.splice(idx, 1);
+        saveApps(list);
+        viewTracker();
+      }
+      return;
+    }
     const card = e.target.closest(".module-card");
     if (card) {
       currentView = "module:" + card.dataset.open;
       render();
+    }
+  });
+
+  // tracker: stage change + lab checkbox changes
+  $view.addEventListener("change", (e) => {
+    if (e.target.dataset && e.target.dataset.trStage !== undefined) {
+      const idx = parseInt(e.target.dataset.trStage, 10);
+      const list = getApps();
+      if (list[idx]) { list[idx].stage = e.target.value; saveApps(list); }
+      return;
+    }
+    if (e.target.dataset && e.target.dataset.lab !== undefined) {
+      toggleLab(e.target.dataset.lab.split("::")[0], parseInt(e.target.dataset.lab.split("::")[1], 10), e.target.checked);
+      const label = e.target.closest("label");
+      if (label) label.classList.toggle("lab-done", e.target.checked);
     }
   });
 
