@@ -404,6 +404,12 @@
       html += "</section>";
     });
 
+    if (shown === 0) {
+      html += '<div class="empty-state" style="margin:20px 0">No items match' +
+        (st.search.trim() ? ' “' + esc(st.search.trim()) + '”' : " the current filters") +
+        " — clear the search or un-hide optional items.</div>";
+    }
+
     html += researchHTML(m.research, "Module research & interview prep", st.openResearch);
     html += pagerHTML(m);
 
@@ -584,6 +590,32 @@
       render();
     }
   });
+
+  /* ---------------- mobile nav drawer ---------------- */
+  const sidebarEl = document.getElementById("sidebar");
+  const navToggle = document.getElementById("nav-toggle");
+  const navBackdrop = document.getElementById("nav-backdrop");
+  function setNavOpen(open) {
+    sidebarEl.classList.toggle("open", open);
+    document.body.classList.toggle("nav-open", open);
+    navBackdrop.classList.toggle("show", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.textContent = open ? "✕" : "☰";
+  }
+  navToggle.addEventListener("click", () => setNavOpen(!sidebarEl.classList.contains("open")));
+  navBackdrop.addEventListener("click", () => setNavOpen(false));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setNavOpen(false); });
+  // close drawer when a nav destination is chosen on mobile
+  document.getElementById("nav").addEventListener("click", (e) => {
+    if (e.target.closest("a[data-view]") && window.innerWidth <= 900) setNavOpen(false);
+  });
+
+  /* ---------------- scroll-to-top ---------------- */
+  const toTopBtn = document.getElementById("to-top");
+  window.addEventListener("scroll", () => {
+    toTopBtn.hidden = window.scrollY < 600;
+  }, { passive: true });
+  toTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   /* ---------------- init ---------------- */
   render();
