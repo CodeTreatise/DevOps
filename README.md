@@ -2,6 +2,8 @@
 
 Your complete, research-backed learning + interview-prep system for **Platform Engineering / DevOps / SRE** roles (Pune / India / remote market focus).
 
+> 🌐 **Live site:** https://codetreatise.github.io/DevOps/ (auto-deploys on every push to `main`)
+
 ---
 
 ## 📁 Project structure
