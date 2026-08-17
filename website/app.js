@@ -32,6 +32,19 @@
     return String(t || "");
   }
 
+  // Wrap module codes (A01..B09) found in a plain-text string in clickable chips.
+  function moduleCodesHTML(text) {
+    if (!text) return "";
+    const parts = String(text).split(/([AB]\d{2})/g);
+    return parts.map((p) => {
+      if (/^[AB]\d{2}$/.test(p)) {
+        const mm = moduleById(p);
+        return '<a href="#" class="mod-chip" data-view="module:' + esc(p) + '" title="' + esc(mm ? mm.title : p) + '">' + esc(p) + "</a>";
+      }
+      return esc(p);
+    }).join("");
+  }
+
   function allModules() {
     return D.phases.flatMap((p) => p.modules || []);
   }
@@ -312,6 +325,7 @@
       '<div class="howto-step"><b>2 · Tick items as you do them</b><span>Progress is saved in your browser. A module is done when its 🎯 exit test is true — not just when boxes are ticked.</span></div>' +
       '<div class="howto-step"><b>3 · Use 🔬 Research for interviews</b><span>Every module and sub-topic has interview questions, a practice drill, and a depth note. Open them in module view before interviews.</span></div>' +
       '<div class="howto-step"><b>4 · Follow the depth sequence weekly</b><span>Each module lists a week-by-week plan — do it in order. Resources are tagged ✅ verified / 📖 official / ❔ unverified.</span></div>' +
+      '<div class="howto-step"><b>5 · Use the Job Toolkit when applying</b><span>See who\'s hiring (<a href="#" class="howto-link" data-view="companies">🏢 Companies</a>), drill their questions (<a href="#" class="howto-link" data-view="companyqs">🎯 Q-Sets</a>), track every application (<a href="#" class="howto-link" data-view="tracker">🗂 Tracker</a>), and boost shortlists (<a href="#" class="howto-link" data-view="certs">🎓 Certs</a>).</span></div>' +
       "</div></div>";
 
     if (meta.notes && meta.notes.length) {
@@ -507,6 +521,7 @@
         html += "<tr><td>" + esc(c.cert) + "</td><td>" + esc(c.effect) + "</td><td>" + esc(c.when) + "</td></tr>";
       });
       html += "</tbody></table></div>";
+      html += '<div class="chips" style="margin-top:10px"><a href="#" class="chip-link" data-view="certs">🎓 Full timeline, costs & study plans →</a></div>';
     }
     html += "</div>";
     $view.innerHTML = html;
@@ -532,7 +547,9 @@
         '<td><span class="' + cls + '">' + icon + " " + esc(r.status) + "</span></td>" +
         "<td>" + esc(r.module) + "</td><td>" + esc(r.note) + "</td></tr>";
     });
-    html += "</tbody></table></div></div>";
+    html += "</tbody></table></div>";
+    html += '<div class="chips" style="margin-top:10px"><a href="#" class="chip-link" data-view="companies">🏢 Employers hiring these skills →</a></div>';
+    html += "</div>";
     $view.innerHTML = html;
   }
 
@@ -590,6 +607,19 @@
     }
     let html = '<div class="appendix"><h1>🏢 Companies to Apply</h1>';
     html += '<p class="sec-desc">Researched employers for Platform / DevOps / SRE roles — Pune, India-wide and remote-first. Openings change fast: always open the careers link and filter by role keyword.</p>';
+    html += '<div class="chips">' +
+      '<a href="#" class="chip-link" data-view="companyqs">🎯 Drill their questions →</a>' +
+      '<a href="#" class="chip-link" data-view="tracker">🗂 Track applications →</a>' +
+      "</div>";
+
+    // jump nav for the long catalog
+    html += '<div class="jump-nav">';
+    (cd.categories || []).forEach((cat) => {
+      html += '<a href="#" class="mod-chip" data-anchor="co-cat-' + esc(cat.id) + '">' + esc(cat.name.replace(/\(.*\)/, "").trim()) + "</a>";
+    });
+    if (cd.applyChannels && cd.applyChannels.length) html += '<a href="#" class="mod-chip" data-anchor="co-channels">📡 Channels</a>';
+    if (cd.playbook && cd.playbook.length) html += '<a href="#" class="mod-chip" data-anchor="co-playbook">🗺 Playbook</a>';
+    html += "</div>";
 
     // tier legend
     html += '<div class="tier-legend">';
@@ -599,7 +629,7 @@
     html += "</div>";
 
     (cd.categories || []).forEach((cat) => {
-      html += '<section class="company-cat">';
+      html += '<section class="company-cat" id="co-cat-' + esc(cat.id) + '">';
       html += '<div class="phase-head"><h2>' + esc(cat.name) + "</h2>" +
         '<span class="ph-badge">' + esc((cat.companies || []).length) + " companies</span></div>";
       if (cat.strategy) html += '<div class="phase-goal">' + esc(cat.strategy) + "</div>";
@@ -627,7 +657,7 @@
 
     // apply channels
     if (cd.applyChannels && cd.applyChannels.length) {
-      html += "<h2>📡 Where to apply — channels</h2>";
+      html += '<h2 id="co-channels">📡 Where to apply — channels</h2>';
       html += '<div class="channels-grid">';
       cd.applyChannels.forEach((ch) => {
         html += '<div class="channel-card"><b>' + esc(ch.channel) + "</b><span>" + esc(ch.detail) + "</span></div>";
@@ -637,7 +667,7 @@
 
     // playbook
     if (cd.playbook && cd.playbook.length) {
-      html += "<h2>🗺 4-week application playbook</h2>";
+      html += '<h2 id="co-playbook">🗺 4-week application playbook</h2>';
       html += '<ol class="playbook-list">';
       cd.playbook.forEach((p) => { html += "<li>" + esc(p) + "</li>"; });
       html += "</ol>";
@@ -654,6 +684,10 @@
     if (!cq) { $view.innerHTML = '<div class="empty-state">Company Q-Sets missing — regenerate from the JSON</div>'; return; }
     let html = '<div class="appendix"><h1>🎯 Company Question Sets</h1>';
     html += '<p class="sec-desc">Most-asked questions per hiring tier, each linked to where the full answer lives in your answer banks. Drill these BEFORE applying — not during.</p>';
+    html += '<div class="chips">' +
+      '<a href="#" class="chip-link" data-view="companies">🏢 See all 32 employers →</a>' +
+      '<a href="#" class="chip-link" data-view="sysdesign">🧠 Practice System Design →</a>' +
+      "</div>";
     html += '<ol class="playbook-list">' + (cq.howToUse || []).map((h) => "<li>" + esc(h) + "</li>").join("") + "</ol>";
     (cq.tiers || []).forEach((t) => {
       html += '<section class="company-cat"><div class="phase-head"><h2>' + esc(t.name) + "</h2>" +
@@ -661,7 +695,7 @@
       html += '<div class="phase-goal">' + esc(t.pattern) + "</div>";
       html += '<div class="table-wrap"><table><thead><tr><th>#</th><th>Question</th><th>Where the answer lives</th></tr></thead><tbody>';
       (t.questions || []).forEach((q, i) => {
-        html += "<tr><td>" + (i + 1) + '</td><td><b>' + esc(q.q) + "</b></td><td style='color:var(--text-dim);font-size:12px'>" + esc(q.where) + "</td></tr>";
+        html += "<tr><td>" + (i + 1) + '</td><td><b>' + esc(q.q) + "</b></td><td style='color:var(--text-dim);font-size:12px'>" + moduleCodesHTML(q.where) + "</td></tr>";
       });
       html += "</tbody></table></div></section>";
     });
@@ -699,8 +733,11 @@
       html += '<div class="cert-head"><div class="co-name">' + esc(c.name) + "</div>" +
         '<div class="cert-meta">' + esc(c.org) + " · <b>" + esc(c.cost) + "</b></div></div>";
       html += '<div class="cert-facts"><span class="role-tag">🕐 ' + esc(c.exam) + "</span>" +
-        '<span class="role-tag">📅 Validity: ' + esc(c.validity) + "</span>" +
-        '<span class="role-tag">📍 Module: ' + esc(c.module) + "</span></div>";
+        '<span class="role-tag">📅 Validity: ' + esc(c.validity) + "</span></div>";
+      if (c.module) {
+        const mm = moduleById(c.module);
+        html += '<div class="co-modules">📚 Study path: <a href="#" class="mod-chip" data-view="module:' + esc(c.module) + '" title="' + esc(mm ? mm.title : c.module) + '">' + esc(c.module) + (mm ? " · " + esc(shortTitle(mm.title)) : "") + "</a></div>";
+      }
       html += '<div class="cert-why"><b>Why — </b>' + esc(c.why) + "</div>";
       html += '<div class="cert-why"><b>When — </b>' + esc(c.when) + "</div>";
       html += '<div class="rb-label" style="margin-top:10px">How to prep</div><ol class="playbook-list">' +
@@ -803,6 +840,7 @@
 
     html += "<h2>✅ Pre-send checklist</h2>";
     html += '<ul class="facts-list">' + (rd.checklist || []).map((c) => "<li>" + esc(c) + "</li>").join("") + "</ul>";
+    html += '<div class="chips" style="margin-top:10px"><a href="#" class="chip-link" data-view="labs">🧪 No projects yet? Build them first →</a></div>';
     html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(rd.source) + "</p>";
     html += "</div>";
     $view.innerHTML = html;
@@ -824,13 +862,22 @@
     html += '<div class="chips"><span class="chip">✅ <b>' + checked + "/" + total + "</b> labs done</span>" +
       '<span class="chip">📊 <b>' + pct + "%</b> complete</span></div>";
     html += '<ol class="playbook-list">' + (ld.howToUse || []).map((h) => "<li>" + esc(h) + "</li>").join("") + "</ol>";
-    (ld.modules || []).forEach((m) => {
+    // Open only modules with partial progress; if nothing is started, open just the first.
+    let anyInProgress = false;
+    ld.modules.forEach((m) => {
+      const mTotal = (m.items || []).length;
+      const mDone = (m.items || []).filter((it, i) => done[labKey(m.id, i)]).length;
+      if (mDone > 0 && mDone < mTotal) anyInProgress = true;
+    });
+    (ld.modules || []).forEach((m, mi) => {
       const mTotal = (m.items || []).length;
       const mDone = (m.items || []).filter((it, i) => done[labKey(m.id, i)]).length;
       const mm = moduleById(m.id);
-      html += '<details class="research-block lab-module"' + (mDone === mTotal && mTotal > 0 ? "" : " open") + ">";
+      const inProgress = mDone > 0 && mDone < mTotal;
+      const open = inProgress || (!anyInProgress && mi === 0 && mDone === 0);
+      html += '<details class="research-block lab-module"' + (open ? " open" : "") + ">";
       html += "<summary><span class='caret'>▶</span> " + esc(m.id) + " — " + esc(m.title) +
-        ' <span class="lab-prog">' + mDone + "/" + mTotal + "</span></summary>";
+        ' <span class="lab-prog">' + mDone + "/" + mTotal + (mDone === mTotal && mTotal > 0 ? " 🎉" : "") + "</span></summary>";
       html += '<div class="lab-list">';
       (m.items || []).forEach((it, i) => {
         const id = labKey(m.id, i);

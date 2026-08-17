@@ -15,7 +15,7 @@
 
   --text: #eef2fb;
   --text-dim: #a6b2cf;
-  --text-faint: #64708f;
+  --text-faint: #7582a6;
 
   --accent: #6d8dff;
   --accent-2: #b16dff;
@@ -507,7 +507,7 @@ body {
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--stroke); vertical-align: top; }
 th {
-  color: var(--text-faint); font-size: 10.5px; font-weight: 700;
+  color: var(--text-faint); font-size: 12px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.08em;
   background: rgba(255,255,255,.03);
   position: sticky; top: 0;
@@ -604,6 +604,20 @@ a.mod-chip:hover { background: rgba(177,109,255,.28); color: #fff; transform: tr
 .playbook-list { padding-left: 22px; }
 .playbook-list li { margin-bottom: 8px; color: var(--text-dim); font-size: 13.5px; }
 .playbook-list li::marker { color: var(--accent); font-weight: 700; }
+
+/* cross-view link chips + jump nav */
+.chip-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 700; color: var(--accent);
+  background: rgba(109,141,255,.1); border: 1px solid rgba(109,141,255,.35);
+  padding: 6px 13px; border-radius: 99px; text-decoration: none;
+  transition: all .15s;
+}
+.chip-link:hover { background: rgba(109,141,255,.22); color: #fff; transform: translateY(-1px); }
+.howto-link { color: var(--cyan); text-decoration: none; font-weight: 700; }
+.howto-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.jump-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 16px; }
+.jump-nav .mod-chip { font-size: 11px; padding: 4px 11px; }
 
 /* ---------- misc ---------- */
 code, .mono { font-family: var(--mono); font-size: 0.9em; background: rgba(0,0,0,.3); padding: 1.5px 6px; border-radius: 5px; border: 1px solid var(--stroke); color: var(--cyan); }
