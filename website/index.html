@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Engineering — The Full Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-orbs" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<div id="app">
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">🧭</div>
+      <div class="logo-text">
+        <div class="sidebar-title">Platform Engineering</div>
+        <div class="sidebar-sub">DevOps / SRE — Full Path</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <div class="nav-group">
+        <a href="#" data-view="overview" class="nav-link active"><span class="nav-ico">🏠</span>Overview</a>
+      </div>
+      <div id="nav-phases"></div>
+      <div class="nav-group">
+        <div class="nav-group-label">Appendices</div>
+        <a href="#" data-view="market" class="nav-link"><span class="nav-ico">📊</span>Market Data</a>
+        <a href="#" data-view="jobs" class="nav-link"><span class="nav-ico">💼</span>Job Requirements</a>
+        <a href="#" data-view="crosscheck" class="nav-link"><span class="nav-ico">🔗</span>Cross-Check</a>
+        <a href="#" data-view="sources" class="nav-link"><span class="nav-ico">📚</span>Sources</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="progress-block">
+        <div class="progress-head">
+          <span class="progress-label">Overall progress</span>
+          <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-text" id="progress-text">0 / — items</div>
+      </div>
+      <button id="reset-btn" class="ghost-btn">↺ Reset progress</button>
+    </div>
+  </aside>
+
+  <main id="content">
+    <div id="view"></div>
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

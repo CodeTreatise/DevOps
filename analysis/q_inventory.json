@@ -1,0 +1,2052 @@
+[
+ {
+  "module": "A01",
+  "subtopic": "Core skills (the 20% that matters)",
+  "q": "Walk me through what happens when you type a command in a terminal — PATH lookup, fork/exec, stdin/stdout/stderr"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Core skills (the 20% that matters)",
+  "q": "What's in /proc? How would you find a process listening on port 8080 and kill it safely?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Core skills (the 20% that matters)",
+  "q": "File permissions: what do 755, 644, and 4755 mean? What does umask do?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Core skills (the 20% that matters)",
+  "q": "Explain systemd: what does systemctl daemon-reload do and when do you need it? How do you follow logs for one unit?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Core skills (the 20% that matters)",
+  "q": "Disk full — how do you find the culprit (df, du, lsof deleted files) and free space without rebooting?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Daily loop",
+  "q": "What did you build/break/fix today? (expect a follow-up drill on any command you claim)"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Daily loop",
+  "q": "Show me your shell history — what's your most-used command and why?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "Daily loop",
+  "q": "What's the difference between a file you created yesterday and one created today when both have the same permissions?"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "File system trivia: filename max 255 bytes, inode contents, /proc virtual FS, superblock/boot/data blocks"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Permissions: rwx for user/group/others, 755 vs 644, SUID(4000)/SGID(2000)/sticky bit(1000), umask"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Processes: states (new/ready/running/blocked/terminated), zombie vs orphan, init PID 1, daemons, fork() copy-on-write"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "systemd: systemctl daemon-reload, journalctl -u <svc> -f, unit vs service, cgroups (CPUQuota/MemoryMax, cgroups v2, OOM killer)"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Disk: df -h, du -sh /*, lsof +L1, truncate to free deleted-file space; LVM lvextend/lvreduce; fstab; swap ~2x RAM"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Users: useradd -m -s /bin/bash, usermod -aG, /etc/passwd format, visudo, chage, /etc/security/limits.conf, ulimit -n"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Scheduling: crontab 5-field syntax, cron vs anacron, cron.allow/cron.deny"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Networking: ip netns namespaces, veth, docker0 bridge, CNI (Flannel/Calico); ss -tulnp vs netstat, TIME_WAIT"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Diagnosis: 7-step flow (ip addr show -> ping -> mtr -> nc -zv -> dig +short -> curl -v -> tcpdump); iperf3, ethtool"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "SSH: ssh-keygen -t ed25519, ssh-copy-id, .ssh 700 / authorized_keys 600, ProxyJump, PasswordAuthentication no, -L/-R/-D tunnels"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Firewalls: iptables filter/nat/mangle + INPUT/OUTPUT/FORWARD, nftables, firewalld zones/services"
+ },
+ {
+  "module": "A01",
+  "subtopic": "",
+  "q": "Scenario answers: slow server (top, vmstat 1 5, iostat -x 1 5, iotop, free -h, strace, perf top); memory hog (ps aux --sort=-%rss | awk '$6>1048576', kill -15 then -9)"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Core skills: the daily flow",
+  "q": "git status vs git diff vs git diff --staged — what does each show?"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Core skills: the daily flow",
+  "q": "Explain HEAD. What happens with git reset --hard vs git revert? When is revert the right choice for pushed work?"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Core skills: the daily flow",
+  "q": "You deleted a branch that had unmerged work — recover it. (reflog)"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Core skills: the daily flow",
+  "q": "What's a detached HEAD and how do you get out of it?"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Core skills: the daily flow",
+  "q": "Branch hygiene: git branch --merged, deleting local + remote branches, keeping a PR reviewable"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Daily loop",
+  "q": "What did you commit today and why was it atomic?"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Daily loop",
+  "q": "How do you structure a commit message a reviewer will thank you for?"
+ },
+ {
+  "module": "A02",
+  "subtopic": "Daily loop",
+  "q": "You just pushed a bad commit — walk me through your day's Git commands"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Basics: repo, clone, git config levels (--system/--global/--local), git status vs git diff, index/staging area"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "HEAD mechanics: HEAD~1, reset HEAD~3, reset --hard, revert --no-commit, detached HEAD (checkout -b)"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Recovery: reflog, recover deleted branch, revert bad pushed commit (new commit preferred), cherry-pick"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Branching: git branch --merged/--no-merged, delete local+remote branch, PR vs branch, Git vs GitHub"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "History rewriting: squash via rebase -i HEAD~N, amend vs new commit (new commit safer), merge vs rebase (merge preferred, rebase destructive)"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Stash: apply vs pop (= apply + drop), when to stash"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Finding bugs: git bisect (start/bad/good), git annotate/blame"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "Undo: reset --mixed, merge --abort, remove file from index (git reset + .gitignore)"
+ },
+ {
+  "module": "A02",
+  "subtopic": "",
+  "q": "GitOps tie-in: why Git as single source of truth (audit trail, rollback anywhere) — foundation for B05"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Core skills: ports, HTTP & diagnosis",
+  "q": "What happens when you type https://example.com and press Enter — walk through all layers (DNS → TCP → TLS → HTTP)"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Core skills: ports, HTTP & diagnosis",
+  "q": "Ping works but the browser fails — how do you diagnose? Which layer is the problem?"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Core skills: ports, HTTP & diagnosis",
+  "q": "Explain the TCP handshake and how a firewall can break it; what are ephemeral ports?"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Core skills: ports, HTTP & diagnosis",
+  "q": "Ports: what's listening on 80/443/22/3306/6379 by default? How do you check and who listens where?"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Core skills: ports, HTTP & diagnosis",
+  "q": "CIDR: what does 192.168.1.0/24 mean? How many usable IPs? Do subnetting drills"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Debug flow to internalize",
+  "q": "Your app is slow only for some users — walk me through your diagnostic order (latency vs throughput, network vs app)"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Debug flow to internalize",
+  "q": "traceroute shows high latency at hop 3 — is that necessarily the router's fault?"
+ },
+ {
+  "module": "A03",
+  "subtopic": "Debug flow to internalize",
+  "q": "How do you check DNS resolution, then TCP reachability, then TLS, then the HTTP response — in order, with the right tools?"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "Scope: PAN/LAN/MAN/WAN/GAN, network topologies, IPv4 classes A-E, private IPs (10/8, 172.16/12, 192.168/16, 127 loopback)"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "Models: OSI 7 layers vs TCP/IP 4 layers, devices per layer (switch L2/MAC, router L3/IP, bridge)"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "Delays: propagation vs transmission vs processing vs queueing"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "Diagnostics: ping/TTL (Linux 64, Windows 128), traceroute, 'ping works but HTTP fails' = higher-layer issue"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "TLS handshake: asymmetric -> symmetric key exchange, TLS 1.3; certificates"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "VLAN 802.1Q + inter-VLAN routing; forward vs reverse proxy (Nginx/Cloudflare); port ranges (0-1023 well-known, 22/80/443/5432)"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "Subnetting/CIDR: /24 = 254 usable, /25 split, VLSM"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "NAT/PAT: SNAT vs DNAT, when each applies"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "TCP: 3-way handshake (SYN/SYN-ACK/ACK), connection states (LISTEN, SYN-SENT, ESTABLISHED, FIN-WAIT...), SYN flood, FIN-ACK-FIN-ACK teardown"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "IPv6: 128-bit, SLAAC, IPSec built-in, dual-stack, NAT64"
+ },
+ {
+  "module": "A03",
+  "subtopic": "",
+  "q": "SRE crossover: DHCP/DNS/ARP mechanics, CDN, TCP state machine (appears in SRE interviews)"
+ },
+ {
+  "module": "A04",
+  "subtopic": "Core skills: run, build, stack",
+  "q": "Image vs container vs layer — what's the difference and what happens on docker run?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "Core skills: run, build, stack",
+  "q": "CMD vs ENTRYPOINT, exec vs shell form — when does each matter?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "Core skills: run, build, stack",
+  "q": "COPY vs ADD; why multi-stage builds? Why .dockerignore?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "Core skills: run, build, stack",
+  "q": "How do namespaces and cgroups provide isolation? What can a container still see?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "Core skills: run, build, stack",
+  "q": "docker run vs start vs exec vs attach — lifecycle states and when to use each"
+ },
+ {
+  "module": "A04",
+  "subtopic": "One-week project",
+  "q": "Walk me through your compose stack — why those services, how do they talk, what survives a restart?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "One-week project",
+  "q": "Your container crashed at 3am — how do you find out why (logs, restart policy, healthcheck)?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "One-week project",
+  "q": "How would you ship this stack to a team — what's in the repo, what's in the docs?"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Architecture: 3 components (Client/Docker Host/Registry), daemon vs client, image vs container vs layer"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Dockerfile: FROM/LABEL/RUN/CMD, COPY vs ADD, CMD vs ENTRYPOINT (exec vs shell form), multi-stage builds, .dockerignore"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Lifecycle: created/running/paused/stopped/deleted; docker run vs start vs exec vs attach"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Isolation: namespaces (PID/Mount/User/Network/IPC/UTS), cgroups limits, no full isolation (shared kernel)"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Storage: volumes (-v, /var/lib/docker/volumes/), bind mounts, tmpfs, data persistence patterns"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Restart policies: no/on-failure/unless-stopped/always; exit codes"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Compose: up/run/start, depends_on ordering, environment overrides, docker-compose.{env}.yml, JSON compose (-f)"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Distribution: save/load vs push/pull, tags, registry vs repository"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Security (SRE crossover): content trust, resource limits, Docker Bench Security, minimal base images, non-root user"
+ },
+ {
+  "module": "A04",
+  "subtopic": "",
+  "q": "Conceptual: virtualization vs containerization, Docker Swarm vs Kubernetes (one-line difference)"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Core skills: triggers, jobs, gates",
+  "q": "CI vs CD vs CDE — define each and where the human approval sits"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Core skills: triggers, jobs, gates",
+  "q": "Design a pipeline for a web app: stages, caching, secrets, artifact promotion — what runs where and why?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Core skills: triggers, jobs, gates",
+  "q": "Blue/green vs canary vs rolling — tradeoffs and how you'd roll back each"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Core skills: triggers, jobs, gates",
+  "q": "Your build is flaky — how do you make CI trustworthy (retries, quarantine, deterministic tests)?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Exit drill",
+  "q": "Deploy a change to staging and production with a gate — walk me through the whole flow from commit to live"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Exit drill",
+  "q": "Your production deploy broke everything — what's your rollback playbook (in order)?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Exit drill",
+  "q": "How do you prove the pipeline works — metrics, alerts, verification steps after deploy?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "On the radar: Jenkins & GitLab CI",
+  "q": "GitHub Actions vs Jenkins vs GitLab CI — what is different and when would a company use each?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "On the radar: Jenkins & GitLab CI",
+  "q": "Jenkins master/agent: what does an agent run and why is it separate from master?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "On the radar: Jenkins & GitLab CI",
+  "q": "A company says 'we use Jenkins' — what is your first question? (version? declarative or scripted? where are secrets stored?)"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Agile & delivery practice",
+  "q": "Walk me through a sprint: what happens in planning, stand-up, review, retro — and where does the pipeline gate fit?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Agile & delivery practice",
+  "q": "Scrum vs Kanban — when would you choose each for a platform team?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "Agile & delivery practice",
+  "q": "Your team has a 2-week release cadence but incidents weekly — how do you reconcile Agile with on-call?"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 6 phases of DevOps lifecycle"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "CI: build/test automation, continuous testing, shift-left testing, git hooks (pre-commit, pre-receive/update/post-receive)"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "CD: continuous delivery vs continuous deployment (one explicit approval vs zero), deployment strategies (blue/green, canary, rolling)"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "KPIs: deploy frequency, failed deployment %, MTTR/MTTD, change failure rate"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "Jenkins: master-slave/agent model, plugins, $JENKINS_HOME/plugins, restart vs safeRestart, pipeline vs freestyle"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "IaC tie-in: imperative vs declarative (Ansible/Terraform), config drift"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "Anti-patterns: pipeline as snowflake, long-running builds, flaky tests, manual release steps, post-mortem blame culture"
+ },
+ {
+  "module": "A05",
+  "subtopic": "",
+  "q": "Post-mortems: blameless, action items, incident timelines"
+ },
+ {
+  "module": "A06",
+  "subtopic": "The capstone",
+  "q": "Walk me through your capstone: what it does, stack, how you'd scale it, what breaks first"
+ },
+ {
+  "module": "A06",
+  "subtopic": "The capstone",
+  "q": "Why these projects in this order — what did each teach you?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "The capstone",
+  "q": "What would you change if you had another week? (looks for prioritization + judgment)"
+ },
+ {
+  "module": "A06",
+  "subtopic": "Later — only when you hit the wall",
+  "q": "What's the trigger that tells you it's time to learn Kubernetes/Terraform/SRE? (looking for honest self-assessment)"
+ },
+ {
+  "module": "A06",
+  "subtopic": "Later — only when you hit the wall",
+  "q": "What did you build before learning it, and what problem did it solve?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "Later — only when you hit the wall",
+  "q": "What's your learning order and why that order?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "What this lands in your lap",
+  "q": "Summarize this path in 60 seconds — what can you now do that you couldn't 10 weeks ago?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "What this lands in your lap",
+  "q": "Which 3 projects are your portfolio and why those?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "What this lands in your lap",
+  "q": "What's your honest level: what would you need to learn to be production-safe in a junior role?"
+ },
+ {
+  "module": "A06",
+  "subtopic": "",
+  "q": "Be able to walk through every project: what it does, stack, how you'd scale it, what breaks"
+ },
+ {
+  "module": "A06",
+  "subtopic": "",
+  "q": "server-stats (8,038 starters), log-archive-tool (2,031), basic-dockerfile (1,255), file-integrity-checker (1,168), github-actions-deployment (888), nginx-log-analyser (884), ssh-remote-server (595), ec2-instance (502), static-site-server (345), simple-monitoring/Netdata (328), basic-dns (262), dummy-systemd (203)"
+ },
+ {
+  "module": "A06",
+  "subtopic": "",
+  "q": "Intermediate: pomodoro (601), configuration-management/Ansible (339), multi-container (260), automated-backups (132), dockerized-service (178), nodejs-service (149), iac-digitalocean (171), bastion-host (59), vpn-server (56)"
+ },
+ {
+  "module": "A06",
+  "subtopic": "",
+  "q": "Advanced: blue-green (582), multiservice-docker (406), prometheus-grafana (296), service-discovery/Consul (253)"
+ },
+ {
+  "module": "A06",
+  "subtopic": "",
+  "q": "Portfolio story: pick 1 from each tier, deploy to a real cloud, write README + architecture diagram"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Workloads & objects",
+  "q": "Pod vs Deployment vs StatefulSet vs DaemonSet vs Job/CronJob — when do you choose each?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Workloads & objects",
+  "q": "What are init containers for? Give a real example."
+ },
+ {
+  "module": "B01",
+  "subtopic": "Workloads & objects",
+  "q": "requests vs limits — what's the QoS model and what happens when a pod exceeds its limits?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Workloads & objects",
+  "q": "A pod is CrashLoopBackOff — walk me through your diagnosis (describe, events, logs, probes)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Operating the cluster",
+  "q": "Control plane vs nodes — name the components and what each does (apiserver, scheduler, controller-manager, etcd | kubelet, kube-proxy, runtime)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Operating the cluster",
+  "q": "What does cordon + drain do and why use a PodDisruptionBudget first?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Operating the cluster",
+  "q": "Taints & tolerations vs nodeSelector vs nodeAffinity — when is each appropriate?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Operating the cluster",
+  "q": "A node is unhealthy — how do you detect it and evacuate workloads safely?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Operating the cluster",
+  "q": "Cluster upgrades: how would you upgrade a self-managed cluster without downtime?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Debugging & failure modes",
+  "q": "Pod stuck Pending — enumerate every cause and how you'd confirm each (describe events first)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Debugging & failure modes",
+  "q": "ImagePullBackOff vs CrashLoopBackOff vs OOMKilled — distinct diagnoses for each"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Debugging & failure modes",
+  "q": "Service not reachable from outside — check ordering: pod → endpoints → service → ingress → DNS → security group"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Debugging & failure modes",
+  "q": "How do you debug DNS inside the cluster (CoreDNS, nslookup, /etc/resolv.conf)?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "How does the scheduler pick a node — filtering, scoring, and what data does it use?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "Why is a pod stuck Pending — top causes and how events reveal the answer"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "HPA vs VPA vs Cluster Autoscaler vs Karpenter — what does each scale and what are the limits?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "requests vs limits: why set requests low but limits high, or match them? What breaks if you omit them?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "Topology Spread Constraints and node affinity — when do you need them?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Scheduling & resources",
+  "q": "AI/GPU workloads: how do scheduling needs change for GPU inference (vLLM) vs CPU apps — node pools, bin-packing, limits?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Security & RBAC",
+  "q": "How do RBAC roles, RoleBindings, ClusterRoles, and ClusterRoleBindings differ? Give a least-privilege example"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Security & RBAC",
+  "q": "ServiceAccounts: why do pods need one and what happens with automountServiceAccountToken?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Security & RBAC",
+  "q": "Pod Security Standards (baseline vs restricted) — how do you enforce them?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Security & RBAC",
+  "q": "Secrets: how are they stored in etcd and what are the real-world options (encryption at rest, External Secrets)?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Network policies & service mesh",
+  "q": "How do NetworkPolicies work — pod selectors, ingress/egress, default-deny vs allow-all?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Network policies & service mesh",
+  "q": "Istio vs Linkerd: sidecar model, mTLS, traffic shifting — when would you adopt a mesh?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Network policies & service mesh",
+  "q": "What's the cost of a service mesh (latency, ops, resource)? When is it overkill?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Network policies & service mesh",
+  "q": "How do you enforce 'no pod-to-pod except API' with NetworkPolicies?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Extensions & the Operator pattern",
+  "q": "What is a CRD and how does the Operator pattern extend Kubernetes?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Extensions & the Operator pattern",
+  "q": "Explain the reconcile loop — what does the controller do when desired != current?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Extensions & the Operator pattern",
+  "q": "Give examples of well-known Operators (Prometheus, ArgoCD, cert-manager) and what they automate"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Extensions & the Operator pattern",
+  "q": "When would you write an Operator vs use plain manifests + ArgoCD?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Practice environment",
+  "q": "minikube vs kind vs a managed cluster (EKS/AKS/GKE) — when would you choose each?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Practice environment",
+  "q": "How do you keep a local cluster from eating your laptop (resources, ephemeral)?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "Practice environment",
+  "q": "What's the fastest way to recreate a clean cluster for an experiment?"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Control plane vs nodes: apiserver, scheduler, controller-manager, etcd | kubelet, kube-proxy, container runtime"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Workloads: Pod vs Deployment vs StatefulSet vs DaemonSet vs Job/CronJob; init containers; requests vs limits (QoS)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Scheduling: nodeName vs nodeSelector vs nodeAffinity; why a pod stays Pending (kubectl describe, events)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Maintenance: cordon/drain (PDB minAvailable), taints/tolerations"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Networking: service types (ClusterIP/NodePort/LoadBalancer), Ingress (L7, default backend, TLS secretName), NetworkPolicies"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Storage: PVC/PV/StorageClass, CSI, emptyDir vs hostPath vs volumes"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Config: ConfigMap vs Secret, secretKeyRef, envFrom"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Logging: node agent vs sidecar, EFK/ELK stack"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Monitoring: Prometheus (server, client libraries, pushgateway, exporters, alertmanager), Grafana"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Security: RBAC, namespaces (blue/green, multi-team), admission controllers, audit logs, PodSecurity"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Operators: custom resources + control loops; controller pattern"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Concepts: Docker Swarm vs K8s, imperative vs declarative (kubectl apply), self-healing/reconciliation"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Service mesh: Istio/Linkerd — sidecar injection, mTLS, traffic routing/shift; when a mesh beats NetworkPolicies alone (~+30% premium skill in India data)"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Autoscaling: HPA (metrics-driven) vs VPA (recommender) vs Cluster Autoscaler vs Karpenter — which layer handles what"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "ServiceAccounts: how pods authenticate to the API server, RBAC rolebinding, securityContext + Pod Security Standards"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Practice environments: minikube vs kind vs k3s vs managed (EKS/AKS/GKE) — why a real cluster beats a playground"
+ },
+ {
+  "module": "B01",
+  "subtopic": "",
+  "q": "Operator pattern deep: CRDs (custom resource definitions), controller reconcile loop, Operator SDK; real examples (Prometheus Operator, Argo CD, Kyverno)"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Core language",
+  "q": "Walk me through write → plan → apply — what happens at each step and what can go wrong?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Core language",
+  "q": "provider vs resource vs data source vs variable vs output — the dependency graph between them"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Core language",
+  "q": "Terraform vs OpenTofu: what changed after the BSL relicensing and why does it matter?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Core language",
+  "q": "How does Terraform know what to change (state diff)? What does plan output actually tell you?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "State management",
+  "q": "What is terraform state and why does it matter? What breaks if you lose it?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "State management",
+  "q": "Remote backend: S3 + DynamoDB locking — what does each provide and why both?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "State management",
+  "q": "When do you use terraform import vs state rm vs state mv? Give real scenarios"
+ },
+ {
+  "module": "B02",
+  "subtopic": "State management",
+  "q": "Sensitive state: how do you keep secrets out of the state file and plan output?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Modules & reuse",
+  "q": "What makes a good module — inputs, outputs, versioning, and when is a module overkill?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Modules & reuse",
+  "q": "How do you version modules (registry, Git tags) and pin them safely?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Modules & reuse",
+  "q": "count vs for_each — when each, and how do you reference their resources?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Modules & reuse",
+  "q": "How do you share modules across teams without publishing publicly?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Plan/apply discipline",
+  "q": "What checks run before apply in a good pipeline (fmt, validate, plan review, tflint, checkov)?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Plan/apply discipline",
+  "q": "Someone ran apply directly against prod — how do you prevent it (state locking, approval, plan-as-code)?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Plan/apply discipline",
+  "q": "What's the difference between apply -replace and taint, and why is -replace preferred?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "Plan/apply discipline",
+  "q": "Drift: someone changed infra in the console — how do you detect and reconcile it?"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Core workflow: write -> plan -> apply; providers, resources, data sources"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Commands: init/validate/plan/apply/destroy/fmt; apply -replace (preferred over deprecated taint)"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "State: tfstate, remote backend (S3 + DynamoDB locking), state file locking, sensitive state, refresh vs plan"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Modules: terraform-<PROVIDER>-<NAME> naming, registry, outputs -> variables wiring, versioning"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Idempotency/rollback: recommit old code (Terraform has no built-in rollback), import existing resources"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Advanced: null_resource, count vs for_each, terraform_workspace vs terraform_remote_state, Terragrunt (DRY, immutable versioned modules)"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Comparisons: vs Ansible (provision vs config, declarative vs procedural), vs CloudFormation (multi-cloud, HCL vs JSON/YAML, state)"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Terraform Cloud/Enterprise: workspaces, policy-as-code (Sentinel/OPA), runs, VCS-driven"
+ },
+ {
+  "module": "B02",
+  "subtopic": "",
+  "q": "Request flow architecture: CLI -> provider -> API; graph execution, parallelism"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Compute & storage",
+  "q": "EC2 instance families — how do you pick the right one for a workload (general/compute/memory/storage/accelerated)?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Compute & storage",
+  "q": "On-demand vs spot vs reserved/Savings Plans — cost/latency tradeoffs and when spot is acceptable"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Compute & storage",
+  "q": "stop vs terminate — what survives each? EBS volume lifecycle and snapshots"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Compute & storage",
+  "q": "S3 storage classes + lifecycle rules — when does cold storage make sense?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Compute & storage",
+  "q": "EBS vs EFS vs S3 — pick storage for a stateful app and justify"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Databases in production",
+  "q": "SQL vs NoSQL — how do you decide for a new service? Give a decision rule, not a preference"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Databases in production",
+  "q": "A query is slow in production — what's your diagnosis order (EXPLAIN, indexes, connection pool, locks)?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Databases in production",
+  "q": "Walk me through a restore drill: snapshot → PITR → verify — and how it maps to your RTO/RPO"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Networking",
+  "q": "VPC anatomy: subnets/AZ, IGW, NAT, route tables — draw the flow of a request in vs out"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Networking",
+  "q": "Security Groups vs NACLs — stateful vs stateless, and why SG rules are inbound-only"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Networking",
+  "q": "How do you diagnose a blocked connection (VPC Flow Logs, SG/NACL rules, reachability analyzer)?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Networking",
+  "q": "VPC peering vs Transit Gateway vs VPN — when each"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Load balancing & scaling",
+  "q": "ALB vs NLB vs CLB — protocol, features, and when you'd pick each"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Load balancing & scaling",
+  "q": "How does an ASG work with an ELB — health checks, cooldown, lifecycle hooks, scaling policies"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Load balancing & scaling",
+  "q": "Target groups, sticky sessions, and connection draining — what problem does each solve?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Load balancing & scaling",
+  "q": "Route 53 routing policies: simple, weighted, latency, failover — give a use case for each"
+ },
+ {
+  "module": "B03",
+  "subtopic": "IAM & security",
+  "q": "IAM policy structure: Effect/Action/Resource/Condition — write a least-privilege S3 policy from scratch"
+ },
+ {
+  "module": "B03",
+  "subtopic": "IAM & security",
+  "q": "Roles vs users vs instance profiles — when does an EC2 get credentials and how?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "IAM & security",
+  "q": "How do you scope an IAM role for a CI/CD pipeline (short-lived creds, external ID)?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "IAM & security",
+  "q": "What is the AWS shared responsibility model and where does IAM sit in it?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Cost & FinOps",
+  "q": "Your bill doubled — walk me through your investigation order (Cost Explorer, tags, unused resources)"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Cost & FinOps",
+  "q": "Right-sizing: how do you find over-provisioned instances and what's the fix?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Cost & FinOps",
+  "q": "Spot/reserved/Savings Plans: how would you design a cost strategy for dev vs prod?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "Cost & FinOps",
+  "q": "How do you enforce tagging and budgets so costs don't recur (Budget alerts, anomaly detection)?"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Compute: EC2 (types by use: general/compute/memory/storage/accelerated; T2 burstable), on-demand vs spot vs reserved, stop vs terminate, key pairs, AMI components, private IP immutable"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Network: VPC (200 subnets max), subnets/AZ, IGW/NAT, security groups (stateful, inbound-only rules) vs NACLs (stateless, explicit in+out), CloudWatch + VPC Flow Logs for monitoring"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Storage: S3 storage classes (Standard/IA/RRS/Glacier), multipart upload >100MB, S3 as REST service, EBS vs instance store, connection draining (ELB)"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "DNS/CDN: Route 53 (global DNS, nearest DC routing), CloudFront (Geo-Targeting)"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "IAM: roles, federated access, Power User vs Admin, password policies, least privilege"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Scaling/HA: AZ vs Region, autoscaling lifecycle hooks, consistency models (eventual vs strong), RTO/RPO"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Service model: IaaS/PaaS/SaaS, Snowball (data transfer), CloudWatch alarms"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Cost & FinOps: right-sizing from CloudWatch metrics, spot vs reserved mix + Savings Plans, tagging strategy + cost allocation tags, AWS Budgets + anomaly detection alerts, idle cleanup (unattached EBS, unused EIPs, stopped instances)"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "ELB specifics: ALB vs NLB vs CLB, target groups, health checks, sticky sessions, connection draining"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "Route 53 routing policies: simple / weighted / latency / failover / geolocation, alias vs CNAME records"
+ },
+ {
+  "module": "B03",
+  "subtopic": "",
+  "q": "IAM deep: policy structure (Effect/Action/Resource/Condition), inline vs managed policies, roles vs users, instance profiles, cross-account assume-role"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Metrics",
+  "q": "Prometheus pull model — how does scraping work and what happens when a target is down?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Metrics",
+  "q": "Counter vs gauge vs histogram vs summary — give a real metric for each"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Metrics",
+  "q": "Labels: how do you design them to avoid cardinality explosions?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Metrics",
+  "q": "Recording rules — when to precompute and why?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Dashboards & visualization",
+  "q": "What makes a dashboard useful at 3am — what belongs on the wall vs the page?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Dashboards & visualization",
+  "q": "Grafana: data sources, variables, and how you avoid dashboard sprawl"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Dashboards & visualization",
+  "q": "Red-yellow-green vs raw numbers — what do senior engineers actually look at first?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Logs",
+  "q": "Structured vs unstructured logs — what does each give you and how do you enforce structure?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Logs",
+  "q": "Centralized logging: EFK/ELK vs Loki — pull vs push, index vs label tradeoffs"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Logs",
+  "q": "How do you trace one request across 5 services using correlation IDs?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Logs",
+  "q": "Log rotation and retention — how do you avoid the disk-full-and-logs-are-the-cause trap?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Tracing",
+  "q": "Trace vs span vs context propagation — how does a trace span service boundaries?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Tracing",
+  "q": "Sampling: head vs tail, and why trace 100% is a trap"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Tracing",
+  "q": "OpenTelemetry: how do you instrument an app without touching business logic?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "Tracing",
+  "q": "How do you use a trace to find a 500ms hidden dependency?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "SLOs & alerting",
+  "q": "SLI vs SLO vs SLA — define each and give a real example with numbers"
+ },
+ {
+  "module": "B04",
+  "subtopic": "SLOs & alerting",
+  "q": "Error budgets: how do you decide when to freeze features? Walk through the math"
+ },
+ {
+  "module": "B04",
+  "subtopic": "SLOs & alerting",
+  "q": "Alert on symptom or cause? Give an alert that follows the rule and one that breaks it"
+ },
+ {
+  "module": "B04",
+  "subtopic": "SLOs & alerting",
+  "q": "What's the difference between alerting on burn rate vs static thresholds?"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Definitions: SLI vs SLO vs SLA (measurable indicator, internal target, legal commitment); error budgets"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Three pillars: metrics, logs, traces; observability vs monitoring (unknown unknowns)"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Prometheus: pull model, metrics types (counter/gauge/histogram/summary), labels, recording rules, alerting (Alertmanager), exporters, pushgateway"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Grafana: dashboards, data sources, alerting, variables; Loki for logs; Tempo for traces; OpenTelemetry (vendor-neutral instrumentation)"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Stack on K8s: node-exporter, kube-state-metrics, cAdvisor; EFK/ELK for logs (filebeat/Fluentd -> ES -> Kibana)"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "APR (Accelerated Problem Resolution): monitoring & alerting -> rapid diagnosis -> mitigation -> post-mortem -> improvement"
+ },
+ {
+  "module": "B04",
+  "subtopic": "",
+  "q": "Practical: build a monitoring strategy for a service that has none (classic SRE question)"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Pipeline design",
+  "q": "Design a production pipeline: lint → test → build → push → deploy — where do gates, caching, and secrets live?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Pipeline design",
+  "q": "Build once, deploy many — how do you avoid rebuilding per environment?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Pipeline design",
+  "q": "Pipeline as code: Jenkinsfile vs GitHub Actions workflow — structure, stages, artifacts"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Pipeline design",
+  "q": "Your pipeline is the bottleneck — where do you speed it up (cache, parallel, selective runs)?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Environments & gates",
+  "q": "dev → staging → prod — what's promoted and what changes between environments (config, not code)?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Environments & gates",
+  "q": "How do you prevent 'works on my machine' — parity, immutable artifacts, env-specific config?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Environments & gates",
+  "q": "Manual approval gates vs automated quality gates — where does each belong?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Environments & gates",
+  "q": "How do you handle hotfixes bypassing the pipeline safely?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "GitOps",
+  "q": "GitOps principles: Git as single source of truth, declarative state, automated convergence — why is this better than kubectl apply?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "GitOps",
+  "q": "ArgoCD: how does the app controller detect and fix drift? What is OutOfSync?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "GitOps",
+  "q": "ArgoCD vs Flux — architecture and when you'd choose each"
+ },
+ {
+  "module": "B05",
+  "subtopic": "GitOps",
+  "q": "Internal developer platforms (IDP): what problem does Backstage/Port solve, and when does a platform team adopt one vs plain GitOps?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "GitOps",
+  "q": "Secrets in GitOps: SOPS/External Secrets/Sealed Secrets — how do you keep Git the source of truth without leaking?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Progressive delivery",
+  "q": "Canary vs blue/green vs rolling — tradeoffs and how you shift traffic safely"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Progressive delivery",
+  "q": "Argo Rollouts: how do analysis steps (metrics) gate a canary automatically?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Progressive delivery",
+  "q": "How do you observe a canary — what metrics prove it's safe before 100%?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Progressive delivery",
+  "q": "What's the rollback story for each strategy — how fast, how clean?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Artifacts & rollback",
+  "q": "Immutable artifacts: why tag images by SHA, never by 'latest'? What's the registry layout?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Artifacts & rollback",
+  "q": "SBOM: what's inside your artifact and why does DevSecOps demand it?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Artifacts & rollback",
+  "q": "Rollback strategies: roll forward vs roll back vs freeze — decision framework at 2am"
+ },
+ {
+  "module": "B05",
+  "subtopic": "Artifacts & rollback",
+  "q": "How do you prove a rollback worked (verification, not just 'it's deployed')?"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "GitOps principles: Git = single source of truth, declarative desired state, automated convergence, auditability"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "ArgoCD: declarative GitOps CD for K8s; app controller continuously compares live vs desired state; OutOfSync detection"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Architecture: Application Controller, Repo Server, API Server, Dex/SSO; kubectl apply -n argocd install"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Manifest sources: kustomize, helm, jsonnet, plain YAML, config management plugins"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Tracking: branch, tag, or pinned commit; sync policies (auto/manual), sync waves + phases, PreSync/Sync/PostSync hooks (blue/green & canary)"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Features: multi-cluster management, RBAC/multi-tenancy, SSO (OIDC/OAuth2/LDAP/SAML), rollback to any commit, drift detection, webhooks (GitHub/BitBucket/GitLab), Prometheus metrics"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Flux vs ArgoCD (one-line each; ArgoCD has richer UI, Flux is tighter with GitOps toolkit)"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Secret management: sealed-secrets, SOPS, External Secrets Operator"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Pipeline design: build once / deploy many (artifact reuse), pipeline as code (Jenkinsfile / GitHub Actions YAML / GitLab CI), stages (lint→test→build→scan→push→deploy), caching, parallel jobs, secrets injection"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Environments & gates: dev/staging/prod parity, manual approval gates vs auto-promote, UAT, environment-specific config, promotion vs re-deploy"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "Artifacts & rollback: container registry (ECR/GHCR/Artifactory), immutable tags (sha256), semver, artifact provenance/SBOM, rollback options (revert commit vs redeploy previous artifact vs ArgoCD rollback)"
+ },
+ {
+  "module": "B05",
+  "subtopic": "",
+  "q": "CI vs CD handoff: CI builds the artifact, CD deploys it; with GitOps nobody kubectl-applies from CI — the controller syncs from Git"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Incident response",
+  "q": "Walk me through an incident from detection to resolution — who does what, when do you escalate?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Incident response",
+  "q": "Severity levels: define SEV1–SEV3 and give the escalation criteria for each"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Incident response",
+  "q": "Mitigate vs fix: why do you restore service first and debug later? Give an example"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Incident response",
+  "q": "How do you communicate during an incident (status pages, war room, stakeholder updates)?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Incident response",
+  "q": "Your page fires at 3am — what's your first 10 minutes in order?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Postmortems",
+  "q": "What makes a postmortem blameless? How do you write action items that actually prevent recurrence?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Postmortems",
+  "q": "Postmortem structure: timeline, root cause, contributing factors, actions — what belongs in each?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Postmortems",
+  "q": "How do you handle a postmortem where the 'cause' is human error?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Postmortems",
+  "q": "How do you track postmortem action items to completion without a bureaucracy?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Chaos engineering",
+  "q": "What is chaos engineering and what is it NOT (it's not random breaking)?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Chaos engineering",
+  "q": "Design a chaos experiment: hypothesis, blast radius, rollback — walk me through one"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Chaos engineering",
+  "q": "Chaos Mesh vs Litmus vs Gremlin — when would you use each?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Chaos engineering",
+  "q": "How do you convince a skeptical team to allow chaos in staging/prod?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Capacity & scaling",
+  "q": "How do you forecast capacity — what metrics, what lead time, and what's the margin?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Capacity & scaling",
+  "q": "Scale up vs scale out — when each, and what breaks when you scale out (state, sessions)?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Capacity & scaling",
+  "q": "How do you load test safely — tooling, staged ramp, and how you read the knee of the curve?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Capacity & scaling",
+  "q": "Your service hit 100% CPU — what's the triage order (hot path, autoscaling, throttling)?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Backups & DR",
+  "q": "RTO vs RPO — define and give a target for a database service; how do you choose?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Backups & DR",
+  "q": "3-2-1 backup rule — what is it and how does it apply to databases and clusters?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Backups & DR",
+  "q": "Velero: how do you back up and restore a Kubernetes cluster? What does it NOT back up?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Backups & DR",
+  "q": "Disaster recovery strategies: backup/restore vs pilot light vs warm standby vs multi-region — tradeoffs"
+ },
+ {
+  "module": "B06",
+  "subtopic": "Backups & DR",
+  "q": "When was the last time you tested a restore — and why does untested backup not count?"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "SRE fundamentals: what is SRE vs DevOps (DevOps = how software is built; SRE = keeping it running), error budgets, toil reduction, automation"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Incident response: detection (monitoring/alerting), rapid diagnosis, mitigation (hotfix, reroute, scale), post-mortem (blameless, action items, documentation), continuous improvement"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "SLI/SLO/SLA + error budget math; APR stages"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Reliability patterns: redundancy, failover, retries/backoff, circuit breakers, rate limiting, graceful degradation"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Chaos engineering: game days, chaos experiments (Chaos Monkey, litmus/chaos-mesh), blast radius control"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Capacity/scaling: vertical vs horizontal, autoscaling, load testing"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Backups/DR: RTO/RPO, RAID levels, backups + restore drills, 3-2-1 rule"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Culture: blameless post-mortems, on-call best practices, incident communication"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Incident mechanics: severity levels (SEV1-3), escalation paths, status pages + stakeholder comms, runbook quality, incident timeline reconstruction"
+ },
+ {
+  "module": "B06",
+  "subtopic": "",
+  "q": "Backups: 3-2-1 rule, Velero for Kubernetes, restore drills, RTO/RPO validation (backups you never restore = fiction)"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Bash mastery",
+  "q": "set -euo pipefail — what does each flag do and why do you use them in every script?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Bash mastery",
+  "q": "Write a function that retries a command 3 times with backoff — live"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Bash mastery",
+  "q": "Exit codes, $?, positional params, $@ vs $* — scripting fundamentals"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Bash mastery",
+  "q": "sed/awk/grep/find — pick the right one for: parse a log, replace in-place, find files by age"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Bash mastery",
+  "q": "Debugging: set -x, shellcheck — how do you make a failing script explain itself?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Python glue",
+  "q": "Write a script that reads a JSON config, calls an API, and fails loudly — live"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Python glue",
+  "q": "argparse vs env vars for CLI tools — when does each make sense?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Python glue",
+  "q": "boto3/requests: error handling, retries with backoff, and how to avoid silent failures"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Python glue",
+  "q": "How do you decide bash vs Python for a task? Give the rule of thumb"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Python glue",
+  "q": "YAML/JSON parsing with pyyaml — how do you validate config before acting on it?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Safety & idempotency",
+  "q": "What makes a script idempotent? Give a concrete example (e.g., creating a user or a cron entry)"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Safety & idempotency",
+  "q": "Lock files / flock — how do you prevent two concurrent runs from corrupting state?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Safety & idempotency",
+  "q": "Dry-run mode and --force flags — how do you design safe destructive operations?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Safety & idempotency",
+  "q": "How do you handle partial failure — run the whole thing or leave it half-done? What's the recovery?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Scheduling & tooling",
+  "q": "cron vs systemd timers — when would you choose a timer and what do you get (persist, calendar syntax, logging)?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Scheduling & tooling",
+  "q": "How do you monitor that a scheduled job actually ran (exit status, output, alerts)?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Scheduling & tooling",
+  "q": "make for task automation — when is it the right tool vs a shell script?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Scheduling & tooling",
+  "q": "Log rotation: how do you stop logs from filling the disk (logrotate, retention)?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Config management (Ansible)",
+  "q": "Ansible ad-hoc vs playbooks vs roles — when does each scale?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Config management (Ansible)",
+  "q": "Idempotency in Ansible: modules vs shell — why is the apt/service module safer than shell?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Config management (Ansible)",
+  "q": "handlers/notify, register/set_fact, delegate_to — give a real use case for each"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Config management (Ansible)",
+  "q": "Ansible Vault: how do you store secrets and when do you NOT put them in the repo?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "Config management (Ansible)",
+  "q": "Dynamic inventory (aws_ec2 plugin) — how does Ansible know about your cloud hosts?"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Bash: shebang, exit codes ($?), positional params ($1..$n, $#, $*, $@), variables (env vs user-defined), control flow (if/case/for/while/until), functions, pipes, metacharacters, sed/awk/grep/find, debug (set -x/-v), $/$$/$!"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Cron/anacron: scheduling, cron.allow/cron.deny, log rotation (logrotate)"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Python for ops: scripting, requests/boto3, argparse, error handling, YAML/JSON parsing (pyyaml)"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "jq: JSON parsing on CLI for API/cloud automation"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Ansible: agentless + SSH push model, inventory (static/dynamic), playbooks/tasks/handlers, modules (core vs extras), roles + Galaxy, ad-hoc commands, vault (secrets), register/set_fact, delegate_to, become, synchronize/rsync, Tower/AWX"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Config management: declarative vs imperative, idempotency, config drift"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Ansible vs Puppet vs Chef vs Terraform (one-line each)"
+ },
+ {
+  "module": "B07",
+  "subtopic": "",
+  "q": "Task tooling: make for task automation, cron alternatives (systemd timers, Jenkins scheduled jobs), lock files / flock for idempotent concurrent runs"
+ },
+ {
+  "module": "B08",
+  "subtopic": "On-call",
+  "q": "Walk me through your on-call rotation: what's in your runbook, how do you triage, when do you escalate?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "On-call",
+  "q": "Severity levels + escalation tree — define them for a service you own"
+ },
+ {
+  "module": "B08",
+  "subtopic": "On-call",
+  "q": "A page fires at 3am and the runbook is wrong — what do you do (and how do you fix the runbook after)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "On-call",
+  "q": "How do you reduce on-call load over time (toil reduction, alert hygiene, automation)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "On-call",
+  "q": "How do you hand over an incident shift cleanly?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Documentation",
+  "q": "What belongs in a runbook vs an architecture doc vs an ADR? When do you write each?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Documentation",
+  "q": "How do you keep docs from rotting — ownership, review cadence, doc-as-code?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Documentation",
+  "q": "Write an ADR for a decision you made — walk me through the format and why it matters"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Documentation",
+  "q": "How do you document for a future junior so they can do the job without you?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Security instinct",
+  "q": "Least privilege — walk me through applying it to a new service (IAM, RBAC, network, secrets)"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Security instinct",
+  "q": "Secrets management: Vault vs SOPS vs External Secrets — when do you reach for each?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Security instinct",
+  "q": "SSH hardening: what do you actually change on a server (keys, root login, ports, 2FA)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Security instinct",
+  "q": "TLS everywhere: where do certs come from and how do you rotate them automatically?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Security instinct",
+  "q": "How do you respond to a reported vulnerability in a dependency you run?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Container & supply-chain security",
+  "q": "Trivy: image vs filesystem vs SBOM scanning — what does each catch and how do you gate builds on it?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Container & supply-chain security",
+  "q": "SBOM + SLSA: what's in your artifact, who built it, and can you prove it?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Container & supply-chain security",
+  "q": "How do you secure the pipeline itself (secrets, trusted builders, pinned base images)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Container & supply-chain security",
+  "q": "Policy as code: Kyverno vs OPA/Gatekeeper — how do you enforce 'no latest tag' or 'must have SBOM'?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Container & supply-chain security",
+  "q": "What do you do when a scan finds a critical CVE with no fixed version?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Threat modeling & compliance",
+  "q": "STRIDE — walk me through threat modeling a simple web service"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Threat modeling & compliance",
+  "q": "Zero Trust: what does 'never trust, always verify' mean operationally (mTLS, identity, microsegmentation)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Threat modeling & compliance",
+  "q": "ISO 27001 vs SOC 2 vs NIST CSF — what do they certify and when does a company need each?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Threat modeling & compliance",
+  "q": "How does compliance show up in your daily work (audit trails, change control, evidence)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Cost responsibility",
+  "q": "A team's bill is exploding — how do you investigate and communicate the fix?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Cost responsibility",
+  "q": "How do you make cost a team responsibility (budgets, tagging, dashboards, reviews)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Cost responsibility",
+  "q": "Right-sizing vs scheduling vs spot — order your cost levers for a stateless service"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Cost responsibility",
+  "q": "How do you prove cost savings to management (before/after numbers)?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Team skills",
+  "q": "Tell me about a time you disagreed with a teammate on approach — what happened and how did you resolve it?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Team skills",
+  "q": "How do you give a code review that's firm but kind? What do you check first?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Team skills",
+  "q": "How do you onboard a new engineer — what do they need in week 1?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "Team skills",
+  "q": "How do you communicate with a non-technical stakeholder during an outage?"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "On-call: runbooks, severity levels, escalation paths, incident communication, post-incident review, on-call rotations & load"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Documentation: runbooks, architecture docs, decision records (ADRs), README discipline, wiki hygiene"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Security basics: least privilege, RBAC, secrets management (vault/SOPS/External Secrets), SSH hardening, TLS, container security (content trust, resource limits, Bench Security), supply chain (image scanning, SBOM)"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Threat modeling: STRIDE, attack surface review, threat model as code, OWASP Top 10 awareness"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Cost: FinOps — right-sizing, spot/reserved mix, tagging, cost allocation, idle resource cleanup, budget alerts"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Compliance/audit: audit logs, access reviews, SOC2/ISO awareness, data retention"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "SRE crossover: toil reduction, automation of repetitive ops, error budgets as guardrails"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "Team skills: code review culture (security + reliability lens), mentoring juniors, cross-team collaboration, incident communication (status updates, stakeholder comms), teaching/onboarding docs, pushing back on scope with data"
+ },
+ {
+  "module": "B08",
+  "subtopic": "",
+  "q": "On-call deep: rotation load, severity + escalation, runbook quality, post-incident communication"
+ },
+ {
+  "module": "B09",
+  "subtopic": "The 2am litmus test",
+  "q": "You're alone at 2am and the deploy is broken — walk me through the decision: roll forward, roll back, or freeze?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "The 2am litmus test",
+  "q": "What's in your runbook that makes the 2am call safe?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "The 2am litmus test",
+  "q": "Kill a service, deploy a bad artifact, roll back — do it live and explain each step"
+ },
+ {
+  "module": "B09",
+  "subtopic": "The 2am litmus test",
+  "q": "What does 'done' look like at 2am — what proves the system is actually stable again?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "System design for ops",
+  "q": "Design a CI/CD system for a team of 20 — scale, failure modes, cost"
+ },
+ {
+  "module": "B09",
+  "subtopic": "System design for ops",
+  "q": "Design a monitoring/alerting system for a microservices fleet — pillars, cardinality, alerting"
+ },
+ {
+  "module": "B09",
+  "subtopic": "System design for ops",
+  "q": "Design an autoscaling setup for a stateless API — metrics, cooldown, burst handling"
+ },
+ {
+  "module": "B09",
+  "subtopic": "System design for ops",
+  "q": "Design a multi-region deployment — failover, data replication, RTO/RPO"
+ },
+ {
+  "module": "B09",
+  "subtopic": "System design for ops",
+  "q": "What breaks at 10x traffic and how do you find it?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Your war-story",
+  "q": "Tell me about the worst production incident you've handled — what happened, what did you do, what changed after?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Your war-story",
+  "q": "What's a project you're proud of and what was genuinely hard about it?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Your war-story",
+  "q": "Tell me about a time you automated away a painful task — before/after numbers"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Your war-story",
+  "q": "What's a mistake you made and what did it teach you?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Behavioral & ownership",
+  "q": "Why DevOps/SRE and not pure development? What draws you to ownership?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Behavioral & ownership",
+  "q": "Tell me about a time you owned something end-to-end — what did 'done' mean?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Behavioral & ownership",
+  "q": "How do you handle being on-call for a system you didn't build?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Behavioral & ownership",
+  "q": "How do you prioritize when everything is urgent (framework, not vibes)?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Portfolio upgrade",
+  "q": "Walk me through your GitHub — how is it organized and which 3 repos prove your level?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Portfolio upgrade",
+  "q": "What's in a repo that makes a reviewer trust it (README, diagrams, CI badge, runbook, ADR)?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Portfolio upgrade",
+  "q": "Record a 3-minute demo — what do you show and what do you leave out?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "Portfolio upgrade",
+  "q": "How do you tailor your portfolio to the roles you're applying for?"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "System design for ops: design a CI/CD system, a monitoring/alerting system, an autoscaling setup, a multi-region deployment — scale, failure modes, cost"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "Behavioral: why DevOps/SRE vs SDE, on-call experience, incident stories (STAR), collaboration, blameless culture"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "Coding: shell + python live tasks (file processing, log parsing, API automation), basic DSA awareness (arrays, strings, hashmaps — SRE coding questions like pacific-atlantic, good nodes)"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "Portfolio walkthrough: deploy architecture diagram, GitHub profile, live demo, metrics showing impact"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "Mock interviews: 30-min Linux + 30-min cloud/containers + 30-min behavioral per cycle"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "Salary anchoring: SRE 6-15 LPA fresher / 13-26 LPA experienced (India, InterviewBit); DevOps comparable band in Pune"
+ },
+ {
+  "module": "B09",
+  "subtopic": "",
+  "q": "The 2am litmus test: could you deploy AND roll back your service alone at 2am? one-command deploy, automated rollback, decision tree (roll forward vs roll back vs freeze) — the seniority question"
+ }
+]

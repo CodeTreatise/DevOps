@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor (project-scoped)
+.vscode/
+.idea/
+
+# Logs / temp
+*.log
+*.tmp
+
+# Node (if ever added)
+node_modules/

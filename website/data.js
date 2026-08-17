@@ -1,0 +1,6062 @@
+window.PATH_DATA = {
+ "$schema": "platform-engineering-path.schema.json",
+ "meta": {
+  "title": "Platform Engineering — The Full Path (DevOps / SRE)",
+  "version": "1.0.0",
+  "generated": "2026-08-17",
+  "sourceFiles": [
+   "Platform-Fundamentals-INDEX.md",
+   "Platform-MidLevel-INDEX.md"
+  ],
+  "totalCost": 0,
+  "totalTime": "~18–22 weeks part-time (Phases A + B)",
+  "dataSources": [
+   "SalaryExpert/ERI (Aug 2026)",
+   "devopstraininginstitute.com Pune report (Oct 2025)",
+   "Lavatech Pune guide (Jan 2026)",
+   "switchtodevops.com Remote DevOps India 2026",
+   "Stack Overflow Developer Survey 2025",
+   "DORA research",
+   "CNCF Annual Survey 2024",
+   "roadmap.sh (repo inventories + project stats)"
+  ],
+  "notes": [
+   "Every item carries required=true|false (🟡 in markdown = optional)",
+   "Every resource carries verified=fetch-verified|official-doc|null (our verification history)",
+   "Market figures carry provenance per region/level",
+   "This JSON is the source of truth; the merged markdown renders from it 1:1",
+   "Per-module research blocks added: interviewFocus, demandNotes, verifiedResources, depthSequence (sources: InterviewBit live question banks, Argo CD docs, roadmap.sh project stats, Google SRE).",
+   "URL audit 2026-08-14: 239 unique URLs checked; 8 dead replaced (kodekloud linux course->the-linux-basics-course, k8s VPA->concepts/workloads/autoscaling/vertical-pod-autoscale, sre distributed-tracing->OpenTelemetry traces, sre data-integrity->data-integrity, sre effective-documentation->Google tech-writing, trivy scanner+sbom->docs/latest/guide, GCP zero-trust-architecture->zero-trust). Bot-blocked-but-live (InterviewBit x12, linuxjourney, realpython, iso 27001, aws cost-management, OPA, BashGuide, docker-curriculum) marked fetch-verified.",
+   "Sub-topic research 2026-08-14: all 62 sub-topics carry research{interviewFocus[3-5 Qs], practice, depthNote} — built from module-level research + InterviewBit banks + roadmap.sh projects + docs (see research blocks per module for certifications).",
+   "Market data refresh 2026-08-14: Pune rows refreshed (SalaryExpert/salaryinsight/vtricks/Lavatech); NEW national-India region (Tutorac/switchtodevops/TrueDirectory/Nexson: fresher 4-7L, senior 15-28L, lead 30-60L+); NEW platform-engineer India row (avg 17.5L, entry 12.65L, Blr top-10% 45-70L); International expanded to 9 rows (SIVARO 2026: US 90K-600K+ by level, FAANG L5 350-500K TC, London 130-180K GBP, Berlin 120-160K EUR); premium skills 12 (+AI infra 20-30%, IDP Backstage/Port, deep K8s 15-25%); certs 5 (+GCP PCA, NVIDIA AI-infra + cert-myth caveat).",
+   "Navigation layer 2026-08-14: every module carries dependsOn[] (suggested reading order); site renders a How-to-use card, 🧱 Needs chips, and prev/next pager; markdown shows a 'Depends on' line per module.",
+   "Job-requirements audit 2026-08-14: new jobRequirements section maps 18 real JD requirements (Simplilearn live fetch + SIVARO premium stack + roadmap.sh) to modules — 13 covered, 3 partial, 1 gap (Agile/Scrum/Kanban). Site gets a 💼 Job Requirements view; markdown gets an appendix. Note: LinkedIn/Naukri/Indeed block scraping.",
+   "Curriculum gaps closed 2026-08-15: +Agile & delivery practice (A05, 3 items), +Databases in production (B03, 3 items). jobRequirements now 16 covered / 2 partial / 0 gap. Totals: 64 sub-topics / 169 items.",
+   "Gap analysis 2026-08-17 (PLATFORM_PATH_GAP_ANALYSIS.md): +dig/mtr/tcpdump (A03), +Chaos Mesh/Litmus (B06), +Cosign/Kyverno image signing (B08), +AWS Organizations & SCPs (B03), +etcd backup (B01), +OTel Collector/Grafana Alloy (B04), +Ansible collections (B07), +Infracost (B02), +Pulumi awareness (B02), +DORA metrics (B05), +tmux (B07). New URLs verified live 2026-08-17.",
+   "Answer bank 2026-08-17: +10 interview questions for the gap-analysis topics (etcd backup, Pulumi, Infracost, AWS Organizations/SCPs, OTel Collector, Grafana Alloy, DORA metrics, tmux, Ansible collections, Cosign) — Phase B bank now 311 Qs, answered 311/311 (Platform-Answer-Bank-B.md).",
+  "Answer bank 2026-08-17: +6 remote & India-market questions (follow-the-sun on-call, 2am incident, async docs, remote blameless postmortem, remote-role motivation, remote-product vs Indian-services prep) — Phase B bank now 317 Qs, answered 317/317 (Platform-Answer-Bank-B.md)."
+  ],
+  "researchEnriched": true,
+  "researchDate": "2026-08-14"
+ },
+ "phases": [
+  {
+   "id": "A",
+   "name": "Foundations",
+   "goal": "Go from 'uses a computer' to 'runs infrastructure' — the durable, non-AI career lane.",
+   "weeks": "1–10",
+   "exitTest": "Junior-ready checkpoint: a deployed, tested, containerized, auto-deployed repo; ~60–70% of entry-level interview topics.",
+   "modules": [
+    {
+     "id": "A01",
+     "slug": "linux",
+     "title": "Linux — the terminal is home",
+     "icon": "🐧",
+     "type": "foundation",
+     "weeks": "1–3",
+     "mentalModel": "Everything is a file — processes, devices, configs are files; you manage the OS by managing files and permissions. The terminal is the interface.",
+     "exitTest": "You can ssh into a box and find, read, edit, and run something without asking anyone.",
+     "dependsOn": [],
+     "subTopics": [
+      {
+       "name": "Core skills (the 20% that matters)",
+       "items": [
+        {
+         "title": "Navigation & file ops",
+         "detail": "cd, ls, pwd, mkdir, rm, cp, mv, cat, less",
+         "required": true,
+         "resources": [
+          {
+           "name": "Linux Journey",
+           "url": "https://linuxjourney.com/",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Ubuntu Command Line for Beginners",
+           "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Editing & searching",
+         "detail": "nano/vim basics, grep, find",
+         "required": true,
+         "resources": [
+          {
+           "name": "Linux Journey (text-fu)",
+           "url": "https://linuxjourney.com/",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "MIT Missing Semester",
+           "url": "https://missing.csail.mit.edu/",
+           "kind": "course",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Permissions",
+         "detail": "rwx, chmod, chown; why 755 vs 644",
+         "required": true,
+         "resources": [
+          {
+           "name": "Linux Journey: Permissions",
+           "url": "https://linuxjourney.com/lesson/file-permissions",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Ubuntu tutorial",
+           "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Processes",
+         "detail": "ps, kill, top/htop; what a stuck process is and how to end it",
+         "required": true,
+         "resources": [
+          {
+           "name": "Linux Journey: Process Management",
+           "url": "https://linuxjourney.com/lesson/process-management",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "KodeKloud Linux Basics",
+           "url": "https://kodekloud.com/courses/the-linux-basics-course/",
+           "kind": "course",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Installing software",
+         "detail": "apt, package managers, sudo and why it matters",
+         "required": true,
+         "resources": [
+          {
+           "name": "Ubuntu tutorial",
+           "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Linux Journey",
+           "url": "https://linuxjourney.com/",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "SSH",
+         "detail": "Connect to a remote box and work there",
+         "required": true,
+         "resources": [
+          {
+           "name": "Linux Journey: SSH",
+           "url": "https://linuxjourney.com/lesson/ssh",
+           "kind": "interactive",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "DigitalOcean SSH guide",
+           "url": "https://www.digitalocean.com/community/tutorials/how-to-use-ssh-to-connect-to-a-remote-server",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through what happens when you type a command in a terminal — PATH lookup, fork/exec, stdin/stdout/stderr",
+         "What's in /proc? How would you find a process listening on port 8080 and kill it safely?",
+         "File permissions: what do 755, 644, and 4755 mean? What does umask do?",
+         "Explain systemd: what does systemctl daemon-reload do and when do you need it? How do you follow logs for one unit?",
+         "Disk full — how do you find the culprit (df, du, lsof deleted files) and free space without rebooting?"
+        ],
+        "practice": "Daily: do 20–30 min in the terminal; weekly: reproduce an InterviewBit scenario (slow server, disk full, zombie) on your own VM and fix it, then write the bash commands from memory.",
+        "depthNote": "This is the 20% that carries 80% of interviews — master the file/permission model, process model, systemd, and storage diagnosis cold before touching anything else."
+       }
+      },
+      {
+       "name": "Daily loop",
+       "items": [
+        {
+         "title": "30 minutes in the terminal",
+         "detail": "30 min/day doing real tasks — rename a folder with a loop, find every file containing a word, kill a stuck process. No GUI fallback.",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What did you build/break/fix today? (expect a follow-up drill on any command you claim)",
+         "Show me your shell history — what's your most-used command and why?",
+         "What's the difference between a file you created yesterday and one created today when both have the same permissions?"
+        ],
+        "practice": "Keep a daily log: 5 new commands learned, 1 thing automated, 1 thing fixed. Re-run the week's commands from memory on Sunday.",
+        "depthNote": "The daily loop is the habit that makes Linux an instinct, not a skill — consistency here compounds faster than any course."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "File system trivia: filename max 255 bytes, inode contents, /proc virtual FS, superblock/boot/data blocks",
+       "Permissions: rwx for user/group/others, 755 vs 644, SUID(4000)/SGID(2000)/sticky bit(1000), umask",
+       "Processes: states (new/ready/running/blocked/terminated), zombie vs orphan, init PID 1, daemons, fork() copy-on-write",
+       "systemd: systemctl daemon-reload, journalctl -u <svc> -f, unit vs service, cgroups (CPUQuota/MemoryMax, cgroups v2, OOM killer)",
+       "Disk: df -h, du -sh /*, lsof +L1, truncate to free deleted-file space; LVM lvextend/lvreduce; fstab; swap ~2x RAM",
+       "Users: useradd -m -s /bin/bash, usermod -aG, /etc/passwd format, visudo, chage, /etc/security/limits.conf, ulimit -n",
+       "Scheduling: crontab 5-field syntax, cron vs anacron, cron.allow/cron.deny",
+       "Networking: ip netns namespaces, veth, docker0 bridge, CNI (Flannel/Calico); ss -tulnp vs netstat, TIME_WAIT",
+       "Diagnosis: 7-step flow (ip addr show -> ping -> mtr -> nc -zv -> dig +short -> curl -v -> tcpdump); iperf3, ethtool",
+       "SSH: ssh-keygen -t ed25519, ssh-copy-id, .ssh 700 / authorized_keys 600, ProxyJump, PasswordAuthentication no, -L/-R/-D tunnels",
+       "Firewalls: iptables filter/nat/mangle + INPUT/OUTPUT/FORWARD, nftables, firewalld zones/services",
+       "Scenario answers: slow server (top, vmstat 1 5, iostat -x 1 5, iotop, free -h, strace, perf top); memory hog (ps aux --sort=-%rss | awk '$6>1048576', kill -15 then -9)"
+      ],
+      "demandNotes": "Linux is the #1 screening topic for platform/DevOps roles in Pune and remote-India market (see marketData premiumSkills: systemd + troubleshooting appear in nearly every JD). 30-40% of a DevOps interview is Linux + shell. Salary uplift: candidates who nail diagnosis scenarios quote 15-25% above base.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Linux Interview Questions",
+        "url": "https://www.interviewbit.com/linux-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "InterviewBit Shell Scripting Interview Questions",
+        "url": "https://www.interviewbit.com/shell-scripting-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Linux Journey",
+        "url": "https://linuxjourney.com/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "DigitalOcean Linux System Administration tutorials",
+        "url": "https://www.digitalocean.com/community/tutorials?q=linux",
+        "kind": "community",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: shell basics + file/permission model (rwx, umask, links) — daily terminal use, no GUI",
+       "Week 2: processes, systemd units, journalctl, cron — automate one task per day",
+       "Week 3: users/permissions hardening, sudoers, limits + cgroups",
+       "Week 4: storage (df/du/LVM/fstab) + networking (ss, ip, tcpdump basics)",
+       "Practice: reproduce the InterviewBit scenario questions (slow server, disk full, zombie) on your own VM; write a bash script that applies all hardening steps"
+      ],
+      "certifications": [
+       "RHCSA / LFCS (optional — strong Linux-depth signal)"
+      ]
+     }
+    },
+    {
+     "id": "A02",
+     "slug": "git",
+     "title": "Git — snapshots & safety net",
+     "icon": "🔀",
+     "type": "foundation",
+     "weeks": "Week 4",
+     "mentalModel": "Snapshots of your project over time. Commits are checkpoints; branches are parallel timelines you merge back. Git exists so you can make a mess and always recover.",
+     "exitTest": "You can branch, make a mess, and recover with git reset and git stash without panic.",
+     "dependsOn": [],
+     "subTopics": [
+      {
+       "name": "Core skills: the daily flow",
+       "items": [
+        {
+         "title": "Daily flow",
+         "detail": "clone, add, commit, push, pull",
+         "required": true,
+         "resources": [
+          {
+           "name": "Git Immersion",
+           "url": "https://gitimmersion.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Branches & merging",
+         "detail": "branch, checkout, merge; what a merge conflict is",
+         "required": true,
+         "resources": [
+          {
+           "name": "Oh My Git!",
+           "url": "https://ohmygit.org/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Pro Git book",
+           "url": "https://git-scm.com/book/en/v2",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Undoing mistakes",
+         "detail": "reset, revert, stash, log, diff",
+         "required": true,
+         "resources": [
+          {
+           "name": "Git Immersion",
+           "url": "https://gitimmersion.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Pro Git: Undoing",
+           "url": "https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "GitHub workflow",
+         "detail": "Pushing to a repo, opening a pull request",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Hello World",
+           "url": "https://docs.github.com/en/get-started/quickstart/hello-world",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "git status vs git diff vs git diff --staged — what does each show?",
+         "Explain HEAD. What happens with git reset --hard vs git revert? When is revert the right choice for pushed work?",
+         "You deleted a branch that had unmerged work — recover it. (reflog)",
+         "What's a detached HEAD and how do you get out of it?",
+         "Branch hygiene: git branch --merged, deleting local + remote branches, keeping a PR reviewable"
+        ],
+        "practice": "Deliberately break a repo (bad merge, lost commit, detached HEAD) and recover each; write the recovery steps from memory; run the InterviewBit Git MCQs.",
+        "depthNote": "Interviewers probe undo/recovery mechanics relentlessly — reset modes, revert, reflog, and cherry-pick are the highest-yield Git topics."
+       }
+      },
+      {
+       "name": "Daily loop",
+       "items": [
+        {
+         "title": "Commit everything",
+         "detail": "Commit everything you do this week — every config, every script. add → commit → push at least once a day.",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What did you commit today and why was it atomic?",
+         "How do you structure a commit message a reviewer will thank you for?",
+         "You just pushed a bad commit — walk me through your day's Git commands"
+        ],
+        "practice": "Every coding session ends with clean, atomic commits + a short commit message; Sunday: recover a deliberately lost commit from memory.",
+        "depthNote": "Daily Git practice builds the muscle memory interviewers test with live terminal questions."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Basics: repo, clone, git config levels (--system/--global/--local), git status vs git diff, index/staging area",
+       "HEAD mechanics: HEAD~1, reset HEAD~3, reset --hard, revert --no-commit, detached HEAD (checkout -b)",
+       "Recovery: reflog, recover deleted branch, revert bad pushed commit (new commit preferred), cherry-pick",
+       "Branching: git branch --merged/--no-merged, delete local+remote branch, PR vs branch, Git vs GitHub",
+       "History rewriting: squash via rebase -i HEAD~N, amend vs new commit (new commit safer), merge vs rebase (merge preferred, rebase destructive)",
+       "Stash: apply vs pop (= apply + drop), when to stash",
+       "Finding bugs: git bisect (start/bad/good), git annotate/blame",
+       "Undo: reset --mixed, merge --abort, remove file from index (git reset + .gitignore)",
+       "GitOps tie-in: why Git as single source of truth (audit trail, rollback anywhere) — foundation for B05"
+      ],
+      "demandNotes": "Git questions are universal and cheap to ask — expect 5-10 min in every round. Advanced recovery/reset/rebase questions separate mid-level from junior; strong GitOps story (Git as source of truth) maps directly to ArgoCD adoption in Indian product companies.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Git Interview Questions",
+        "url": "https://www.interviewbit.com/git-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Git Handbook (GitHub Guides)",
+        "url": "https://guides.github.com/introduction/git-handbook/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Pro Git book (free)",
+        "url": "https://git-scm.com/book/en/v2",
+        "kind": "book",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Learn Git Branching (interactive)",
+        "url": "https://learngitbranching.js.org/",
+        "kind": "interactive",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: init/clone/add/commit/status/diff, branches, merge, PR flow (GitHub)",
+       "Week 2: undo mechanics — reset (soft/mixed/hard), revert, stash, reflog recovery, detached HEAD",
+       "Week 3: rebase -i squash, cherry-pick, bisect, .gitignore hygiene, commit hygiene (atomic commits)",
+       "Practice: deliberately break a repo and recover it; write the 'lost branch' recovery from memory; run through all InterviewBit Git MCQs"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "A03",
+     "slug": "networking",
+     "title": "Networking — IPs, ports, DNS, debug",
+     "icon": "🌐",
+     "type": "foundation",
+     "weeks": "5–6",
+     "mentalModel": "Servers are IP:port. A web server is 192.168.1.5:80; DNS turns google.com into an IP. Everything you debug is 'can I reach that port?'.",
+     "exitTest": "You can classify any connection failure as DNS, dead server, or blocked port — using three commands.",
+     "dependsOn": [
+      "A01"
+     ],
+     "subTopics": [
+      {
+       "name": "Core skills: ports, HTTP & diagnosis",
+       "items": [
+        {
+         "title": "Ports & protocols",
+         "detail": "Know exactly four: 22 SSH, 80 HTTP, 443 HTTPS, 5432 Postgres",
+         "required": true,
+         "resources": [
+          {
+           "name": "freeCodeCamp: Computer Networking course",
+           "url": "https://www.youtube.com/watch?v=qiQR5rTSshw",
+           "kind": "video",
+           "verified": "official-doc"
+          },
+          {
+           "name": "MDN HTTP Overview",
+           "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "HTTP request/response",
+         "detail": "Status codes (200/301/404/500), headers, JSON payloads",
+         "required": true,
+         "resources": [
+          {
+           "name": "MDN HTTP Overview",
+           "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "curl docs",
+           "url": "https://curl.se/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Diagnosing with curl",
+         "detail": "curl -v shows the whole request/response; the debugger for 90% of problems",
+         "required": true,
+         "resources": [
+          {
+           "name": "curl docs",
+           "url": "https://curl.se/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "howdns.works",
+           "url": "https://howdns.works/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Host reachability",
+         "detail": "ping, ss -tulpn (what's listening), nslookup (DNS lookup), telnet host port (raw port test)",
+         "required": true,
+         "resources": [
+          {
+           "name": "freeCodeCamp course",
+           "url": "https://www.youtube.com/watch?v=qiQR5rTSshw",
+           "kind": "video",
+           "verified": "official-doc"
+          },
+          {
+           "name": "howdns.works",
+           "url": "https://howdns.works/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "dig",
+         "detail": "DNS lookup with full detail — TTL, record type, authoritative vs cached; the production upgrade from nslookup",
+         "required": true,
+         "resources": [
+          {
+           "name": "BIND 9 man pages: dig",
+           "url": "https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "mtr",
+         "detail": "Combines ping + traceroute in real time; the right tool for intermittent latency",
+         "required": true,
+         "resources": [
+          {
+           "name": "mtr (official site)",
+           "url": "https://www.bitwizard.nl/mtr/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "tcpdump",
+         "detail": "Capture packets on the wire; the last-resort tool when nothing else shows what's happening",
+         "required": false,
+         "resources": [
+          {
+           "name": "Daniel Miessler: tcpdump primer",
+           "url": "https://danielmiessler.com/blog/tcpdump",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Error semantics",
+         "detail": "'connection refused' vs 'timeout' vs 'no route to host' mean different things; learn to read them",
+         "required": true,
+         "resources": [
+          {
+           "name": "freeCodeCamp course",
+           "url": "https://www.youtube.com/watch?v=qiQR5rTSshw",
+           "kind": "video",
+           "verified": "official-doc"
+          },
+          {
+           "name": "curl docs",
+           "url": "https://curl.se/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What happens when you type https://example.com and press Enter — walk through all layers (DNS → TCP → TLS → HTTP)",
+         "Ping works but the browser fails — how do you diagnose? Which layer is the problem?",
+         "Explain the TCP handshake and how a firewall can break it; what are ephemeral ports?",
+         "Ports: what's listening on 80/443/22/3306/6379 by default? How do you check and who listens where?",
+         "CIDR: what does 192.168.1.0/24 mean? How many usable IPs? Do subnetting drills"
+        ],
+        "practice": "Subnetting drills daily until 95%+ on subnettingpractice.com; build two VMs + a router, break connectivity at each layer, and fix it; explain the 7-step connectivity flow aloud.",
+        "depthNote": "The 'ping works but HTTP fails' ladder is the single most asked diagnostic pattern — know exactly which layer each tool (ping, traceroute, ss, dig, curl -v) inspects."
+       }
+      },
+      {
+       "name": "Debug flow to internalize",
+       "items": [
+        {
+         "title": "Given 'my app won't connect'",
+         "detail": "(1) is DNS resolving? (nslookup) → (2) is the host up? (ping) → (3) is the port open? (telnet) → (4) is my firewall/local port the issue? (ss -tulpn)",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Your app is slow only for some users — walk me through your diagnostic order (latency vs throughput, network vs app)",
+         "traceroute shows high latency at hop 3 — is that necessarily the router's fault?",
+         "How do you check DNS resolution, then TCP reachability, then TLS, then the HTTP response — in order, with the right tools?"
+        ],
+        "practice": "Rehearse the 7-step flow (local → DNS → TCP → TLS → HTTP → app → logs) until it's automatic; do one broken-network drill per week.",
+        "depthNote": "This debug flow is the interview answer skeleton — a calm, layer-by-layer diagnostic is worth more than knowing any single tool."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Scope: PAN/LAN/MAN/WAN/GAN, network topologies, IPv4 classes A-E, private IPs (10/8, 172.16/12, 192.168/16, 127 loopback)",
+       "Models: OSI 7 layers vs TCP/IP 4 layers, devices per layer (switch L2/MAC, router L3/IP, bridge)",
+       "Delays: propagation vs transmission vs processing vs queueing",
+       "Diagnostics: ping/TTL (Linux 64, Windows 128), traceroute, 'ping works but HTTP fails' = higher-layer issue",
+       "TLS handshake: asymmetric -> symmetric key exchange, TLS 1.3; certificates",
+       "VLAN 802.1Q + inter-VLAN routing; forward vs reverse proxy (Nginx/Cloudflare); port ranges (0-1023 well-known, 22/80/443/5432)",
+       "Subnetting/CIDR: /24 = 254 usable, /25 split, VLSM",
+       "NAT/PAT: SNAT vs DNAT, when each applies",
+       "TCP: 3-way handshake (SYN/SYN-ACK/ACK), connection states (LISTEN, SYN-SENT, ESTABLISHED, FIN-WAIT...), SYN flood, FIN-ACK-FIN-ACK teardown",
+       "IPv6: 128-bit, SLAAC, IPSec built-in, dual-stack, NAT64",
+       "SRE crossover: DHCP/DNS/ARP mechanics, CDN, TCP state machine (appears in SRE interviews)"
+      ],
+      "demandNotes": "Networking is the most commonly under-prepared area — interviewers love it. Subnetting and TCP handshake are near-guaranteed questions; SNAT/DNAT and TLS handshake show depth. Strong networking = edge over 60% of candidates who skip it.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Networking Interview Questions",
+        "url": "https://www.interviewbit.com/networking-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Computer Networking: A Top-Down Approach (Kurose & Ross)",
+        "url": "https://gaia.cs.umass.edu/kurose_ross/index.php",
+        "kind": "book",
+        "verified": "official-doc"
+       },
+       {
+        "name": "subnettingpractice.com (CIDR drills)",
+        "url": "https://subnettingpractice.com/",
+        "kind": "interactive",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Practical Networking TLS handshake video series",
+        "url": "https://www.practicalnetworking.net/series/packet-travels/tls-handshake/",
+        "kind": "video",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: models, addressing (classes/private/CIDR), subnetting drills daily until instant",
+       "Week 2: TCP/UDP mechanics, handshake/teardown, ports, NAT/PAT, DHCP/DNS/ARP",
+       "Week 3: L2/L3 devices, VLANs, proxies, TLS handshake, IPv6",
+       "Week 4: real diagnostics — build two VMs + one router on your laptop, break and fix connectivity",
+       "Practice: complete subnettingpractice.com until 95%+; explain the 7-step connectivity flow aloud (interview-style)"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "A04",
+     "slug": "docker",
+     "title": "Docker — 'works everywhere'",
+     "icon": "🐳",
+     "type": "core",
+     "weeks": "7–8",
+     "mentalModel": "Code + OS + config bundled into one immutable unit. 'Works on my machine' dies. An image is a blueprint; a container is a running instance.",
+     "exitTest": "You can write a Dockerfile + docker-compose.yml for a small app from memory.",
+     "dependsOn": [
+      "A01",
+      "A03"
+     ],
+     "subTopics": [
+      {
+       "name": "Core skills: run, build, stack",
+       "items": [
+        {
+         "title": "Run & manage",
+         "detail": "docker run, ps, logs, exec, rm",
+         "required": true,
+         "resources": [
+          {
+           "name": "Docker Get Started",
+           "url": "https://docs.docker.com/get-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Play with Docker",
+           "url": "https://labs.play-with-docker.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Dockerfiles",
+         "detail": "FROM, RUN, COPY, CMD; build with docker build -t myapp .",
+         "required": true,
+         "resources": [
+          {
+           "name": "Docker Get Started",
+           "url": "https://docs.docker.com/get-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker Curriculum",
+           "url": "https://docker-curriculum.com/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Ports & volumes",
+         "detail": "-p 8080:8080 exposes; -v mounts a folder so data survives",
+         "required": true,
+         "resources": [
+          {
+           "name": "Docker Get Started",
+           "url": "https://docs.docker.com/get-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker Curriculum",
+           "url": "https://docker-curriculum.com/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Experimentation",
+         "detail": "docker run -it --rm ubuntu bash; break things freely, they're throwaway",
+         "required": true,
+         "resources": [
+          {
+           "name": "Play with Docker",
+           "url": "https://labs.play-with-docker.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker Get Started",
+           "url": "https://docs.docker.com/get-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Compose (multi-service stacks)",
+         "detail": "docker compose up; web server + database together in one YAML",
+         "required": true,
+         "resources": [
+          {
+           "name": "Docker Compose overview",
+           "url": "https://docs.docker.com/compose/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker Get Started",
+           "url": "https://docs.docker.com/get-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Image vs container vs layer — what's the difference and what happens on docker run?",
+         "CMD vs ENTRYPOINT, exec vs shell form — when does each matter?",
+         "COPY vs ADD; why multi-stage builds? Why .dockerignore?",
+         "How do namespaces and cgroups provide isolation? What can a container still see?",
+         "docker run vs start vs exec vs attach — lifecycle states and when to use each"
+        ],
+        "practice": "Containerize the A06 server-stats project with a multi-stage, non-root, healthchecked Dockerfile; run Docker Bench Security and fix findings; build a 3-service compose stack.",
+        "depthNote": "Docker interviews hinge on the mental model (image vs container, isolation primitives) more than command trivia — nail the model first."
+       }
+      },
+      {
+       "name": "One-week project",
+       "items": [
+        {
+         "title": "Containerize a tiny web server",
+         "detail": "python -m http.server is fine, then build a two-service stack — web server + Postgres — with a docker-compose.yml",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through your compose stack — why those services, how do they talk, what survives a restart?",
+         "Your container crashed at 3am — how do you find out why (logs, restart policy, healthcheck)?",
+         "How would you ship this stack to a team — what's in the repo, what's in the docs?"
+        ],
+        "practice": "Build one 3-service app (app+db+cache) with compose, depends_on + healthchecks, env overrides, named volumes; then re-create it from scratch on day 7 from memory.",
+        "depthNote": "The one-week project converts Docker knowledge into a demo you can walk through — the basis of every later container story."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Architecture: 3 components (Client/Docker Host/Registry), daemon vs client, image vs container vs layer",
+       "Dockerfile: FROM/LABEL/RUN/CMD, COPY vs ADD, CMD vs ENTRYPOINT (exec vs shell form), multi-stage builds, .dockerignore",
+       "Lifecycle: created/running/paused/stopped/deleted; docker run vs start vs exec vs attach",
+       "Isolation: namespaces (PID/Mount/User/Network/IPC/UTS), cgroups limits, no full isolation (shared kernel)",
+       "Storage: volumes (-v, /var/lib/docker/volumes/), bind mounts, tmpfs, data persistence patterns",
+       "Restart policies: no/on-failure/unless-stopped/always; exit codes",
+       "Compose: up/run/start, depends_on ordering, environment overrides, docker-compose.{env}.yml, JSON compose (-f)",
+       "Distribution: save/load vs push/pull, tags, registry vs repository",
+       "Security (SRE crossover): content trust, resource limits, Docker Bench Security, minimal base images, non-root user",
+       "Conceptual: virtualization vs containerization, Docker Swarm vs Kubernetes (one-line difference)"
+      ],
+      "demandNotes": "Docker is the must-have baseline — every Pune/remote JD lists it. Mid-level bar: you should be able to write a production Dockerfile (multi-stage, non-root, healthcheck) and debug container networking. Docker + compose is also the fastest path to portfolio demos for A06.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Docker Interview Questions",
+        "url": "https://www.interviewbit.com/docker-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Docker official docs — Get Started",
+        "url": "https://docs.docker.com/get-started/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Play with Docker (interactive sandbox)",
+        "url": "https://labs.play-with-docker.com/",
+        "kind": "interactive",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Dockerfile best practices",
+        "url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: install, run/pull/exec/logs, image vs container mental model, volumes + restart policies",
+       "Week 2: write real Dockerfiles — multi-stage, non-root, healthcheck; COPY vs ADD; .dockerignore",
+       "Week 3: docker-compose for a 3-service app (app+db+cache), depends_on + healthchecks, env overrides",
+       "Week 4: networking (bridge/host/none, user-defined networks), save/load, image layers & caching, security hardening",
+       "Practice: containerize the A06 server-stats project; Docker Bench Security scan + fix findings"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "A05",
+     "slug": "ci-cd",
+     "title": "CI/CD — automate every push",
+     "icon": "⚡",
+     "type": "core",
+     "weeks": "9–10",
+     "mentalModel": "Every push runs a pipeline automatically: test → build → deploy, gated by tests. The magic is the gate — nothing deploys unless tests pass.",
+     "exitTest": "Your repo builds and tests itself on every push, and you can read a failing pipeline log.",
+     "dependsOn": [
+      "A02",
+      "A04"
+     ],
+     "subTopics": [
+      {
+       "name": "Core skills: triggers, jobs, gates",
+       "items": [
+        {
+         "title": "Anatomy of a pipeline",
+         "detail": "Triggers, jobs, steps; on: [push] vs on: [pull_request]",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills: GitHub Actions",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Write one workflow",
+         "detail": "Checkout → run tests → build, on every push",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Gates",
+         "detail": "The pipeline goes red on failure; that red is the feature",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Awesome CI/CD",
+           "url": "https://github.com/ciandcd/awesome-ciandcd",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Deploy step",
+         "detail": "A job that ships the built artifact (Docker image) after tests pass",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Secrets in CI",
+         "detail": "API keys, registry credentials; store in GitHub Secrets, never hardcode or log them; scope secrets to specific environments so prod creds never touch dev pipelines",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions: Using secrets",
+           "url": "https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Actions: Security hardening",
+           "url": "https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "CI vs CD vs CDE — define each and where the human approval sits",
+         "Design a pipeline for a web app: stages, caching, secrets, artifact promotion — what runs where and why?",
+         "Blue/green vs canary vs rolling — tradeoffs and how you'd roll back each",
+         "Your build is flaky — how do you make CI trustworthy (retries, quarantine, deterministic tests)?"
+        ],
+        "practice": "Build a GitHub Actions pipeline (lint→test→build→push with caching + secrets) AND a Jenkins declarative pipeline from scratch; instrument both and write a blameless post-mortem for a fake failure.",
+        "depthNote": "Pipeline design is the interview core — stage order, gate placement, and rollback strategy matter more than any specific tool."
+       }
+      },
+      {
+       "name": "Exit drill",
+       "items": [
+        {
+         "title": "Break it on purpose",
+         "detail": "Push a deliberately broken change → pipeline goes red → read the log → fix → green. Repeat until it's boring.",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Deploy a change to staging and production with a gate — walk me through the whole flow from commit to live",
+         "Your production deploy broke everything — what's your rollback playbook (in order)?",
+         "How do you prove the pipeline works — metrics, alerts, verification steps after deploy?"
+        ],
+        "practice": "The exit drill: push a change → pipeline runs → manual gate → deploy → verify → rollback drill — done solo, timed, from memory.",
+        "depthNote": "This drill is the A05 exit test and the template for every B05 production pipeline — practice it until it's one continuous flow."
+       }
+      },
+      {
+       "name": "On the radar: Jenkins & GitLab CI",
+       "note": "GitHub Actions is the learning tool for this phase. Jenkins and GitLab CI are what Indian enterprise interviews actually test — read these once now so they are not new words in an interview. Phase B (B05) covers both in full depth.",
+       "items": [
+        {
+         "title": "Jenkins awareness",
+         "detail": "The dominant CI in Indian enterprise (TCS/Infosys/Accenture/Wipro); declarative pipelines, master-agent model, plugins. Read the Pipeline tour once — goal is recognition, not mastery.",
+         "required": true,
+         "resources": [
+          {
+           "name": "Jenkins docs",
+           "url": "https://www.jenkins.io/doc/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Jenkins Pipeline tour",
+           "url": "https://www.jenkins.io/doc/pipeline/tour/getting-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "GitLab CI awareness",
+         "detail": ".gitlab-ci.yml, runners, built-in registry & security; appears in most Indian mid-level JDs as a core must-have. Read the quickstart once.",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitLab CI docs",
+           "url": "https://docs.gitlab.com/ee/ci/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "GitLab: first pipeline",
+           "url": "https://docs.gitlab.com/ci/quick_start/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "GitHub Actions vs Jenkins vs GitLab CI — what is different and when would a company use each?",
+         "Jenkins master/agent: what does an agent run and why is it separate from master?",
+         "A company says 'we use Jenkins' — what is your first question? (version? declarative or scripted? where are secrets stored?)"
+        ],
+        "practice": "Read the Jenkins Pipeline tour and run one Jenkinsfile locally via Docker; read one .gitlab-ci.yml in a public repo. Goal: recognize them in interviews, not master them — B05 does that.",
+        "depthNote": "India enterprise hiring is Jenkins-heavy — being unable to read a Jenkinsfile is a visible gap. One read-through of the Pipeline tour closes it."
+       }
+      },
+      {
+       "name": "Agile & delivery practice",
+       "items": [
+        {
+         "title": "Scrum essentials",
+         "detail": "Sprints, stand-ups, backlog, retrospectives; where delivery cadence meets CI/CD",
+         "required": true,
+         "resources": [
+          {
+           "name": "The Scrum Guide",
+           "url": "https://scrumguides.org/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Atlassian Agile Coach",
+           "url": "https://www.atlassian.com/agile",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Kanban & flow",
+         "detail": "WIP limits, pull-based flow, lead time; when continuous flow beats sprints",
+         "required": true,
+         "resources": [
+          {
+           "name": "Atlassian: What is Kanban",
+           "url": "https://www.atlassian.com/agile/kanban",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Agile vs Waterfall vs DevOps",
+         "detail": "Where DevOps fits in delivery culture; the ceremonies you'll actually attend",
+         "required": true,
+         "resources": [
+          {
+           "name": "Simplilearn: DevOps Engineer Skills (JD-derived)",
+           "url": "https://www.simplilearn.com/devops-engineer-skills-article",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through a sprint: what happens in planning, stand-up, review, retro — and where does the pipeline gate fit?",
+         "Scrum vs Kanban — when would you choose each for a platform team?",
+         "Your team has a 2-week release cadence but incidents weekly — how do you reconcile Agile with on-call?"
+        ],
+        "practice": "Run a daily stand-up cadence on your own learning (blocker + plan + done); run one retrospective; map your A05 pipeline work to a Kanban board with WIP limits.",
+        "depthNote": "Interviewers (esp. mid-level) test whether you can speak delivery culture, not just tools — sprint/retro/incident language shows you've operated in a team."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 6 phases of DevOps lifecycle",
+       "CI: build/test automation, continuous testing, shift-left testing, git hooks (pre-commit, pre-receive/update/post-receive)",
+       "CD: continuous delivery vs continuous deployment (one explicit approval vs zero), deployment strategies (blue/green, canary, rolling)",
+       "KPIs: deploy frequency, failed deployment %, MTTR/MTTD, change failure rate",
+       "Jenkins: master-slave/agent model, plugins, $JENKINS_HOME/plugins, restart vs safeRestart, pipeline vs freestyle",
+       "IaC tie-in: imperative vs declarative (Ansible/Terraform), config drift",
+       "Anti-patterns: pipeline as snowflake, long-running builds, flaky tests, manual release steps, post-mortem blame culture",
+       "Post-mortems: blameless, action items, incident timelines"
+      ],
+      "demandNotes": "CI/CD is the core of the DevOps role — expect scenario questions ('how would you roll out to production safely?'). Blue/green + canary answers earn senior-level credit. In remote-India market, GitHub Actions familiarity is increasingly expected alongside Jenkins.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit DevOps Interview Questions",
+        "url": "https://www.interviewbit.com/devops-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Jenkins official docs — Pipeline",
+        "url": "https://www.jenkins.io/doc/book/pipeline/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "GitHub Actions documentation",
+        "url": "https://docs.github.com/en/actions",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "DORA State of DevOps Report",
+        "url": "https://dora.dev/publications/",
+        "kind": "community",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: CI concepts, git hooks, build+test a sample project in Jenkins and GitHub Actions",
+       "Week 2: pipelines as code (Jenkinsfile, workflow YAML), stages, artifacts, caching, secrets",
+       "Week 3: deployment strategies — implement blue/green + canary for a demo app; rollback drills",
+       "Week 4: metrics + post-mortems — instrument your pipeline, write a blameless post-mortem for a fake incident",
+       "Practice: the A06 github-actions-deployment project (888 starters) plus a Jenkins declarative pipeline from scratch"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "A06",
+     "slug": "capstone",
+     "title": "Capstone — a deployed, tested, automated stack",
+     "icon": "🏆",
+     "type": "final",
+     "weeks": "Week 10",
+     "mentalModel": "Bring it together: one small app, fully automated, deployed for free.",
+     "exitTest": "'I can set up a Linux box, version my work with Git, debug network issues, run any app in Docker, and automate testing and deploying with CI/CD.'",
+     "dependsOn": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05"
+     ],
+     "subTopics": [
+      {
+       "name": "The capstone",
+       "items": [
+        {
+         "title": "Bring it together",
+         "detail": "One small app (any language) with: a Dockerfile + docker-compose.yml (web + Postgres); a minimal test suite — at least one unit test + one smoke/integration test (pytest for Python, jest for Node); a GitHub repo with a CI workflow that runs tests on every push and goes red when they fail; a README that documents how to run it",
+         "required": true,
+         "resources": []
+        },
+        {
+         "title": "One real-world variation",
+         "detail": "Deploy it to a free tier (Railway/Render/Fly) with a health check — now it's not a tutorial, it's a portfolio piece",
+         "required": true,
+         "resources": [
+          {
+           "name": "Render free tier docs",
+           "url": "https://render.com/docs/free",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Fly.io docs",
+           "url": "https://fly.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker health checks",
+           "url": "https://docs.docker.com/reference/compose-file/services/#healthcheck",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Community project ladder",
+         "detail": "roadmap.sh beginner DevOps projects (community-tracked, difficulty-tagged — ~8K people started server-stats alone): server-stats, log archive tool, GitHub Pages deploy, basic Dockerfile, EC2 instance",
+         "required": false,
+         "resources": [
+          {
+           "name": "roadmap.sh DevOps projects",
+           "url": "https://roadmap.sh/devops/projects",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "server-stats",
+           "url": "https://roadmap.sh/projects/server-stats",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "log archive tool",
+           "url": "https://roadmap.sh/projects/log-archive-tool",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "basic Dockerfile",
+           "url": "https://roadmap.sh/projects/basic-dockerfile",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through your capstone: what it does, stack, how you'd scale it, what breaks first",
+         "Why these projects in this order — what did each teach you?",
+         "What would you change if you had another week? (looks for prioritization + judgment)"
+        ],
+        "practice": "Do 2 beginner projects/week (server-stats → log-archive → basic-dockerfile → nginx-log-analyser), then github-actions-deployment → ec2-instance (real free tier) → static-site-server; finish with READMEs + diagrams + a 3-min walkthrough video.",
+        "depthNote": "Quality over quantity: one fully-deployed, documented, automated project beats five half-finished ones in every interview."
+       }
+      },
+      {
+       "name": "Later — only when you hit the wall",
+       "items": [
+        {
+         "title": "Kubernetes",
+         "detail": "Start when \"I have 5 servers\" or \"Docker alone isn't enough\" becomes real.",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes docs tutorials",
+           "url": "https://kubernetes.io/docs/tutorials/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "k3s",
+           "url": "https://k3s.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "KodeKloud",
+           "url": "https://kodekloud.com/",
+           "kind": "course",
+           "verified": null
+          }
+         ]
+        },
+        {
+         "title": "Terraform / Infrastructure as Code",
+         "detail": "Start when \"I keep setting up servers by hand\" becomes real.",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform docs",
+           "url": "https://developer.hashicorp.com/terraform/docs",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "KodeKloud",
+           "url": "https://kodekloud.com/",
+           "kind": "course",
+           "verified": null
+          }
+         ]
+        },
+        {
+         "title": "SRE depth",
+         "detail": "SLOs, error budgets, incident response — the reliability math.",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books (free)",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Awesome SRE",
+           "url": "https://github.com/dastergon/awesome-sre",
+           "kind": "community",
+           "verified": null
+          }
+         ]
+        }
+       ],
+       "note": "Rule: do NOT add these until the wall appears. The 5 core topics are the employable foundation; the rest compounds only when needed.",
+       "research": {
+        "interviewFocus": [
+         "What's the trigger that tells you it's time to learn Kubernetes/Terraform/SRE? (looking for honest self-assessment)",
+         "What did you build before learning it, and what problem did it solve?",
+         "What's your learning order and why that order?"
+        ],
+        "practice": "Don't front-load these — reach the wall (a deployment too slow to manage manually, a server you can't rebuild) first, then start the B-phase module that solves it.",
+        "depthNote": "These three 'Later' items are the doorway into B01/B02/B06 — they're marked Later on purpose: context makes the learning 10x faster."
+       }
+      },
+      {
+       "name": "What this lands in your lap",
+       "items": [
+        {
+         "title": "Terminal fluency",
+         "detail": "The difference between \"watching tutorials\" and \"working\".",
+         "required": true,
+         "resources": []
+        },
+        {
+         "title": "A versioned, tested, containerized, auto-deployed repo",
+         "detail": "The portfolio piece.",
+         "required": true,
+         "resources": []
+        },
+        {
+         "title": "The exact foundation of a junior platform/DevOps/SRE role",
+         "detail": "~60–70% of what entry-level interviews test.",
+         "required": true,
+         "resources": []
+        },
+        {
+         "title": "A career lane that is not AI-dependent",
+         "detail": "Compounds with AI when you later add the agent path.",
+         "required": true,
+         "resources": []
+        }
+       ],
+       "note": "Total cost: $0 · Total time: ~8–10 weeks part-time · All links free & community/industry-preferred.",
+       "research": {
+        "interviewFocus": [
+         "Summarize this path in 60 seconds — what can you now do that you couldn't 10 weeks ago?",
+         "Which 3 projects are your portfolio and why those?",
+         "What's your honest level: what would you need to learn to be production-safe in a junior role?"
+        ],
+        "practice": "Write a 1-page 'what I can do' summary; list the 3 portfolio projects with URLs; schedule the first entry-level applications.",
+        "depthNote": "This sub-topic is the A-phase payoff — be able to claim each capability with a project behind it, never with words alone."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Be able to walk through every project: what it does, stack, how you'd scale it, what breaks",
+       "server-stats (8,038 starters), log-archive-tool (2,031), basic-dockerfile (1,255), file-integrity-checker (1,168), github-actions-deployment (888), nginx-log-analyser (884), ssh-remote-server (595), ec2-instance (502), static-site-server (345), simple-monitoring/Netdata (328), basic-dns (262), dummy-systemd (203)",
+       "Intermediate: pomodoro (601), configuration-management/Ansible (339), multi-container (260), automated-backups (132), dockerized-service (178), nodejs-service (149), iac-digitalocean (171), bastion-host (59), vpn-server (56)",
+       "Advanced: blue-green (582), multiservice-docker (406), prometheus-grafana (296), service-discovery/Consul (253)",
+       "Portfolio story: pick 1 from each tier, deploy to a real cloud, write README + architecture diagram"
+      ],
+      "demandNotes": "Live starter counts (roadmap.sh, fetched) show what recruiters actually search for: server-stats and log-archive dominate as screening demos; blue-green + prometheus-grafana signal seniority. A deployed portfolio (Github + live URL) is the single strongest interview artifact.",
+      "verifiedResources": [
+       {
+        "name": "roadmap.sh DevOps Projects",
+        "url": "https://roadmap.sh/devops/projects",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "roadmap.sh DevOps Roadmap",
+        "url": "https://roadmap.sh/devops",
+        "kind": "community",
+        "verified": "official-doc"
+       },
+       {
+        "name": "roadmap.sh Kubernetes Roadmap",
+        "url": "https://roadmap.sh/kubernetes",
+        "kind": "community",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "roadmap.sh AWS Roadmap",
+        "url": "https://roadmap.sh/aws",
+        "kind": "community",
+        "verified": "fetch-verified"
+       }
+      ],
+      "depthSequence": [
+       "Do 2 beginner projects per week in order: server-stats -> log-archive -> basic-dockerfile -> nginx-log-analyser",
+       "Then: github-actions-deployment -> ec2-instance (real AWS free tier) -> static-site-server",
+       "Then intermediate: configuration-management (Ansible) -> multi-container -> iac-digitalocean",
+       "Then advanced: blue-green -> prometheus-grafana -> service-discovery (Consul)",
+       "Finish: deploy all to one cluster/account, add README + diagrams, record a 3-min walkthrough video"
+      ],
+      "certifications": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "name": "Mid-Level Depth",
+   "goal": "Go from 'junior foundation' to 'mid-level operator' — depth, judgment, ownership. The 3 shifts: junior does tasks, mid owns systems; junior knows tools, mid knows failure modes; junior follows runbooks, mid writes them.",
+   "weeks": "11–22 (plus ongoing modules)",
+   "prerequisites": "Phase A (or equivalent) — this is the gap-filler to interview-eligible mid",
+   "modules": [
+    {
+     "id": "B01",
+     "slug": "kubernetes",
+     "title": "Kubernetes — operate, don't deploy",
+     "icon": "🐳",
+     "type": "core",
+     "weeks": "Weeks 1–2",
+     "mentalModel": "Not 'deployed once' — operates it daily. A junior knows what a pod is; a mid knows what a crash-looping pod is and how to fix it in 3 commands.",
+     "exitTest": "You can debug a crash-looping pod from a blank screen in under 10 minutes, and roll back a bad deploy without reading docs.",
+     "dependsOn": [
+      "A04",
+      "A06"
+     ],
+     "subTopics": [
+      {
+       "name": "Workloads & objects",
+       "items": [
+        {
+         "title": "Workloads",
+         "detail": "Deployments, StatefulSets, DaemonSets, Jobs/CronJobs; know which to reach for when",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes Workloads",
+           "url": "https://kubernetes.io/docs/concepts/workloads/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Concepts",
+           "url": "https://kubernetes.io/docs/concepts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Networking objects",
+         "detail": "Services (ClusterIP/NodePort/LoadBalancer), Ingress + controllers, TLS termination",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes Services & Networking",
+           "url": "https://kubernetes.io/docs/concepts/services-networking/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Tutorials",
+           "url": "https://kubernetes.io/docs/tutorials/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Config & storage",
+         "detail": "ConfigMaps, Secrets, PVCs/PVs; ephemeral vs persistent",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Persistent Volumes",
+           "url": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Concepts",
+           "url": "https://kubernetes.io/docs/concepts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Namespaces & labels",
+         "detail": "Organizing, multi-tenancy basics, label selectors",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Namespaces",
+           "url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "kubectl Cheatsheet",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Pod vs Deployment vs StatefulSet vs DaemonSet vs Job/CronJob — when do you choose each?",
+         "What are init containers for? Give a real example.",
+         "requests vs limits — what's the QoS model and what happens when a pod exceeds its limits?",
+         "A pod is CrashLoopBackOff — walk me through your diagnosis (describe, events, logs, probes)"
+        ],
+        "practice": "Create each workload type on minikube; break a Deployment (bad image, bad probe) and fix via kubectl describe + logs; convert a Deployment to a StatefulSet with a PVC.",
+        "depthNote": "Workload selection is the #1 K8s interview question family — know the controller's contract (ordering, identity, scheduling) not just the name."
+       }
+      },
+      {
+       "name": "Operating the cluster",
+       "items": [
+        {
+         "title": "The daily commands",
+         "detail": "kubectl get/describe/logs/exec/port-forward, -o yaml, contexts (config use-context)",
+         "required": true,
+         "resources": [
+          {
+           "name": "kubectl Cheatsheet",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Node operations",
+         "detail": "cordon, drain, uncordon, taints & tolerations; maintenance without downtime",
+         "required": true,
+         "resources": [
+          {
+           "name": "kubectl Cheatsheet: Nodes",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Kubernetes: Taints & Tolerations",
+           "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Rolling deploy + rollback from muscle memory",
+         "detail": "rollout status, rollout undo, --record",
+         "required": true,
+         "resources": [
+          {
+           "name": "kubectl Cheatsheet: Updating resources",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Kubernetes: Rolling updates",
+           "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Helm",
+         "detail": "Package apps as charts; helm install/upgrade/rollback",
+         "required": true,
+         "resources": [
+          {
+           "name": "Helm docs",
+           "url": "https://helm.sh/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Tutorials",
+           "url": "https://kubernetes.io/docs/tutorials/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "etcd backup & restore",
+         "detail": "etcdctl snapshot save/restore; backup frequency; store snapshots safely off-cluster",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Configure etcd (backup)",
+           "url": "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Control plane vs nodes — name the components and what each does (apiserver, scheduler, controller-manager, etcd | kubelet, kube-proxy, runtime)",
+         "What does cordon + drain do and why use a PodDisruptionBudget first?",
+         "Taints & tolerations vs nodeSelector vs nodeAffinity — when is each appropriate?",
+         "A node is unhealthy — how do you detect it and evacuate workloads safely?",
+         "Cluster upgrades: how would you upgrade a self-managed cluster without downtime?",
+         "etcd backup & restore — how do you snapshot etcd and restore a cluster from it (etcdctl snapshot save/restore, frequency, off-cluster storage)?"
+        ],
+        "practice": "Practice maintenance drills: cordon/drain/uncordon a node with a PDB in place; add taints/tolerations; schedule a pod with nodeAffinity and verify placement.",
+        "depthNote": "Operators are hired to keep clusters healthy, not to deploy apps — maintenance commands and their failure modes are the interview meat."
+       }
+      },
+      {
+       "name": "Debugging & failure modes",
+       "items": [
+        {
+         "title": "The four horsemen",
+         "detail": "OOMKilled, ImagePullBackOff, CrashLoopBackOff, node pressure; kubectl describe + logs --previous are your first two moves",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Debugging",
+           "url": "https://kubernetes.io/docs/tasks/debug/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "kubectl Cheatsheet",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Debug in-place",
+         "detail": "exec, ephemeral containers, port-forward, kubectl top for live metrics",
+         "required": true,
+         "resources": [
+          {
+           "name": "kubectl Cheatsheet: Interacting with pods",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Kubernetes: Debug",
+           "url": "https://kubernetes.io/docs/tasks/debug/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Pod stuck Pending — enumerate every cause and how you'd confirm each (describe events first)",
+         "ImagePullBackOff vs CrashLoopBackOff vs OOMKilled — distinct diagnoses for each",
+         "Service not reachable from outside — check ordering: pod → endpoints → service → ingress → DNS → security group",
+         "How do you debug DNS inside the cluster (CoreDNS, nslookup, /etc/resolv.conf)?"
+        ],
+        "practice": "Intentionally break deployments (bad image, missing configmap, wrong selector, probe timeout) and fix each; time yourself and write the diagnosis order on a card.",
+        "depthNote": "Troubleshooting questions outnumber definition questions in CKA-style interviews — practice the describe→logs→events ladder until it's reflexive."
+       }
+      },
+      {
+       "name": "Scheduling & resources",
+       "items": [
+        {
+         "title": "Requests & limits",
+         "detail": "How the scheduler places pods; QoS classes (Guaranteed/Burstable/BestEffort)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Managing resources",
+           "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Concepts",
+           "url": "https://kubernetes.io/docs/concepts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Scaling",
+         "detail": "HPA (Horizontal Pod Autoscaler) basics, kubectl scale",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: HPA",
+           "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "kubectl Cheatsheet",
+           "url": "https://kubernetes.io/docs/reference/kubectl/cheatsheet/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "VPA & cluster autoscaling",
+         "detail": "Vertical Pod Autoscaler (right-size requests) + Cluster Autoscaler/Karpenter (scale nodes); the full autoscaling story beyond HPA",
+         "required": false,
+         "resources": [
+          {
+           "name": "Kubernetes: VPA",
+           "url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Karpenter",
+           "url": "https://karpenter.sh/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Cluster Autoscaler",
+           "url": "https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Pod Disruption Budgets",
+         "detail": "Protect availability during drains/upgrades; minAvailable/maxUnavailable",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Configure PDBs",
+           "url": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes: Disruptions",
+           "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "ResourceQuota & LimitRange",
+         "detail": "Namespace-level governance; stop one team eating the whole cluster",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: ResourceQuota",
+           "url": "https://kubernetes.io/docs/concepts/policy/resource-quotas/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes: LimitRange",
+           "url": "https://kubernetes.io/docs/concepts/policy/limit-range/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Advanced scheduling",
+         "detail": "Topology Spread Constraints, Pod Priorities, node affinity/selectors, evictions; placement control beyond the basics",
+         "required": false,
+         "resources": [
+          {
+           "name": "Kubernetes: Topology Spread Constraints",
+           "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes: Assigning pods to nodes",
+           "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "How does the scheduler pick a node — filtering, scoring, and what data does it use?",
+         "Why is a pod stuck Pending — top causes and how events reveal the answer",
+         "HPA vs VPA vs Cluster Autoscaler vs Karpenter — what does each scale and what are the limits?",
+         "requests vs limits: why set requests low but limits high, or match them? What breaks if you omit them?",
+         "Topology Spread Constraints and node affinity — when do you need them?",
+         "AI/GPU workloads: how do scheduling needs change for GPU inference (vLLM) vs CPU apps — node pools, bin-packing, limits?"
+        ],
+        "practice": "Deploy HPA + VPA side by side; drive load with a load generator and watch replica count and node scaling; simulate a Pending pod and explain the events.",
+        "depthNote": "The autoscaling stack (HPA/VPA/CA/Karpenter) is where platform engineers earn their keep — know the division of labor cold."
+       }
+      },
+      {
+       "name": "Security & RBAC",
+       "items": [
+        {
+         "title": "RBAC",
+         "detail": "ServiceAccounts, Roles/RoleBindings vs ClusterRoles; least-privilege default",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: RBAC",
+           "url": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes: RBAC good practices",
+           "url": "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Pod security",
+         "detail": "securityContext, runAsNonRoot, Pod Security Standards",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Pod Security Standards",
+           "url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Concepts",
+           "url": "https://kubernetes.io/docs/concepts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "How do RBAC roles, RoleBindings, ClusterRoles, and ClusterRoleBindings differ? Give a least-privilege example",
+         "ServiceAccounts: why do pods need one and what happens with automountServiceAccountToken?",
+         "Pod Security Standards (baseline vs restricted) — how do you enforce them?",
+         "Secrets: how are they stored in etcd and what are the real-world options (encryption at rest, External Secrets)?"
+        ],
+        "practice": "Create a least-privilege RBAC policy for a CI pipeline (read pods/logs in one namespace); enable PSS restricted on a namespace and fix a violating pod; explore kubectl auth can-i.",
+        "depthNote": "RBAC + ServiceAccounts + PSS are the 3 security questions that recur in every platform interview — least privilege is the answer theme."
+       }
+      },
+      {
+       "name": "Network policies & service mesh",
+       "items": [
+        {
+         "title": "NetworkPolicies",
+         "detail": "Default-deny thinking; CNI support (Calico/Cilium); micro-segmentation between pods",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Network Policies",
+           "url": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Cilium docs",
+           "url": "https://docs.cilium.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Service mesh",
+         "detail": "Istio/Linkerd: mTLS, traffic shifting, retries at the mesh level (a ~+30% premium skill per India market data)",
+         "required": false,
+         "resources": [
+          {
+           "name": "Istio docs",
+           "url": "https://istio.io/latest/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Linkerd docs",
+           "url": "https://linkerd.io/2.16/overview/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes: Services & Networking",
+           "url": "https://kubernetes.io/docs/concepts/services-networking/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "How do NetworkPolicies work — pod selectors, ingress/egress, default-deny vs allow-all?",
+         "Istio vs Linkerd: sidecar model, mTLS, traffic shifting — when would you adopt a mesh?",
+         "What's the cost of a service mesh (latency, ops, resource)? When is it overkill?",
+         "How do you enforce 'no pod-to-pod except API' with NetworkPolicies?"
+        ],
+        "practice": "Write a default-deny + allow-API NetworkPolicy and verify with a probe pod; install Linkerd, enable mTLS and inspect the mesh dashboard; shift traffic 10/90.",
+        "depthNote": "NetworkPolicy is mandatory baseline; service mesh is the ~30% premium skill — know both, and know when the mesh is the wrong answer."
+       }
+      },
+      {
+       "name": "Extensions & the Operator pattern",
+       "items": [
+        {
+         "title": "CRDs & Operators",
+         "detail": "Why Argo CD, Kyverno, Prometheus Operator all work: they're just controllers watching custom resources; this mental model unlocks every cloud-native tool",
+         "required": false,
+         "resources": [
+          {
+           "name": "Kubernetes: Custom Resources",
+           "url": "https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Operator pattern",
+           "url": "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Managed vs self-managed + multi-cluster",
+         "detail": "The judgment call every platform team faces; EKS/AKS/GKE vs kubeadm; multi-cluster via Argo CD / Cluster API",
+         "required": false,
+         "resources": [
+          {
+           "name": "Cluster API",
+           "url": "https://cluster-api.sigs.k8s.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS EKS docs",
+           "url": "https://docs.aws.amazon.com/eks/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What is a CRD and how does the Operator pattern extend Kubernetes?",
+         "Explain the reconcile loop — what does the controller do when desired != current?",
+         "Give examples of well-known Operators (Prometheus, ArgoCD, cert-manager) and what they automate",
+         "When would you write an Operator vs use plain manifests + ArgoCD?"
+        ],
+        "practice": "Install cert-manager or Prometheus Operator on minikube; create a CR and watch the controller reconcile; read one Operator's code path (e.g., a simple sample-operator).",
+        "depthNote": "Operators are how everything in B05/B08 gets installed — the mental model (declarative desired state + reconcile loop) unlocks ArgoCD, Kyverno, Prometheus-Operator."
+       }
+      },
+      {
+       "name": "Practice environment",
+       "items": [
+        {
+         "title": "Local cluster",
+         "detail": "kind or k3s; the whole mid-level set runs on a laptop",
+         "required": true,
+         "resources": [
+          {
+           "name": "kind",
+           "url": "https://kind.sigs.k8s.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "k3s",
+           "url": "https://k3s.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "minikube vs kind vs a managed cluster (EKS/AKS/GKE) — when would you choose each?",
+         "How do you keep a local cluster from eating your laptop (resources, ephemeral)?",
+         "What's the fastest way to recreate a clean cluster for an experiment?"
+        ],
+        "practice": "Run minikube AND kind locally; destroy/recreate both; then stand up one managed cluster (EKS free tier or AKS) and run the same workloads on it.",
+        "depthNote": "The environment is the multiplier — the CKA/CKAD labs are the gold standard practice, and the managed cluster is where B03/B05 skills meet."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Control plane vs nodes: apiserver, scheduler, controller-manager, etcd | kubelet, kube-proxy, container runtime",
+       "Workloads: Pod vs Deployment vs StatefulSet vs DaemonSet vs Job/CronJob; init containers; requests vs limits (QoS)",
+       "Scheduling: nodeName vs nodeSelector vs nodeAffinity; why a pod stays Pending (kubectl describe, events)",
+       "Maintenance: cordon/drain (PDB minAvailable), taints/tolerations",
+       "Networking: service types (ClusterIP/NodePort/LoadBalancer), Ingress (L7, default backend, TLS secretName), NetworkPolicies",
+       "Storage: PVC/PV/StorageClass, CSI, emptyDir vs hostPath vs volumes",
+       "Config: ConfigMap vs Secret, secretKeyRef, envFrom",
+       "Logging: node agent vs sidecar, EFK/ELK stack",
+       "Monitoring: Prometheus (server, client libraries, pushgateway, exporters, alertmanager), Grafana",
+       "Security: RBAC, namespaces (blue/green, multi-team), admission controllers, audit logs, PodSecurity",
+       "Operators: custom resources + control loops; controller pattern",
+       "Concepts: Docker Swarm vs K8s, imperative vs declarative (kubectl apply), self-healing/reconciliation",
+       "Service mesh: Istio/Linkerd — sidecar injection, mTLS, traffic routing/shift; when a mesh beats NetworkPolicies alone (~+30% premium skill in India data)",
+       "Autoscaling: HPA (metrics-driven) vs VPA (recommender) vs Cluster Autoscaler vs Karpenter — which layer handles what",
+       "ServiceAccounts: how pods authenticate to the API server, RBAC rolebinding, securityContext + Pod Security Standards",
+       "Practice environments: minikube vs kind vs k3s vs managed (EKS/AKS/GKE) — why a real cluster beats a playground",
+       "Operator pattern deep: CRDs (custom resource definitions), controller reconcile loop, Operator SDK; real examples (Prometheus Operator, Argo CD, Kyverno)"
+      ],
+      "demandNotes": "Kubernetes is the #1 premium skill in the mid-level market (see marketData.premiumSkills). Expect a dedicated K8s round: architecture + troubleshooting (Pending/CrashLoopBackOff) are the most-asked. CKA-style hands-on is a differentiator for remote India roles.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Kubernetes Interview Questions",
+        "url": "https://www.interviewbit.com/kubernetes-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Kubernetes official docs — Concepts",
+        "url": "https://kubernetes.io/docs/concepts/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Killercoda interactive K8s playground",
+        "url": "https://killercoda.com/",
+        "kind": "interactive",
+        "verified": "official-doc"
+       },
+       {
+        "name": "roadmap.sh Kubernetes Roadmap",
+        "url": "https://roadmap.sh/kubernetes",
+        "kind": "community",
+        "verified": "fetch-verified"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: architecture + kubectl basics — run pods, deployments, services, expose an app",
+       "Week 2: scheduling + workloads — StatefulSet/DaemonSet/Job, requests/limits, taints, cordon/drain with PDB",
+       "Week 3: config+storage+networking — ConfigMaps/Secrets, PVC, Ingress, NetworkPolicies",
+       "Week 4: troubleshooting drills — intentionally break deployments, fix Pending/CrashLoopBackOff/OOMKilled via describe + logs",
+       "Week 5+: operators, RBAC hardening, Prometheus/Grafana on cluster, ArgoCD (ties to B05)",
+       "Practice environment: run minikube AND kind locally, then one managed cluster (EKS/AKS free tier) — do every drill on a real cluster",
+       "Week 4+: add a service mesh lab (Istio or Linkerd) — install, observe mTLS, traffic split for canary"
+      ],
+      "certifications": [
+       "CKA (Certified Kubernetes Administrator) — after B01; ~+15-25% per marketData",
+       "CKAD (optional — app-developer flavor, lighter on cluster ops)"
+      ]
+     }
+    },
+    {
+     "id": "B02",
+     "slug": "terraform",
+     "title": "Terraform & IaC — state & modularity",
+     "icon": "🏗️",
+     "type": "core",
+     "weeks": "Weeks 3–4",
+     "mentalModel": "Terraform's power and its curse is state — the record of what exists. Mid-level is when you stop fighting state and start managing it: remote, locked, planned.",
+     "exitTest": "You can refactor a monolith main.tf into modules, move state to remote, and safely import an existing resource — without terraform destroy as your only undo.",
+     "dependsOn": [
+      "A01",
+      "A03",
+      "A06"
+     ],
+     "subTopics": [
+      {
+       "name": "Core language",
+       "items": [
+        {
+         "title": "Blocks & providers",
+         "detail": "Provider config, resource/data blocks, provider version pinning",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Language",
+           "url": "https://developer.hashicorp.com/terraform/language",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform Tutorials",
+           "url": "https://developer.hashicorp.com/terraform/tutorials",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Variables, outputs, locals",
+         "detail": "Parameterize everything; no hardcoded values; tfvars for environments",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Values",
+           "url": "https://developer.hashicorp.com/terraform/language/values",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Language",
+           "url": "https://developer.hashicorp.com/terraform/language",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Expressions & meta-arguments",
+         "detail": "for_each/count, depends_on, dynamic blocks",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Expressions",
+           "url": "https://developer.hashicorp.com/terraform/language/expressions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Meta-arguments",
+           "url": "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "OpenTofu",
+         "detail": "The open-source fork of Terraform (HashiCorp relicensed to BSL in 2023); drop-in compatible, community-preferred where licensing matters",
+         "required": false,
+         "resources": [
+          {
+           "name": "OpenTofu docs",
+           "url": "https://opentofu.org/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Terraform: Language",
+           "url": "https://developer.hashicorp.com/terraform/language",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Pulumi awareness",
+         "detail": "TypeScript/Python-native IaC; real programming languages instead of HCL; increasingly in product-company JDs",
+         "required": false,
+         "resources": [
+          {
+           "name": "Pulumi docs",
+           "url": "https://www.pulumi.com/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "AWS-native IaC awareness",
+         "detail": "CloudFormation & AWS CDK: many AWS-heavy Indian shops never touch Terraform; know enough to read and extend",
+         "required": false,
+         "resources": [
+          {
+           "name": "AWS CloudFormation docs",
+           "url": "https://docs.aws.amazon.com/cloudformation/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS CDK docs",
+           "url": "https://docs.aws.amazon.com/cdk/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through write → plan → apply — what happens at each step and what can go wrong?",
+         "provider vs resource vs data source vs variable vs output — the dependency graph between them",
+         "Terraform vs OpenTofu: what changed after the BSL relicensing and why does it matter?",
+         "How does Terraform know what to change (state diff)? What does plan output actually tell you?",
+         "Pulumi vs Terraform — what does IaC in a real programming language (TypeScript/Python) give you, and when would you choose it?"
+        ],
+        "practice": "Provision a VPC + EC2 (or AKS/EKS) purely from a .tf file with variables + outputs; run fmt/validate before every apply; destroy and recreate to prove reproducibility.",
+        "depthNote": "The write→plan→apply mental model is the interview core — practice explaining each phase aloud with the state file as the connective tissue."
+       }
+      },
+      {
+       "name": "State management",
+       "items": [
+        {
+         "title": "Remote state + locking",
+         "detail": "State in S3/GCS/Terraform Cloud; plan before apply is a habit",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: State",
+           "url": "https://developer.hashicorp.com/terraform/language/state",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform Tutorials: cloud-get-started",
+           "url": "https://developer.hashicorp.com/terraform/tutorials/cloud-get-started",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "State surgery",
+         "detail": "Drift, import, state mv/rm; when the real world diverges from config",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: CLI state commands",
+           "url": "https://developer.hashicorp.com/terraform/cli/commands/state",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Import",
+           "url": "https://developer.hashicorp.com/terraform/cli/import",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Workspaces",
+         "detail": "Separating environments (dev/stage/prod) on one config",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Workspaces",
+           "url": "https://developer.hashicorp.com/terraform/language/state/workspaces",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: State",
+           "url": "https://developer.hashicorp.com/terraform/language/state",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What is terraform state and why does it matter? What breaks if you lose it?",
+         "Remote backend: S3 + DynamoDB locking — what does each provide and why both?",
+         "When do you use terraform import vs state rm vs state mv? Give real scenarios",
+         "Sensitive state: how do you keep secrets out of the state file and plan output?"
+        ],
+        "practice": "Migrate a local-state project to S3 + DynamoDB locking; simulate a corrupted state file and recover; import an existing resource and fold it into your config.",
+        "depthNote": "State questions separate juniors from mid-levels — locking, import, and recovery are the interview winners."
+       }
+      },
+      {
+       "name": "Modules & reuse",
+       "items": [
+        {
+         "title": "Write modular, reusable config",
+         "detail": "Modules with inputs/outputs, not one giant main.tf",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Modules",
+           "url": "https://developer.hashicorp.com/terraform/language/modules",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform Tutorials",
+           "url": "https://developer.hashicorp.com/terraform/tutorials",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Module registry & versioning",
+         "detail": "Local vs registry modules; pin versions",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Module sources",
+           "url": "https://developer.hashicorp.com/terraform/language/modules/sources",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform Registry",
+           "url": "https://registry.terraform.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Terragrunt",
+         "detail": "The DRY wrapper teams love: tiny module calls, per-environment state config; 'have you seen it' interview knowledge",
+         "required": false,
+         "resources": [
+          {
+           "name": "Terragrunt docs",
+           "url": "https://terragrunt.gruntwork.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Modules",
+           "url": "https://developer.hashicorp.com/terraform/language/modules",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What makes a good module — inputs, outputs, versioning, and when is a module overkill?",
+         "How do you version modules (registry, Git tags) and pin them safely?",
+         "count vs for_each — when each, and how do you reference their resources?",
+         "How do you share modules across teams without publishing publicly?"
+        ],
+        "practice": "Write one module (e.g., vpc or eks) and consume it from two different root configs; version it with a Git tag; refactor a duplicated config into modules.",
+        "depthNote": "Module design (small inputs, rich outputs, explicit versioning) is the mid-level Terraform interview test."
+       }
+      },
+      {
+       "name": "Plan/apply discipline",
+       "items": [
+        {
+         "title": "Plan reading",
+         "detail": "A terraform plan that shows only the intended diff; knowing when a diff is suspicious",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Plan",
+           "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform Tutorials",
+           "url": "https://developer.hashicorp.com/terraform/tutorials",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Lifecycle guards",
+         "detail": "lifecycle block, prevent_destroy, create_before_destroy; safe destruction",
+         "required": true,
+         "resources": [
+          {
+           "name": "Terraform: Lifecycle",
+           "url": "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Language",
+           "url": "https://developer.hashicorp.com/terraform/language",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "IaC quality gates",
+         "detail": "fmt/validate/tflint in CI, checkov/terrascan security scanning, terraform test; DevSecOps wants misconfig caught before apply",
+         "required": false,
+         "resources": [
+          {
+           "name": "Terraform: CLI commands",
+           "url": "https://developer.hashicorp.com/terraform/cli/commands",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Checkov",
+           "url": "https://www.checkov.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Terraform: Test",
+           "url": "https://developer.hashicorp.com/terraform/language/tests",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Infracost",
+         "detail": "Cost estimation for Terraform plans; CI integration shows $ impact per PR before apply",
+         "required": false,
+         "resources": [
+          {
+           "name": "Infracost docs",
+           "url": "https://www.infracost.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What checks run before apply in a good pipeline (fmt, validate, plan review, tflint, checkov)?",
+         "Someone ran apply directly against prod — how do you prevent it (state locking, approval, plan-as-code)?",
+         "What's the difference between apply -replace and taint, and why is -replace preferred?",
+         "Drift: someone changed infra in the console — how do you detect and reconcile it?",
+         "Infracost — how do you estimate a plan's cost before apply and gate expensive changes in CI?"
+        ],
+        "practice": "Wire terraform fmt --check + validate + plan into a CI pipeline with a human approve gate; trigger drift manually and reconcile via plan/apply; practice apply -replace.",
+        "depthNote": "The discipline (plan review + gates + drift handling) is what makes Terraform safe at work — interviewers probe it to gauge production-readiness."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Core workflow: write -> plan -> apply; providers, resources, data sources",
+       "Commands: init/validate/plan/apply/destroy/fmt; apply -replace (preferred over deprecated taint)",
+       "State: tfstate, remote backend (S3 + DynamoDB locking), state file locking, sensitive state, refresh vs plan",
+       "Modules: terraform-<PROVIDER>-<NAME> naming, registry, outputs -> variables wiring, versioning",
+       "Idempotency/rollback: recommit old code (Terraform has no built-in rollback), import existing resources",
+       "Advanced: null_resource, count vs for_each, terraform_workspace vs terraform_remote_state, Terragrunt (DRY, immutable versioned modules)",
+       "Comparisons: vs Ansible (provision vs config, declarative vs procedural), vs CloudFormation (multi-cloud, HCL vs JSON/YAML, state)",
+       "Terraform Cloud/Enterprise: workspaces, policy-as-code (Sentinel/OPA), runs, VCS-driven",
+       "Request flow architecture: CLI -> provider -> API; graph execution, parallelism"
+      ],
+      "demandNotes": "Terraform is co-listed with Kubernetes in most senior JDs. State management + modules + backend questions are the differentiator. Terragrunt knowledge gives strong bonus points in product companies running multi-env IaC.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Terraform Interview Questions",
+        "url": "https://www.interviewbit.com/terraform-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Terraform official docs — Intro",
+        "url": "https://developer.hashicorp.com/terraform/docs",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "KodeKloud Terraform course",
+        "url": "https://kodekloud.com/",
+        "kind": "course",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Terraform Registry",
+        "url": "https://registry.terraform.io/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: providers, resources, plan/apply/destroy; variable + output basics; terraform fmt/validate",
+       "Week 2: state + remote backends (S3+DynamoDB), locking, import, state move/rm",
+       "Week 3: modules — write and publish one; count/for_each; data sources; workspaces",
+       "Week 4: real infra — provision a VPC+EC2 or AKS/EKS cluster via modules; destroy/recreate",
+       "Practice: iac-digitalocean project (roadmap.sh) then rewrite as modular code; simulate a broken state file and recover"
+      ],
+      "certifications": [
+       "HashiCorp Certified: Terraform Associate"
+      ]
+     }
+    },
+    {
+     "id": "B03",
+     "slug": "aws",
+     "title": "Cloud (AWS) — VPC, IAM, cost",
+     "icon": "☁️",
+     "type": "core",
+     "weeks": "Weeks 5–6",
+     "mentalModel": "One primary cloud (usually AWS). Not 'click in the console' — infrastructure as components you can describe and secure: VPC, subnets, security groups, IAM.",
+     "exitTest": "You can describe your architecture in terms of VPC/subnet/security-group, and explain who can access what (IAM) without guessing.",
+     "dependsOn": [
+      "A01",
+      "A03",
+      "A04"
+     ],
+     "subTopics": [
+      {
+       "name": "Compute & storage",
+       "items": [
+        {
+         "title": "Compute",
+         "detail": "EC2 (instances, AMIs, key pairs), EBS volumes; knowing the free tier boundaries",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS EC2 docs",
+           "url": "https://docs.aws.amazon.com/ec2/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Free Tier",
+           "url": "https://aws.amazon.com/free/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Object storage",
+         "detail": "S3 (buckets, versioning, lifecycle, buckets-as-backends)",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS S3 docs",
+           "url": "https://docs.aws.amazon.com/s3/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Well-Architected",
+           "url": "https://docs.aws.amazon.com/wellarchitected/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Managed databases",
+         "detail": "RDS (Postgres/MySQL), backups, multi-AZ",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS RDS docs",
+           "url": "https://docs.aws.amazon.com/rds/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Free Tier",
+           "url": "https://aws.amazon.com/free/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Serverless",
+         "detail": "Lambda: when serverless fits vs containers; triggers, cold starts, function design",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Lambda docs",
+           "url": "https://docs.aws.amazon.com/lambda/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Compute",
+           "url": "https://aws.amazon.com/lambda/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Containers on AWS",
+         "detail": "ECS/Fargate + ECR vs EKS: when the managed container service beats running your own k8s (very common in Indian companies)",
+         "required": false,
+         "resources": [
+          {
+           "name": "AWS ECS docs",
+           "url": "https://docs.aws.amazon.com/ecs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Fargate",
+           "url": "https://aws.amazon.com/fargate/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS ECR",
+           "url": "https://docs.aws.amazon.com/ecr/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Serverless ecosystem",
+         "detail": "API Gateway + DynamoDB: the pattern that pairs with Lambda in real apps",
+         "required": false,
+         "resources": [
+          {
+           "name": "AWS API Gateway docs",
+           "url": "https://docs.aws.amazon.com/apigateway/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS DynamoDB docs",
+           "url": "https://docs.aws.amazon.com/dynamodb/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "EC2 instance families — how do you pick the right one for a workload (general/compute/memory/storage/accelerated)?",
+         "On-demand vs spot vs reserved/Savings Plans — cost/latency tradeoffs and when spot is acceptable",
+         "stop vs terminate — what survives each? EBS volume lifecycle and snapshots",
+         "S3 storage classes + lifecycle rules — when does cold storage make sense?",
+         "EBS vs EFS vs S3 — pick storage for a stateful app and justify"
+        ],
+        "practice": "Launch an EC2 via console and via Terraform; attach a volume, snapshot it, restore it; create an S3 lifecycle policy; right-size one instance using CloudWatch metrics.",
+        "depthNote": "EC2/S3 choices with justification are the core AWS interview pattern — always answer with 'for this workload, because...'."
+       }
+      },
+      {
+       "name": "Databases in production",
+       "items": [
+        {
+         "title": "SQL vs NoSQL",
+         "detail": "When to reach for Postgres vs DynamoDB/MongoDB: relations, scale, access patterns",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS DynamoDB docs",
+           "url": "https://docs.aws.amazon.com/dynamodb/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "MongoDB documentation",
+           "url": "https://www.mongodb.com/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Backups & point-in-time recovery",
+         "detail": "Snapshot, PITR, restore drill; tie to the RTO/RPO targets from B06",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS RDS docs",
+           "url": "https://docs.aws.amazon.com/rds/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "PostgreSQL backup docs",
+           "url": "https://www.postgresql.org/docs/current/backup-dump.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Connection pooling & slow queries",
+         "detail": "PgBouncer, indexes, EXPLAIN ANALYZE; the database as the app's bottleneck",
+         "required": true,
+         "resources": [
+          {
+           "name": "PgBouncer",
+           "url": "https://www.pgbouncer.org/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "PostgreSQL: Using EXPLAIN",
+           "url": "https://www.postgresql.org/docs/current/using-explain.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "SQL vs NoSQL — how do you decide for a new service? Give a decision rule, not a preference",
+         "A query is slow in production — what's your diagnosis order (EXPLAIN, indexes, connection pool, locks)?",
+         "Walk me through a restore drill: snapshot → PITR → verify — and how it maps to your RTO/RPO"
+        ],
+        "practice": "Run Postgres in Docker, load data, add an index, EXPLAIN ANALYZE before/after; set up a nightly pg_dump + a restore drill; stand up PgBouncer and watch connection limits.",
+        "depthNote": "Databases are the #1 'sleeper' interview topic for platform roles — most candidates skip it, and a confident SQL-vs-NoSQL + restore answer separates you fast."
+       }
+      },
+      {
+       "name": "Networking",
+       "items": [
+        {
+         "title": "VPC & subnets",
+         "detail": "CIDR blocks, public/private subnets, route tables, internet gateway, NAT gateway",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS VPC docs",
+           "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS EC2 docs",
+           "url": "https://docs.aws.amazon.com/ec2/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Security groups & NACLs",
+         "detail": "Instance-level vs subnet-level filtering; default-deny discipline",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS VPC: Security groups",
+           "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS VPC docs",
+           "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "DNS & routing",
+         "detail": "Route 53: hosted zones, records, aliases; how traffic finds your service",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Route 53 docs",
+           "url": "https://docs.aws.amazon.com/route53/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Networking",
+           "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "VPC anatomy: subnets/AZ, IGW, NAT, route tables — draw the flow of a request in vs out",
+         "Security Groups vs NACLs — stateful vs stateless, and why SG rules are inbound-only",
+         "How do you diagnose a blocked connection (VPC Flow Logs, SG/NACL rules, reachability analyzer)?",
+         "VPC peering vs Transit Gateway vs VPN — when each"
+        ],
+        "practice": "Build a 2-tier VPC (public web + private app) with NAT; block traffic via SG and via NACL and observe the difference; enable VPC Flow Logs and query them.",
+        "depthNote": "The SG/NACL stateful-vs-stateless distinction and the in/out request flow are the two most-asked AWS networking questions."
+       }
+      },
+      {
+       "name": "Load balancing & scaling",
+       "items": [
+        {
+         "title": "Load balancers",
+         "detail": "ALB/NLB; target groups, listeners, health checks",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Elastic Load Balancing docs",
+           "url": "https://docs.aws.amazon.com/elasticloadbalancing/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS EC2 docs",
+           "url": "https://docs.aws.amazon.com/ec2/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Auto Scaling Groups",
+         "detail": "Launch templates, min/max/desired, scaling policies",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS EC2 Auto Scaling docs",
+           "url": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS EC2 docs",
+           "url": "https://docs.aws.amazon.com/ec2/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Managed Kubernetes",
+         "detail": "EKS basics; how it maps to the k8s you learned in B01",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS EKS docs",
+           "url": "https://docs.aws.amazon.com/eks/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes Tutorials",
+           "url": "https://kubernetes.io/docs/tutorials/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Well-Architected thinking",
+         "detail": "The 6 pillars (Operational Excellence, Security, Reliability, Performance, Cost, Sustainability) as your design-review checklist; interviews ask for it",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Well-Architected",
+           "url": "https://docs.aws.amazon.com/wellarchitected/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS WAF Framework",
+           "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "ALB vs NLB vs CLB — protocol, features, and when you'd pick each",
+         "How does an ASG work with an ELB — health checks, cooldown, lifecycle hooks, scaling policies",
+         "Target groups, sticky sessions, and connection draining — what problem does each solve?",
+         "Route 53 routing policies: simple, weighted, latency, failover — give a use case for each"
+        ],
+        "practice": "Deploy a web app behind ALB + ASG; set up a scale-out policy and drive load to watch it scale; configure weighted routing and failover; drain + replace an instance.",
+        "depthNote": "ELB+ASG integration is the classic mid-level AWS scenario — know the health-check → deregister → scale cycle end to end."
+       }
+      },
+      {
+       "name": "IAM & security",
+       "items": [
+        {
+         "title": "IAM least-privilege",
+         "detail": "'Who can touch what' is second nature; roles, policies, no root keys in code",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS IAM docs",
+           "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Well-Architected",
+           "url": "https://docs.aws.amazon.com/wellarchitected/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Credentials hygiene",
+         "detail": "No keys in code/repos; roles for EC2; SSO/identity center",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS IAM: Best practices",
+           "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS IAM docs",
+           "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "AWS Organizations & SCPs",
+         "detail": "Multi-account strategy; SCPs as guardrails that override IAM; OU hierarchy",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Organizations: What is AWS Organizations",
+           "url": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS: SCPs",
+           "url": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Second cloud awareness",
+         "detail": "Azure is growing fast in India (Pune MNCs); multi-cloud is a premium skill: learn the concepts once, the console differs",
+         "required": false,
+         "resources": [
+          {
+           "name": "Azure DevOps docs",
+           "url": "https://learn.microsoft.com/en-us/azure/devops/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GCP DevOps",
+           "url": "https://cloud.google.com/architecture/devops",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "IAM policy structure: Effect/Action/Resource/Condition — write a least-privilege S3 policy from scratch",
+         "Roles vs users vs instance profiles — when does an EC2 get credentials and how?",
+         "How do you scope an IAM role for a CI/CD pipeline (short-lived creds, external ID)?",
+         "What is the AWS shared responsibility model and where does IAM sit in it?",
+         "AWS Organizations & SCPs — how do SCPs act as guardrails that override IAM, and what's a multi-account OU strategy?"
+        ],
+        "practice": "Write policies for: read-only S3, full EKS, and CI deploy; attach a role to an EC2 via instance profile; test over-permission and under-permission scenarios; use Access Analyzer.",
+        "depthNote": "IAM policy authoring is a hands-on interview task — practice writing JSON policies cold, and always answer with least privilege."
+       }
+      },
+      {
+       "name": "Cost & FinOps",
+       "items": [
+        {
+         "title": "Cost awareness",
+         "detail": "Read a bill, find the money, tag resources, set budgets",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Cost Management",
+           "url": "https://docs.aws.amazon.com/cost-management/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Well-Architected: Cost pillar",
+           "url": "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Monitoring basics",
+         "detail": "CloudWatch metrics, alarms, log groups",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS CloudWatch docs",
+           "url": "https://docs.aws.amazon.com/cloudwatch/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Well-Architected",
+           "url": "https://docs.aws.amazon.com/wellarchitected/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Your bill doubled — walk me through your investigation order (Cost Explorer, tags, unused resources)",
+         "Right-sizing: how do you find over-provisioned instances and what's the fix?",
+         "Spot/reserved/Savings Plans: how would you design a cost strategy for dev vs prod?",
+         "How do you enforce tagging and budgets so costs don't recur (Budget alerts, anomaly detection)?"
+        ],
+        "practice": "Enable Cost Explorer + budgets with alerts; tag all resources; run a right-sizing pass on every running instance; find and kill 3 idle resources; document the savings.",
+        "depthNote": "FinOps answers show ownership — the investigation order (find → tag → right-size → alert) is the interview story skeleton."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Compute: EC2 (types by use: general/compute/memory/storage/accelerated; T2 burstable), on-demand vs spot vs reserved, stop vs terminate, key pairs, AMI components, private IP immutable",
+       "Network: VPC (200 subnets max), subnets/AZ, IGW/NAT, security groups (stateful, inbound-only rules) vs NACLs (stateless, explicit in+out), CloudWatch + VPC Flow Logs for monitoring",
+       "Storage: S3 storage classes (Standard/IA/RRS/Glacier), multipart upload >100MB, S3 as REST service, EBS vs instance store, connection draining (ELB)",
+       "DNS/CDN: Route 53 (global DNS, nearest DC routing), CloudFront (Geo-Targeting)",
+       "IAM: roles, federated access, Power User vs Admin, password policies, least privilege",
+       "Scaling/HA: AZ vs Region, autoscaling lifecycle hooks, consistency models (eventual vs strong), RTO/RPO",
+       "Service model: IaaS/PaaS/SaaS, Snowball (data transfer), CloudWatch alarms",
+       "Cost & FinOps: right-sizing from CloudWatch metrics, spot vs reserved mix + Savings Plans, tagging strategy + cost allocation tags, AWS Budgets + anomaly detection alerts, idle cleanup (unattached EBS, unused EIPs, stopped instances)",
+       "ELB specifics: ALB vs NLB vs CLB, target groups, health checks, sticky sessions, connection draining",
+       "Route 53 routing policies: simple / weighted / latency / failover / geolocation, alias vs CNAME records",
+       "IAM deep: policy structure (Effect/Action/Resource/Condition), inline vs managed policies, roles vs users, instance profiles, cross-account assume-role"
+      ],
+      "demandNotes": "AWS is the dominant cloud in the Indian market (see marketData). Focus on the core trio (EC2/VPC/S3) + IAM for interviews; serverless (Lambda) is a plus. Hands-on free-tier projects (ec2-instance, iac-digitalocean/AWS equivalent) prove real experience.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit AWS Interview Questions",
+        "url": "https://www.interviewbit.com/aws-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "AWS official docs — Getting Started",
+        "url": "https://docs.aws.amazon.com/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "roadmap.sh AWS Roadmap",
+        "url": "https://roadmap.sh/aws",
+        "kind": "community",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "AWS Skill Builder free courses",
+        "url": "https://skillbuilder.aws/",
+        "kind": "course",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: EC2 + key pairs + security groups; launch a web server via SSH; stop vs terminate",
+       "Week 2: VPC — subnets, IGW, NAT, route tables; SG vs NACL hands-on; VPC Flow Logs",
+       "Week 3: S3 (classes, multipart, presigned URLs) + IAM (roles/policies, least privilege)",
+       "Week 4: ELB + ASG + lifecycle hooks + CloudWatch; Route 53 basics",
+       "Practice: repeat the A06 ec2-instance + static-site projects on real free-tier; build one full 3-tier app",
+       "Week 4 add: cost dashboard + AWS Budgets + tagging policy; do a right-sizing pass on every running instance"
+      ],
+      "certifications": [
+       "AWS Certified DevOps Engineer – Associate — after B03; ~+20-30% per marketData",
+       "AWS Certified Solutions Architect – Associate (optional — broader, good for platform roles)"
+      ]
+     }
+    },
+    {
+     "id": "B04",
+     "slug": "observability",
+     "title": "Observability depth — SLOs & traces",
+     "icon": "📊",
+     "type": "core",
+     "weeks": "Weeks 5–6",
+     "mentalModel": "A junior installs Prometheus; a mid writes dashboards that answer questions and knows the math of reliability: SLOs and error budgets.",
+     "exitTest": "Given a slow endpoint, you can say which metric moved, follow the trace to the culprit service, and decide whether it's an alert or noise.",
+     "dependsOn": [
+      "A03",
+      "B01"
+     ],
+     "subTopics": [
+      {
+       "name": "Metrics",
+       "items": [
+        {
+         "title": "Metrics that matter",
+         "detail": "RED (Rate, Errors, Duration) and USE (Utilization, Saturation, Errors); p50/p95/p99 and why percentiles matter",
+         "required": true,
+         "resources": [
+          {
+           "name": "Prometheus Overview",
+           "url": "https://prometheus.io/docs/introduction/overview/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Prometheus: Querying basics (PromQL)",
+           "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "PromQL",
+         "detail": "Queries, rate/irate, aggregations, recording rules",
+         "required": true,
+         "resources": [
+          {
+           "name": "Prometheus: PromQL basics",
+           "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Prometheus: Recording rules",
+           "url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Instrumentation",
+         "detail": "Exposing your own app's metrics (counters, gauges, histograms)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Prometheus: Instrumenting",
+           "url": "https://prometheus.io/docs/instrumenting/clientlibs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Prometheus Overview",
+           "url": "https://prometheus.io/docs/introduction/overview/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Prometheus pull model — how does scraping work and what happens when a target is down?",
+         "Counter vs gauge vs histogram vs summary — give a real metric for each",
+         "Labels: how do you design them to avoid cardinality explosions?",
+         "Recording rules — when to precompute and why?"
+        ],
+        "practice": "Install Prometheus + node-exporter; scrape 3 targets; write queries for CPU, memory, request rate, error rate; create 3 recording rules; alert on one.",
+        "depthNote": "Metric types + labels are the Prometheus interview core — answer with concrete examples, not definitions."
+       }
+      },
+      {
+       "name": "Dashboards & visualization",
+       "items": [
+        {
+         "title": "Grafana",
+         "detail": "Dashboards that answer questions; templating, annotations, dashboard-as-code",
+         "required": true,
+         "resources": [
+          {
+           "name": "Grafana docs",
+           "url": "https://grafana.com/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Prometheus Overview",
+           "url": "https://prometheus.io/docs/introduction/overview/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What makes a dashboard useful at 3am — what belongs on the wall vs the page?",
+         "Grafana: data sources, variables, and how you avoid dashboard sprawl",
+         "Red-yellow-green vs raw numbers — what do senior engineers actually look at first?"
+        ],
+        "practice": "Build a Grafana dashboard for your demo service: RED metrics, one variable, one alert; then delete half the panels — keep only what a new on-call would need.",
+        "depthNote": "Dashboard design is judged by judgment, not tooling — interviewers ask what you'd show, not how to click."
+       }
+      },
+      {
+       "name": "Logs",
+       "items": [
+        {
+         "title": "Log aggregation",
+         "detail": "Loki or ELK; central search across services",
+         "required": true,
+         "resources": [
+          {
+           "name": "Grafana Loki docs",
+           "url": "https://grafana.com/docs/loki/latest/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Grafana docs",
+           "url": "https://grafana.com/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Log correlation",
+         "detail": "Linking a trace ID to logs; logs as the second stop after traces",
+         "required": true,
+         "resources": [
+          {
+           "name": "OpenTelemetry docs",
+           "url": "https://opentelemetry.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Grafana Loki docs",
+           "url": "https://grafana.com/docs/loki/latest/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Structured vs unstructured logs — what does each give you and how do you enforce structure?",
+         "Centralized logging: EFK/ELK vs Loki — pull vs push, index vs label tradeoffs",
+         "How do you trace one request across 5 services using correlation IDs?",
+         "Log rotation and retention — how do you avoid the disk-full-and-logs-are-the-cause trap?"
+        ],
+        "practice": "Ship logs from a demo app to Loki (or ELK); query with filters; add a correlation ID through a 2-service flow; set up logrotate + retention.",
+        "depthNote": "Correlation across services is the senior-logging test — structured logs + correlation IDs are the answer template."
+       }
+      },
+      {
+       "name": "Tracing",
+       "items": [
+        {
+         "title": "OpenTelemetry",
+         "detail": "Traces/spans, contexts, propagation; follow one request through 5 services",
+         "required": true,
+         "resources": [
+          {
+           "name": "OpenTelemetry docs",
+           "url": "https://opentelemetry.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "OpenTelemetry: Distributed tracing (traces)",
+           "url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Sampling & cost",
+         "detail": "Head vs tail sampling; traces-first, logs-second discipline",
+         "required": true,
+         "resources": [
+          {
+           "name": "OpenTelemetry: Sampling",
+           "url": "https://opentelemetry.io/docs/concepts/sampling/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "OpenTelemetry docs",
+           "url": "https://opentelemetry.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "OpenTelemetry Collector",
+         "detail": "Receives traces/metrics/logs from apps, processes, and routes to backends; replaces direct SDK→backend coupling",
+         "required": true,
+         "resources": [
+          {
+           "name": "OpenTelemetry Collector docs",
+           "url": "https://opentelemetry.io/docs/collector/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Grafana Alloy",
+         "detail": "Grafana-native unified collector (successor to Grafana Agent); pipelines for metrics, logs, traces",
+         "required": false,
+         "resources": [
+          {
+           "name": "Grafana Alloy docs",
+           "url": "https://grafana.com/docs/alloy/latest/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Trace vs span vs context propagation — how does a trace span service boundaries?",
+         "Sampling: head vs tail, and why trace 100% is a trap",
+         "OpenTelemetry: how do you instrument an app without touching business logic?",
+         "How do you use a trace to find a 500ms hidden dependency?",
+         "OpenTelemetry Collector — what role does it play between apps and backends (receivers, processors, exporters)?",
+         "Grafana Alloy vs OTel Collector — when would you use the Grafana-native collector?"
+        ],
+        "practice": "Instrument a 2-service app with OpenTelemetry; export to a tracing backend; add sampling; find a slow dependency in the waterfall and confirm with the trace.",
+        "depthNote": "Tracing is the newest and most premium observability skill — be ready to explain propagation and sampling fluently."
+       }
+      },
+      {
+       "name": "SLOs & alerting",
+       "items": [
+        {
+         "title": "SLOs & error budgets",
+         "detail": "'99.9% availability = ~43 min downtime/month'; budget for deploys, not just measure uptime",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books (free)",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Prometheus: Alerting best practices",
+           "url": "https://prometheus.io/docs/practices/alerting/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Alerting that doesn't scream",
+         "detail": "Fewer, better alerts; alert on symptoms not causes; severity vs silence",
+         "required": true,
+         "resources": [
+          {
+           "name": "Prometheus: Alerting",
+           "url": "https://prometheus.io/docs/alerting/latest/overview/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Prometheus: Alertmanager",
+           "url": "https://prometheus.io/docs/alerting/latest/alertmanager/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE: Monitoring",
+           "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "SLI vs SLO vs SLA — define each and give a real example with numbers",
+         "Error budgets: how do you decide when to freeze features? Walk through the math",
+         "Alert on symptom or cause? Give an alert that follows the rule and one that breaks it",
+         "What's the difference between alerting on burn rate vs static thresholds?"
+        ],
+        "practice": "Define SLI/SLO for your demo service (e.g., 99.9% availability over 30d); build an error-budget burn alert; page yourself with a test alert and write the runbook.",
+        "depthNote": "SLO math (availability %, error budget, burn rate) is the SRE interview signature — practice explaining it with concrete numbers."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Definitions: SLI vs SLO vs SLA (measurable indicator, internal target, legal commitment); error budgets",
+       "Three pillars: metrics, logs, traces; observability vs monitoring (unknown unknowns)",
+       "Prometheus: pull model, metrics types (counter/gauge/histogram/summary), labels, recording rules, alerting (Alertmanager), exporters, pushgateway",
+       "Grafana: dashboards, data sources, alerting, variables; Loki for logs; Tempo for traces; OpenTelemetry (vendor-neutral instrumentation)",
+       "Stack on K8s: node-exporter, kube-state-metrics, cAdvisor; EFK/ELK for logs (filebeat/Fluentd -> ES -> Kibana)",
+       "APR (Accelerated Problem Resolution): monitoring & alerting -> rapid diagnosis -> mitigation -> post-mortem -> improvement",
+       "Practical: build a monitoring strategy for a service that has none (classic SRE question)"
+      ],
+      "demandNotes": "Observability is a premium skill in mid-level JDs (Prometheus + Grafana appear in ~70% of senior postings). SRE salaries in India: 6-15 LPA fresher, 13-26 LPA experienced (InterviewBit). The prometheus-grafana project (296 starters) is the go-to portfolio piece.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit SRE Interview Questions",
+        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Prometheus official docs",
+        "url": "https://prometheus.io/docs/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Grafana Labs docs (Grafana/Loki/Tempo)",
+        "url": "https://grafana.com/docs/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "OpenTelemetry docs",
+        "url": "https://opentelemetry.io/docs/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: SLI/SLO/SLA + error budgets; define SLOs for a demo service",
+       "Week 2: Prometheus — install, scrape config, node-exporter, metrics types, recording rules, Alertmanager",
+       "Week 3: Grafana — dashboards, alerting, Loki logs; instrument an app with OpenTelemetry",
+       "Week 4: full stack on K8s — prometheus-grafana project (roadmap.sh, 296 starters), EFK for logs",
+       "Practice: run the simple-monitoring (Netdata) project first, then upgrade to Prometheus+Grafana"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "B05",
+     "slug": "ci-cd-gitops",
+     "title": "CI/CD as a product — GitOps & canary",
+     "icon": "⚡",
+     "type": "core",
+     "weeks": "Weeks 7–8",
+     "mentalModel": "A junior writes one pipeline; a mid writes reusable, parameterized pipelines and treats Git as the source of truth (GitOps).",
+     "exitTest": "You can promote a change through staging → prod with a canary step, and roll it back by reverting one Git commit.",
+     "dependsOn": [
+      "A02",
+      "A05",
+      "B01"
+     ],
+     "subTopics": [
+      {
+       "name": "Pipeline design",
+       "items": [
+        {
+         "title": "Reusable pipelines",
+         "detail": "Shared workflows, matrix builds, templates; one change fixes every pipeline",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills: Actions",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Caching & speed",
+         "detail": "Dependency caching, parallel jobs, buildkit; pipelines that don't waste developer time",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions: Caching",
+           "url": "https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Jenkins",
+         "detail": "Still the dominant CI in Indian enterprise/service companies (TCS/Infosys/Accenture); declarative pipelines, plugins, master-agent",
+         "required": true,
+         "resources": [
+          {
+           "name": "Jenkins docs",
+           "url": "https://www.jenkins.io/doc/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Jenkins Pipeline tutorial",
+           "url": "https://www.jenkins.io/doc/pipeline/tour/getting-started/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "GitLab CI",
+         "detail": "One of the 'core must-haves' in India job posts; .gitlab-ci.yml, runners, built-in registry & security",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitLab CI docs",
+           "url": "https://docs.gitlab.com/ee/ci/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "GitLab: first pipeline",
+           "url": "https://docs.gitlab.com/ci/quick_start/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "DORA metrics instrumentation",
+         "detail": "Measure deploy frequency, lead time, change failure rate, MTTR; use CI/CD event data + Grafana/custom dashboards",
+         "required": true,
+         "resources": [
+          {
+           "name": "DORA (canonical source)",
+           "url": "https://dora.dev/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google: Four Keys to measure DevOps performance",
+           "url": "https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Design a production pipeline: lint → test → build → push → deploy — where do gates, caching, and secrets live?",
+         "Build once, deploy many — how do you avoid rebuilding per environment?",
+         "Pipeline as code: Jenkinsfile vs GitHub Actions workflow — structure, stages, artifacts",
+         "Your pipeline is the bottleneck — where do you speed it up (cache, parallel, selective runs)?",
+         "DORA metrics — what are the Four Key Metrics and how do you instrument them from CI/CD data?"
+        ],
+        "practice": "Build a real Jenkins + GitHub Actions pipeline with lint→test→build→push, caching + secrets; draw the CI/CD handoff diagram (who owns artifact promotion).",
+        "depthNote": "Pipeline design is the B05 foundation — the handoff from CI (build/test) to CD (deploy) must be crisp before GitOps makes sense."
+       }
+      },
+      {
+       "name": "Environments & gates",
+       "items": [
+        {
+         "title": "Environments & approvals",
+         "detail": "Staging vs prod, manual approval gates, protection rules",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions: Environments",
+           "url": "https://docs.github.com/en/actions/deployment",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Skills",
+           "url": "https://skills.github.com/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Secrets in CI",
+         "detail": "Encrypted secrets, scoping, rotation; never in logs",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions: Secrets",
+           "url": "https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Actions: Security",
+           "url": "https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "dev → staging → prod — what's promoted and what changes between environments (config, not code)?",
+         "How do you prevent 'works on my machine' — parity, immutable artifacts, env-specific config?",
+         "Manual approval gates vs automated quality gates — where does each belong?",
+         "How do you handle hotfixes bypassing the pipeline safely?"
+        ],
+        "practice": "Set up 3 environments with one promoted artifact (same image tag, different config); add a UAT approval gate; practice a hotfix path that still records a trace.",
+        "depthNote": "Environment/gate design is where interviewers test production judgment — promote artifacts, not code; gate with evidence, not vibes."
+       }
+      },
+      {
+       "name": "GitOps",
+       "items": [
+        {
+         "title": "GitOps",
+         "detail": "Git is the source of truth; the cluster syncs itself (Argo CD or Flux)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Argo CD docs",
+           "url": "https://argo-cd.readthedocs.io/en/stable/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Flux docs",
+           "url": "https://fluxcd.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Sync & drift",
+         "detail": "How Argo CD/Flux reconcile, OutOfSync states, auto-sync policies",
+         "required": true,
+         "resources": [
+          {
+           "name": "Argo CD: User guide",
+           "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Flux: Core concepts",
+           "url": "https://fluxcd.io/flux/concepts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "GitOps principles: Git as single source of truth, declarative state, automated convergence — why is this better than kubectl apply?",
+         "ArgoCD: how does the app controller detect and fix drift? What is OutOfSync?",
+         "ArgoCD vs Flux — architecture and when you'd choose each",
+         "Internal developer platforms (IDP): what problem does Backstage/Port solve, and when does a platform team adopt one vs plain GitOps?",
+         "Secrets in GitOps: SOPS/External Secrets/Sealed Secrets — how do you keep Git the source of truth without leaking?"
+        ],
+        "practice": "Deploy ArgoCD to a local cluster; register a repo; create an Application; watch sync/OutOfSync; try auto vs manual sync; delete a manifest and watch it reconcile.",
+        "depthNote": "GitOps is the platform-engineering identity — the reconcile loop and 'no kubectl apply from CI' handoff are the interview pillars."
+       }
+      },
+      {
+       "name": "Progressive delivery",
+       "items": [
+        {
+         "title": "Canary & blue-green",
+         "detail": "Deploys that dare to go wrong slowly; traffic shifting, automated analysis",
+         "required": true,
+         "resources": [
+          {
+           "name": "Argo Rollouts docs",
+           "url": "https://argoproj.github.io/argo-rollouts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Flagger docs",
+           "url": "https://flagger.app/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Feature flags",
+         "detail": "Dark launches; flag-driven behavior as a rollout tool",
+         "required": true,
+         "resources": [
+          {
+           "name": "Flagger docs",
+           "url": "https://flagger.app/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Argo Rollouts docs",
+           "url": "https://argoproj.github.io/argo-rollouts/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Canary vs blue/green vs rolling — tradeoffs and how you shift traffic safely",
+         "Argo Rollouts: how do analysis steps (metrics) gate a canary automatically?",
+         "How do you observe a canary — what metrics prove it's safe before 100%?",
+         "What's the rollback story for each strategy — how fast, how clean?"
+        ],
+        "practice": "Install Argo Rollouts; run a blue/green and a canary with an analysis step; send bad traffic and watch the rollout abort; roll back deliberately.",
+        "depthNote": "Progressive delivery pairs with GitOps in every senior JD — the analysis-step gate is the differentiator between demo and production."
+       }
+      },
+      {
+       "name": "Artifacts & rollback",
+       "items": [
+        {
+         "title": "Artifacts & registries",
+         "detail": "Container registry, immutable tags, versioning",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Packages",
+           "url": "https://docs.github.com/en/packages",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Docker Registry docs",
+           "url": "https://docs.docker.com/registry/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Rollback built in",
+         "detail": "Every pipeline has a rollback path, not bolted on after an incident",
+         "required": true,
+         "resources": [
+          {
+           "name": "GitHub Actions: Deployment protection rules",
+           "url": "https://docs.github.com/en/actions/deployment",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Argo CD: Rollback",
+           "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Immutable artifacts: why tag images by SHA, never by 'latest'? What's the registry layout?",
+         "SBOM: what's inside your artifact and why does DevSecOps demand it?",
+         "Rollback strategies: roll forward vs roll back vs freeze — decision framework at 2am",
+         "How do you prove a rollback worked (verification, not just 'it's deployed')?"
+        ],
+        "practice": "Set up an artifact registry with SHA tags; generate an SBOM with Trivy/Syft; practice roll-forward and roll-back drills with verification steps.",
+        "depthNote": "Artifact discipline (immutable + SBOM + attestation) is the modern supply-chain interview answer — rollback strategy is its operational twin."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "GitOps principles: Git = single source of truth, declarative desired state, automated convergence, auditability",
+       "ArgoCD: declarative GitOps CD for K8s; app controller continuously compares live vs desired state; OutOfSync detection",
+       "Architecture: Application Controller, Repo Server, API Server, Dex/SSO; kubectl apply -n argocd install",
+       "Manifest sources: kustomize, helm, jsonnet, plain YAML, config management plugins",
+       "Tracking: branch, tag, or pinned commit; sync policies (auto/manual), sync waves + phases, PreSync/Sync/PostSync hooks (blue/green & canary)",
+       "Features: multi-cluster management, RBAC/multi-tenancy, SSO (OIDC/OAuth2/LDAP/SAML), rollback to any commit, drift detection, webhooks (GitHub/BitBucket/GitLab), Prometheus metrics",
+       "Flux vs ArgoCD (one-line each; ArgoCD has richer UI, Flux is tighter with GitOps toolkit)",
+       "Secret management: sealed-secrets, SOPS, External Secrets Operator",
+       "Pipeline design: build once / deploy many (artifact reuse), pipeline as code (Jenkinsfile / GitHub Actions YAML / GitLab CI), stages (lint→test→build→scan→push→deploy), caching, parallel jobs, secrets injection",
+       "Environments & gates: dev/staging/prod parity, manual approval gates vs auto-promote, UAT, environment-specific config, promotion vs re-deploy",
+       "Artifacts & rollback: container registry (ECR/GHCR/Artifactory), immutable tags (sha256), semver, artifact provenance/SBOM, rollback options (revert commit vs redeploy previous artifact vs ArgoCD rollback)",
+       "CI vs CD handoff: CI builds the artifact, CD deploys it; with GitOps nobody kubectl-applies from CI — the controller syncs from Git"
+      ],
+      "demandNotes": "GitOps/ArgoCD is the fastest-rising premium skill (see marketData.premiumSkills) — mid-level JDs increasingly require it. Being able to demo a working ArgoCD sync on your own cluster is a top-tier interview differentiator in the Pune/remote market.",
+      "verifiedResources": [
+       {
+        "name": "Argo CD official docs — Overview",
+        "url": "https://argo-cd.readthedocs.io/en/stable/",
+        "kind": "official-docs",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Argo Rollouts (blue/green + canary) docs",
+        "url": "https://argo-rollouts.readthedocs.io/en/stable/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Flux CD docs",
+        "url": "https://fluxcd.io/flux/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "GitOps definition (CNCF)",
+        "url": "https://opengitops.dev/",
+        "kind": "community",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: pipeline design FIRST — build a real Jenkins + GitHub Actions pipeline (lint→test→build→push), with caching + secrets; write the CI/CD handoff diagram",
+       "Week 2: GitOps mental model; deploy ArgoCD to a local cluster (kubectl apply, get admin password, argocd login)",
+       "Week 3: register a Git repo, create an Application, watch sync/OutOfSync; auto vs manual sync policies",
+       "Week 4: kustomize + helm sources; sync waves + hooks; blue/green with Argo Rollouts",
+       "Week 5: multi-cluster + RBAC + SSO; secrets with SOPS/External Secrets; webhook-triggered sync; artifacts & rollback drill"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "B06",
+     "slug": "reliability",
+     "title": "Reliability craft — incidents & chaos",
+     "icon": "🛡️",
+     "type": "core",
+     "weeks": "Weeks 9–10",
+     "mentalModel": "The part that can't be learned from a course — but can be practiced: incidents, chaos experiments, scaling, and restore drills.",
+     "exitTest": "You can run a kill-a-pod experiment, observe the steady state, and write a blameless postmortem with a real follow-up action.",
+     "dependsOn": [
+      "B01",
+      "B04"
+     ],
+     "subTopics": [
+      {
+       "name": "Incident response",
+       "items": [
+        {
+         "title": "Incident response",
+         "detail": "Severity levels, triage, comms, incident commander role; calm under the pager",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books (free)",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE: Postmortem culture",
+           "url": "https://sre.google/sre-book/postmortem-culture/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Escalation & comms",
+         "detail": "When to escalate, status updates, blameless culture",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Being on-call",
+           "url": "https://sre.google/sre-book/being-on-call/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through an incident from detection to resolution — who does what, when do you escalate?",
+         "Severity levels: define SEV1–SEV3 and give the escalation criteria for each",
+         "Mitigate vs fix: why do you restore service first and debug later? Give an example",
+         "How do you communicate during an incident (status pages, war room, stakeholder updates)?",
+         "Your page fires at 3am — what's your first 10 minutes in order?"
+        ],
+        "practice": "Run a game day: break a service, practice the full loop (detect → triage → mitigate → communicate → resolve); write a status-page update under time pressure; drill the first-10-minutes aloud.",
+        "depthNote": "The incident-response interview tests process, not heroics — mitigate first, communicate early, and always have the severity/escalation ladder memorized."
+       }
+      },
+      {
+       "name": "Postmortems",
+       "items": [
+        {
+         "title": "Blameless postmortems",
+         "detail": "Timeline, root cause, action items, follow-up ownership",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Postmortem culture",
+           "url": "https://sre.google/sre-book/postmortem-culture/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What makes a postmortem blameless? How do you write action items that actually prevent recurrence?",
+         "Postmortem structure: timeline, root cause, contributing factors, actions — what belongs in each?",
+         "How do you handle a postmortem where the 'cause' is human error?",
+         "How do you track postmortem action items to completion without a bureaucracy?"
+        ],
+        "practice": "Write a full blameless postmortem for a fake (or real) incident: timeline, impact, 5-whys root cause, 3 action items with owners; review it as if you were a peer.",
+        "depthNote": "Blameless culture is the SRE signature — interviewers listen for blame-free language and concrete, owned action items."
+       }
+      },
+      {
+       "name": "Chaos engineering",
+       "items": [
+        {
+         "title": "Chaos thinking",
+         "detail": "Steady state, hypothesis, controlled experiments, blast radius",
+         "required": true,
+         "resources": [
+          {
+           "name": "Principles of Chaos Engineering",
+           "url": "https://principlesofchaos.org/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Chaos Monkey",
+           "url": "https://netflix.github.io/chaosmonkey/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Game days",
+         "detail": "Kill a pod, throttle a network, see what breaks before production does",
+         "required": true,
+         "resources": [
+          {
+           "name": "Principles of Chaos Engineering",
+           "url": "https://principlesofchaos.org/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Chaos Monkey",
+           "url": "https://netflix.github.io/chaosmonkey/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Chaos Mesh (k8s-native)",
+         "detail": "Install, run a pod-kill / network-latency experiment, verify the hypothesis",
+         "required": true,
+         "resources": [
+          {
+           "name": "Chaos Mesh docs",
+           "url": "https://chaos-mesh.org/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Litmus Chaos",
+         "detail": "CNCF k8s-native alternative; Litmus portal for experiment management",
+         "required": true,
+         "resources": [
+          {
+           "name": "LitmusChaos",
+           "url": "https://litmuschaos.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What is chaos engineering and what is it NOT (it's not random breaking)?",
+         "Design a chaos experiment: hypothesis, blast radius, rollback — walk me through one",
+         "Chaos Mesh vs Litmus vs Gremlin — when would you use each?",
+         "How do you convince a skeptical team to allow chaos in staging/prod?"
+        ],
+        "practice": "Run one Litmus/Chaos Mesh experiment (pod kill, network latency) on your cluster with a stated hypothesis; verify the system's behavior matches your prediction; write up the result.",
+        "depthNote": "The hypothesis-driven experiment is the interview core — chaos without a hypothesis is just breaking things."
+       }
+      },
+      {
+       "name": "Capacity & scaling",
+       "items": [
+        {
+         "title": "Autoscaling",
+         "detail": "HPA, when to scale up vs out, quotas",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kubernetes: Horizontal Pod Autoscaling",
+           "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Kubernetes docs",
+           "url": "https://kubernetes.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Load & performance testing",
+         "detail": "Baseline, soak, spike; k6 as the standard tool",
+         "required": true,
+         "resources": [
+          {
+           "name": "k6 docs",
+           "url": "https://k6.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "How do you forecast capacity — what metrics, what lead time, and what's the margin?",
+         "Scale up vs scale out — when each, and what breaks when you scale out (state, sessions)?",
+         "How do you load test safely — tooling, staged ramp, and how you read the knee of the curve?",
+         "Your service hit 100% CPU — what's the triage order (hot path, autoscaling, throttling)?"
+        ],
+        "practice": "Load test your demo service with k6 (staged ramp to find the knee); wire autoscaling to the metric; run a 'capacity table' exercise forecasting 2x traffic.",
+        "depthNote": "Capacity answers with numbers (knee, margin, lead time) signal real operational experience — always quantify."
+       }
+      },
+      {
+       "name": "Backups & DR",
+       "items": [
+        {
+         "title": "Backups & restore drills",
+         "detail": "Have actually restored from backup, not just taken backups; drills are the test",
+         "required": true,
+         "resources": [
+          {
+           "name": "PostgreSQL backup docs",
+           "url": "https://www.postgresql.org/docs/current/backup-dump.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE: Data integrity",
+           "url": "https://sre.google/sre-book/data-integrity/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "RTO/RPO & failover",
+         "detail": "Recovery objectives; multi-AZ, multi-region thinking",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Disaster Recovery",
+           "url": "https://aws.amazon.com/disaster-recovery/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE: Data integrity",
+           "url": "https://sre.google/sre-book/data-integrity/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Cluster backup with Velero",
+         "detail": "Backup/restore/migrate entire k8s clusters + persistent volumes; the standard DR answer",
+         "required": true,
+         "resources": [
+          {
+           "name": "Velero docs",
+           "url": "https://velero.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Velero: disaster recovery",
+           "url": "https://velero.io/docs/v1.18/disaster-case",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "RTO vs RPO — define and give a target for a database service; how do you choose?",
+         "3-2-1 backup rule — what is it and how does it apply to databases and clusters?",
+         "Velero: how do you back up and restore a Kubernetes cluster? What does it NOT back up?",
+         "Disaster recovery strategies: backup/restore vs pilot light vs warm standby vs multi-region — tradeoffs",
+         "When was the last time you tested a restore — and why does untested backup not count?"
+        ],
+        "practice": "Set up Velero on minikube; schedule a backup; destroy a namespace and restore it; run a restore drill on a real DB (pg_dump/pg_restore) and time the RTO/RPO.",
+        "depthNote": "The restore drill is the answer to almost every backup interview question — 'backed up' means 'restored and verified', always."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "SRE fundamentals: what is SRE vs DevOps (DevOps = how software is built; SRE = keeping it running), error budgets, toil reduction, automation",
+       "Incident response: detection (monitoring/alerting), rapid diagnosis, mitigation (hotfix, reroute, scale), post-mortem (blameless, action items, documentation), continuous improvement",
+       "SLI/SLO/SLA + error budget math; APR stages",
+       "Reliability patterns: redundancy, failover, retries/backoff, circuit breakers, rate limiting, graceful degradation",
+       "Chaos engineering: game days, chaos experiments (Chaos Monkey, litmus/chaos-mesh), blast radius control",
+       "Capacity/scaling: vertical vs horizontal, autoscaling, load testing",
+       "Backups/DR: RTO/RPO, RAID levels, backups + restore drills, 3-2-1 rule",
+       "Culture: blameless post-mortems, on-call best practices, incident communication",
+       "Incident mechanics: severity levels (SEV1-3), escalation paths, status pages + stakeholder comms, runbook quality, incident timeline reconstruction",
+       "Backups: 3-2-1 rule, Velero for Kubernetes, restore drills, RTO/RPO validation (backups you never restore = fiction)"
+      ],
+      "demandNotes": "SRE roles pay premium (13-26 LPA experienced in India). Reliability questions combine ops + engineering judgment — practice the 'how would you handle an outage' scenario. Chaos engineering and error budgets are the senior differentiators.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit SRE Interview Questions",
+        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Google SRE Book (free)",
+        "url": "https://sre.google/sre-book/table-of-contents/",
+        "kind": "book",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Chaos Mesh docs",
+        "url": "https://chaos-mesh.org/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "PagerDuty incident response docs",
+        "url": "https://response.pagerduty.com/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: SRE principles — error budgets, toil, automation; read SRE book ch.1-4",
+       "Week 2: SLI/SLO/SLA — define + monitor for your own service; alert on error budget burn",
+       "Week 3: incident response — run a game day; write a blameless post-mortem template; practice on-call scenarios aloud",
+       "Week 4: chaos + capacity — run a chaos experiment (Chaos Mesh/litmus) on your cluster; load test + autoscale",
+       "Practice: connect everything to B04 monitoring; every project should have an SLO + post-mortem doc"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "B07",
+     "slug": "automation",
+     "title": "Automation — idempotent scripts",
+     "icon": "🔧",
+     "type": "force-multiplier",
+     "weeks": "Ongoing",
+     "mentalModel": "The force multiplier: one good script saves a hundred manual hours; a mid's scripts run unattended and fail loudly.",
+     "exitTest": "Your scripts run unattended, fail loudly with a clear message, and can be re-run safely.",
+     "dependsOn": [
+      "A01",
+      "A06"
+     ],
+     "subTopics": [
+      {
+       "name": "Bash mastery",
+       "items": [
+        {
+         "title": "Real Bash",
+         "detail": "Globbing, pipes, exit codes, error handling, set -euo pipefail",
+         "required": true,
+         "resources": [
+          {
+           "name": "BashGuide (wooledge)",
+           "url": "https://mywiki.wooledge.org/BashGuide",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "ShellCheck",
+           "url": "https://github.com/koalaman/shellcheck",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Text processing",
+         "detail": "jq for JSON, awk/sed for logs, cut/tr for parsing",
+         "required": true,
+         "resources": [
+          {
+           "name": "jq manual",
+           "url": "https://jqlang.github.io/jq/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "BashGuide",
+           "url": "https://mywiki.wooledge.org/BashGuide",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "set -euo pipefail — what does each flag do and why do you use them in every script?",
+         "Write a function that retries a command 3 times with backoff — live",
+         "Exit codes, $?, positional params, $@ vs $* — scripting fundamentals",
+         "sed/awk/grep/find — pick the right one for: parse a log, replace in-place, find files by age",
+         "Debugging: set -x, shellcheck — how do you make a failing script explain itself?"
+        ],
+        "practice": "Write 5 utility scripts (backup, log rotator, health check, retry wrapper, cron-driven cleanup); run shellcheck until 0 warnings; refactor one script to be idempotent.",
+        "depthNote": "Live shell scripting is a guaranteed interview segment — set -euo pipefail + shellcheck-clean is the baseline everyone checks for."
+       }
+      },
+      {
+       "name": "Python glue",
+       "items": [
+        {
+         "title": "Python for glue",
+         "detail": "The automation language; argparse, requests, clear error handling",
+         "required": true,
+         "resources": [
+          {
+           "name": "Python docs",
+           "url": "https://docs.python.org/3/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Real Python",
+           "url": "https://realpython.com/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Go (read-level, optional)",
+         "detail": "The language k8s, Terraform, and most cloud-native tools are written in; reading tool source is a mid-level superpower",
+         "required": false,
+         "resources": [
+          {
+           "name": "Go docs",
+           "url": "https://go.dev/doc/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Go by Example",
+           "url": "https://gobyexample.com/",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Logging & observability of scripts",
+         "detail": "Output that a future-you can read at 3am",
+         "required": true,
+         "resources": [
+          {
+           "name": "BashGuide: Input and Output",
+           "url": "https://mywiki.wooledge.org/BashGuide/InputAndOutput",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Python logging docs",
+           "url": "https://docs.python.org/3/howto/logging.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Write a script that reads a JSON config, calls an API, and fails loudly — live",
+         "argparse vs env vars for CLI tools — when does each make sense?",
+         "boto3/requests: error handling, retries with backoff, and how to avoid silent failures",
+         "How do you decide bash vs Python for a task? Give the rule of thumb",
+         "YAML/JSON parsing with pyyaml — how do you validate config before acting on it?"
+        ],
+        "practice": "Write a Python ops script that reads YAML, calls an API, retries with backoff, logs structured output, and exits non-zero on failure; add unit tests with pytest + vcrpy.",
+        "depthNote": "Python is the 'automation language' in JDs — interviewers want to see robust error handling, not clever one-liners."
+       }
+      },
+      {
+       "name": "Safety & idempotency",
+       "items": [
+        {
+         "title": "Idempotency",
+         "detail": "'Run twice = run once'; every script should be re-runnable without damage",
+         "required": true,
+         "resources": [
+          {
+           "name": "BashGuide: Practices",
+           "url": "https://mywiki.wooledge.org/BashGuide/Practices",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "ShellCheck",
+           "url": "https://github.com/koalaman/shellcheck",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Dry-run & guards",
+         "detail": "--dry-run flags, lock files, explicit confirmation for destructive steps",
+         "required": true,
+         "resources": [
+          {
+           "name": "BashGuide: Practices",
+           "url": "https://mywiki.wooledge.org/BashGuide/Practices",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Python docs",
+           "url": "https://docs.python.org/3/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What makes a script idempotent? Give a concrete example (e.g., creating a user or a cron entry)",
+         "Lock files / flock — how do you prevent two concurrent runs from corrupting state?",
+         "Dry-run mode and --force flags — how do you design safe destructive operations?",
+         "How do you handle partial failure — run the whole thing or leave it half-done? What's the recovery?"
+        ],
+        "practice": "Rewrite your backup script to be fully idempotent with flock; add a --dry-run; simulate a partial failure and a re-run to prove it converges.",
+        "depthNote": "Idempotency is the difference between scripts and engineering — every interview follow-up on automation leads here."
+       }
+      },
+      {
+       "name": "Scheduling & tooling",
+       "items": [
+        {
+         "title": "Scheduling",
+         "detail": "Cron, systemd timers, CI cron; cron expression mastery",
+         "required": true,
+         "resources": [
+          {
+           "name": "crontab.guru",
+           "url": "https://crontab.guru/",
+           "kind": "interactive",
+           "verified": "official-doc"
+          },
+          {
+           "name": "systemd timers",
+           "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Task runners",
+         "detail": "Makefile as the universal entry point; make test, make deploy",
+         "required": true,
+         "resources": [
+          {
+           "name": "GNU Make manual",
+           "url": "https://www.gnu.org/software/make/manual/make.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "BashGuide",
+           "url": "https://mywiki.wooledge.org/BashGuide",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "tmux",
+         "detail": "Terminal multiplexer; persist sessions across SSH disconnects; split panes for parallel monitoring during incidents",
+         "required": true,
+         "resources": [
+          {
+           "name": "tmux wiki",
+           "url": "https://github.com/tmux/tmux/wiki",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Ham Vocke: A quick and easy guide to tmux",
+           "url": "https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "cron vs systemd timers — when would you choose a timer and what do you get (persist, calendar syntax, logging)?",
+         "How do you monitor that a scheduled job actually ran (exit status, output, alerts)?",
+         "make for task automation — when is it the right tool vs a shell script?",
+         "Log rotation: how do you stop logs from filling the disk (logrotate, retention)?",
+         "tmux — how do you keep a session alive across SSH disconnects and split panes for parallel monitoring?"
+        ],
+        "practice": "Convert a cron job to a systemd timer; add a success/failure notification; create a Makefile that wraps your project's tasks (lint/test/build); set up logrotate.",
+        "depthNote": "Scheduled-job reliability is a real on-call pain — 'did it run and did it alert if not' is the answer interviewers want."
+       }
+      },
+      {
+       "name": "Config management (Ansible)",
+       "items": [
+        {
+         "title": "Ansible basics",
+         "detail": "Inventory, ad-hoc commands, playbooks; the #1 config-management tool named in Pune/India job skill lists",
+         "required": true,
+         "resources": [
+          {
+           "name": "Ansible docs",
+           "url": "https://docs.ansible.com/ansible/latest/index.html",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Ansible: Getting started",
+           "url": "https://docs.ansible.com/ansible/latest/getting_started/index.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Ansible Vault & idempotency",
+         "detail": "Encrypt secrets in playbooks; playbooks safe to re-run (module/state model)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Ansible Vault",
+           "url": "https://docs.ansible.com/ansible/latest/vault_guide/index.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Ansible: modules intro",
+           "url": "https://docs.ansible.com/ansible/latest/module_plugin_guide/modules_intro.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Where Ansible fits vs Terraform",
+         "detail": "Terraform provisions, Ansible configures; the division of labor every team debates",
+         "required": true,
+         "resources": [
+          {
+           "name": "Ansible vs Terraform (Red Hat)",
+           "url": "https://www.redhat.com/en/topics/automation/ansible-vs-terraform",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Ansible docs",
+           "url": "https://docs.ansible.com/ansible/latest/index.html",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Ansible collections",
+         "detail": "The modern packaging unit (replaces standalone roles); ansible-galaxy collection install; community.general, amazon.aws, kubernetes.core",
+         "required": true,
+         "resources": [
+          {
+           "name": "Ansible: Collections guide",
+           "url": "https://docs.ansible.com/ansible/latest/collections_guide/index.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Ansible Galaxy",
+           "url": "https://galaxy.ansible.com/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Ansible ad-hoc vs playbooks vs roles — when does each scale?",
+         "Idempotency in Ansible: modules vs shell — why is the apt/service module safer than shell?",
+         "handlers/notify, register/set_fact, delegate_to — give a real use case for each",
+         "Ansible Vault: how do you store secrets and when do you NOT put them in the repo?",
+         "Dynamic inventory (aws_ec2 plugin) — how does Ansible know about your cloud hosts?",
+         "Ansible collections vs roles — what changed and how do you install/use collections (ansible-galaxy)?"
+        ],
+        "practice": "Write an install-nginx playbook with handlers; add a role; encrypt a secret with vault; use dynamic AWS inventory; run the roadmap.sh configuration-management project.",
+        "depthNote": "Ansible is dominant in Indian enterprise (TCS/Infosys/Accenture) — module-idempotency over shell is the answer theme interviewers check."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "Bash: shebang, exit codes ($?), positional params ($1..$n, $#, $*, $@), variables (env vs user-defined), control flow (if/case/for/while/until), functions, pipes, metacharacters, sed/awk/grep/find, debug (set -x/-v), $/$$/$!",
+       "Cron/anacron: scheduling, cron.allow/cron.deny, log rotation (logrotate)",
+       "Python for ops: scripting, requests/boto3, argparse, error handling, YAML/JSON parsing (pyyaml)",
+       "jq: JSON parsing on CLI for API/cloud automation",
+       "Ansible: agentless + SSH push model, inventory (static/dynamic), playbooks/tasks/handlers, modules (core vs extras), roles + Galaxy, ad-hoc commands, vault (secrets), register/set_fact, delegate_to, become, synchronize/rsync, Tower/AWX",
+       "Config management: declarative vs imperative, idempotency, config drift",
+       "Ansible vs Puppet vs Chef vs Terraform (one-line each)",
+       "Task tooling: make for task automation, cron alternatives (systemd timers, Jenkins scheduled jobs), lock files / flock for idempotent concurrent runs"
+      ],
+      "demandNotes": "Automation is where 'senior' is proven — interviewers ask you to write a script live. Shell + Python + Ansible is the standard toolkit; jq appears in cloud automation tasks. Ansible roles + vault are expected mid-level depth.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit Ansible Interview Questions",
+        "url": "https://www.interviewbit.com/ansible-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "InterviewBit Shell Scripting Interview Questions",
+        "url": "https://www.interviewbit.com/shell-scripting-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Ansible official docs — Getting Started",
+        "url": "https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Bash Reference Manual",
+        "url": "https://www.gnu.org/software/bash/manual/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: bash — control flow, functions, sed/awk/grep, pipes; write 5 utility scripts (backup, log rotator, health check)",
+       "Week 2: python for ops — script that reads YAML/JSON, calls an API, and fails loudly; argparse + logging",
+       "Week 3: Ansible — inventory, ad-hoc, playbooks, handlers, modules; install nginx playbook (InterviewBit exercise)",
+       "Week 4: Ansible deep — roles, vault, register/set_fact, delegate_to, dynamic inventory (aws_ec2); configuration-management project (roadmap.sh, 339 starters)",
+       "Practice: automate your own VM setup end-to-end with one Ansible playbook; keep every script on GitHub"
+      ],
+      "certifications": [
+       "Red Hat Certified Specialist in Ansible Automation (optional — enterprise signal)"
+      ]
+     }
+    },
+    {
+     "id": "B08",
+     "slug": "ownership",
+     "title": "Ownership — on-call & runbooks",
+     "icon": "🧭",
+     "type": "career",
+     "weeks": "Ongoing",
+     "mentalModel": "Mid-level is where you stop being assigned work and start owning systems. This is the least 'technical' module and the most valuable.",
+     "exitTest": "A stranger could take your on-call shift using only your runbooks, and your systems have no secrets in code.",
+     "dependsOn": [
+      "B01",
+      "B03",
+      "B07"
+     ],
+     "subTopics": [
+      {
+       "name": "On-call",
+       "items": [
+        {
+         "title": "On-call maturity",
+         "detail": "Calm under the pager; know when to escalate, not just fix",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Being on-call",
+           "url": "https://sre.google/sre-book/being-on-call/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Rotations & handoff",
+         "detail": "Good shift handoffs, documentation of open issues, pager discipline",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Being on-call",
+           "url": "https://sre.google/sre-book/being-on-call/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through your on-call rotation: what's in your runbook, how do you triage, when do you escalate?",
+         "Severity levels + escalation tree — define them for a service you own",
+         "A page fires at 3am and the runbook is wrong — what do you do (and how do you fix the runbook after)?",
+         "How do you reduce on-call load over time (toil reduction, alert hygiene, automation)?",
+         "How do you hand over an incident shift cleanly?",
+         "On-call across time zones — how do you run a follow-the-sun rotation and what makes the handoff safe when you've never met your counterpart?",
+         "An incident fires at 2am your time and the rest of the team is asleep in other zones — walk me through your response and escalation."
+        ],
+        "practice": "Write runbooks for your own services (symptoms → diagnosis → fix → escalate); define severity + escalation tree; do a practice on-call shift with mock pages.",
+        "depthNote": "On-call questions test ownership — the runbook-first, escalate-with-evidence, fix-the-process mindset is what interviewers screen for."
+       }
+      },
+      {
+       "name": "Documentation",
+       "items": [
+        {
+         "title": "Runbooks & docs",
+         "detail": "Written so a future junior can do the job without you",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google Technical Writing courses",
+           "url": "https://developers.google.com/tech-writing/",
+           "kind": "course",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "ADRs & architecture notes",
+         "detail": "Recording why decisions were made, not just what",
+         "required": true,
+         "resources": [
+          {
+           "name": "ADR GitHub",
+           "url": "https://adr.github.io/",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google Technical Writing courses",
+           "url": "https://developers.google.com/tech-writing/",
+           "kind": "course",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "What belongs in a runbook vs an architecture doc vs an ADR? When do you write each?",
+         "How do you keep docs from rotting — ownership, review cadence, doc-as-code?",
+         "Write an ADR for a decision you made — walk me through the format and why it matters",
+         "How do you document for a future junior so they can do the job without you?",
+         "Remote-first async work — how does it change how you document and communicate? Give your async communication pattern."
+        ],
+        "practice": "Ship every project with a runbook, one ADR, and a README that a stranger can follow; take Google's Technical Writing courses; review a teammate's doc.",
+        "depthNote": "Documentation is the B08 theme that ties to on-call — 'a future junior can do it' is the quality bar interviewers probe."
+       }
+      },
+      {
+       "name": "Security instinct",
+       "items": [
+        {
+         "title": "Security instinct",
+         "detail": "Secrets, least privilege, patching cadence as default behavior, not an afterthought",
+         "required": true,
+         "resources": [
+          {
+           "name": "OWASP",
+           "url": "https://owasp.org/",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS IAM docs",
+           "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "CVE triage",
+         "detail": "Knowing what to patch now vs next Tuesday; supply-chain awareness",
+         "required": true,
+         "resources": [
+          {
+           "name": "OWASP",
+           "url": "https://owasp.org/",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "GitHub Advisory Database",
+           "url": "https://github.com/advisories",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Least privilege — walk me through applying it to a new service (IAM, RBAC, network, secrets)",
+         "Secrets management: Vault vs SOPS vs External Secrets — when do you reach for each?",
+         "SSH hardening: what do you actually change on a server (keys, root login, ports, 2FA)?",
+         "TLS everywhere: where do certs come from and how do you rotate them automatically?",
+         "How do you respond to a reported vulnerability in a dependency you run?"
+        ],
+        "practice": "Threat-model one project with STRIDE; harden SSH on a test VM and verify; install cert-manager and auto-rotate a cert; scan a container image and fix findings.",
+        "depthNote": "Security instinct = asking 'who can do what, and how would I know if it was abused' — least privilege + secrets hygiene are the recurring answers."
+       }
+      },
+      {
+       "name": "Container & supply-chain security",
+       "items": [
+        {
+         "title": "Image scanning",
+         "detail": "Trivy/Grype in CI: scan every image for CVEs before it ships; fail the build on criticals",
+         "required": true,
+         "resources": [
+          {
+           "name": "Trivy docs",
+           "url": "https://trivy.dev/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Trivy: vulnerability scanning",
+           "url": "https://trivy.dev/docs/latest/guide/scanner/vulnerability/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "SBOM & provenance",
+         "detail": "Know what's inside your images; attestations; the supply-chain story DevSecOps demands",
+         "required": true,
+         "resources": [
+          {
+           "name": "SLSA framework",
+           "url": "https://slsa.dev/",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Trivy: SBOM",
+           "url": "https://trivy.dev/docs/latest/guide/supply-chain/sbom/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Container image signing (Cosign)",
+         "detail": "Keyless signing via Sigstore OIDC; verify signatures in CI before deploy",
+         "required": true,
+         "resources": [
+          {
+           "name": "Cosign docs (Sigstore)",
+           "url": "https://docs.sigstore.dev/cosign/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Enforce signed images with Kyverno",
+         "detail": "Policy that rejects unsigned images in prod namespaces",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kyverno docs",
+           "url": "https://kyverno.io/docs/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Policy as code",
+         "detail": "Kyverno/OPA gate what can be deployed (no latest tags, no privileged pods, image allow-lists)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Kyverno docs",
+           "url": "https://kyverno.io/docs/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "OPA docs",
+           "url": "https://www.openpolicyagent.org/docs/latest/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Secrets management at scale",
+         "detail": "Vault: dynamic secrets, rotation, audit; SOPS covers the basics, Vault is the enterprise answer; in GitOps, External Secrets Operator / Sealed Secrets sync secrets from Git safely",
+         "required": true,
+         "resources": [
+          {
+           "name": "HashiCorp Vault docs",
+           "url": "https://developer.hashicorp.com/vault/docs",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Vault: getting started",
+           "url": "https://developer.hashicorp.com/vault/tutorials/getting-started",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "External Secrets Operator",
+           "url": "https://external-secrets.io/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Trivy: image vs filesystem vs SBOM scanning — what does each catch and how do you gate builds on it?",
+         "SBOM + SLSA: what's in your artifact, who built it, and can you prove it?",
+         "How do you secure the pipeline itself (secrets, trusted builders, pinned base images)?",
+         "Policy as code: Kyverno vs OPA/Gatekeeper — how do you enforce 'no latest tag' or 'must have SBOM'?",
+         "What do you do when a scan finds a critical CVE with no fixed version?",
+         "Cosign image signing — how do you sign and verify container images (keyless OIDC) and enforce with Kyverno?"
+        ],
+        "practice": "Scan images with Trivy in CI and fail on criticals; generate an SBOM; write one Kyverno policy (block latest tag) and test it; set up image signing/attestation awareness.",
+        "depthNote": "Supply-chain security is the fastest-growing interview area — scan-in-CI, SBOM, and policy-as-code form the expected answer stack."
+       }
+      },
+      {
+       "name": "Threat modeling & compliance",
+       "items": [
+        {
+         "title": "Threat modeling",
+         "detail": "STRIDE: what could go wrong in this system; the question behind 'secure by design'",
+         "required": false,
+         "resources": [
+          {
+           "name": "OWASP: Threat modeling",
+           "url": "https://owasp.org/www-community/Threat_Modeling",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Microsoft STRIDE",
+           "url": "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Zero Trust",
+         "detail": "The industry model: never trust, always verify; identity is the perimeter",
+         "required": false,
+         "resources": [
+          {
+           "name": "NIST SP 800-207 (Zero Trust)",
+           "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Zero Trust architecture (Google Cloud)",
+           "url": "https://cloud.google.com/architecture/security/zero-trust",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Compliance awareness",
+         "detail": "SOC 2 / ISO 27001 / NIST; what auditors actually check (logs, access reviews, patching) — big signal in enterprise & remote hiring",
+         "required": false,
+         "resources": [
+          {
+           "name": "SOC 2 (AICPA)",
+           "url": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "ISO/IEC 27001",
+           "url": "https://www.iso.org/standard/27001",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "NIST CSF",
+           "url": "https://www.nist.gov/cyberframework",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "STRIDE — walk me through threat modeling a simple web service",
+         "Zero Trust: what does 'never trust, always verify' mean operationally (mTLS, identity, microsegmentation)?",
+         "ISO 27001 vs SOC 2 vs NIST CSF — what do they certify and when does a company need each?",
+         "How does compliance show up in your daily work (audit trails, change control, evidence)?"
+        ],
+        "practice": "STRIDE-model a 2-service app; map its controls to ISO 27001/SOC 2 categories; write the 'who can access what and how we prove it' evidence list for an audit.",
+        "depthNote": "Compliance answers show enterprise-readiness — tie controls to evidence, and know which standard maps to which business need."
+       }
+      },
+      {
+       "name": "Cost responsibility",
+       "items": [
+        {
+         "title": "Cost responsibility",
+         "detail": "Asking 'how much does this cost?' before building",
+         "required": true,
+         "resources": [
+          {
+           "name": "AWS Cost Management",
+           "url": "https://docs.aws.amazon.com/cost-management/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "FinOps Foundation",
+           "url": "https://www.finops.org/",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "FinOps basics",
+         "detail": "Tagging discipline, right-sizing, reservations vs on-demand",
+         "required": true,
+         "resources": [
+          {
+           "name": "FinOps Foundation",
+           "url": "https://www.finops.org/",
+           "kind": "community",
+           "verified": "official-doc"
+          },
+          {
+           "name": "AWS Cost Management",
+           "url": "https://docs.aws.amazon.com/cost-management/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "A team's bill is exploding — how do you investigate and communicate the fix?",
+         "How do you make cost a team responsibility (budgets, tagging, dashboards, reviews)?",
+         "Right-sizing vs scheduling vs spot — order your cost levers for a stateless service",
+         "How do you prove cost savings to management (before/after numbers)?"
+        ],
+        "practice": "Tag all resources; build a cost dashboard; set budget alerts; right-size + schedule instances; run a monthly cost review with a before/after report.",
+        "depthNote": "Cost responsibility is the 'ownership' interview — quantify everything and always show before/after evidence."
+       }
+      },
+      {
+       "name": "Team skills",
+       "items": [
+        {
+         "title": "Code review",
+         "detail": "Reviewing others' infra/scripts with a reliability lens",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google eng-practices: Code review",
+           "url": "https://google.github.io/eng-practices/review/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Mentoring & blameless culture",
+         "detail": "Teaching juniors, modeling calm, writing the culture you want",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Postmortem culture",
+           "url": "https://sre.google/sre-book/postmortem-culture/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Tell me about a time you disagreed with a teammate on approach — what happened and how did you resolve it?",
+         "How do you give a code review that's firm but kind? What do you check first?",
+         "How do you onboard a new engineer — what do they need in week 1?",
+         "How do you communicate with a non-technical stakeholder during an outage?",
+         "How do you run a blameless postmortem with a remote, async team spread across time zones?"
+        ],
+        "practice": "Review a real PR with a written, structured review; mentor someone through one task; write a 1-page onboarding checklist for a new team member; practice incident comms aloud.",
+        "depthNote": "Team-skill answers (review, mentoring, comms) are the behavioral layer — use STAR stories with concrete outcomes."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "On-call: runbooks, severity levels, escalation paths, incident communication, post-incident review, on-call rotations & load",
+       "Documentation: runbooks, architecture docs, decision records (ADRs), README discipline, wiki hygiene",
+       "Security basics: least privilege, RBAC, secrets management (vault/SOPS/External Secrets), SSH hardening, TLS, container security (content trust, resource limits, Bench Security), supply chain (image scanning, SBOM)",
+       "Threat modeling: STRIDE, attack surface review, threat model as code, OWASP Top 10 awareness",
+       "Cost: FinOps — right-sizing, spot/reserved mix, tagging, cost allocation, idle resource cleanup, budget alerts",
+       "Compliance/audit: audit logs, access reviews, SOC2/ISO awareness, data retention",
+       "SRE crossover: toil reduction, automation of repetitive ops, error budgets as guardrails",
+       "Team skills: code review culture (security + reliability lens), mentoring juniors, cross-team collaboration, incident communication (status updates, stakeholder comms), teaching/onboarding docs, pushing back on scope with data",
+       "On-call deep: rotation load, severity + escalation, runbook quality, post-incident communication"
+      ],
+      "demandNotes": "Ownership skills (on-call maturity, docs, security, cost) are the hidden differentiators for senior + staff roles — they rarely appear as headline JD keywords but decide hiring at the top of the funnel. Cost optimization is exploding in demand in the Indian market (FinOps roles).",
+      "verifiedResources": [
+       {
+        "name": "OWASP Top 10",
+        "url": "https://owasp.org/www-project-top-ten/",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Google SRE Workbook — On-Call (free)",
+        "url": "https://sre.google/workbook/on-call/",
+        "kind": "book",
+        "verified": "official-doc"
+       },
+       {
+        "name": "FinOps Foundation",
+        "url": "https://www.finops.org/",
+        "kind": "community",
+        "verified": "official-doc"
+       },
+       {
+        "name": "Ansible Vault docs",
+        "url": "https://docs.ansible.com/ansible/latest/vault_guide/index.html",
+        "kind": "official-docs",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: on-call — write runbooks for your own services; define severity levels + escalation tree",
+       "Week 2: docs — architecture diagram + ADR for one project; README discipline",
+       "Week 3: security — threat-model your A06 projects (STRIDE); harden SSH, containers, secrets; scan images",
+       "Week 4: cost — tag all cloud resources, build a cost dashboard, right-size + schedule instances, budget alerts",
+       "Practice: every project ships with a runbook, ADR, and security checklist"
+      ],
+      "certifications": []
+     }
+    },
+    {
+     "id": "B09",
+     "slug": "interview-portfolio",
+     "title": "Mid interview prep + portfolio upgrade",
+     "icon": "🏆",
+     "type": "final",
+     "weeks": "Weeks 11–12",
+     "mentalModel": "The index above is the knowledge; the interview needs the story. Two things convert it: a portfolio that shows mid-level behavior, and the incident war-story.",
+     "exitTest": "You can answer the 2am litmus test fluently, design a deployment pipeline, and point to a repo that is unmistakably mid-level.",
+     "dependsOn": [
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "B05",
+      "B06",
+      "B07",
+      "B08"
+     ],
+     "subTopics": [
+      {
+       "name": "The 2am litmus test",
+       "items": [
+        {
+         "title": "The 2am litmus test",
+         "detail": "Practice answering: 'A service is slow in production at 2am. Walk me through what you do.' (Traces first → which metric moved → bad deploy? → dependency? → escalate when?)",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Awesome SRE",
+           "url": "https://github.com/dastergon/awesome-sre",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Debugging story frameworks",
+         "detail": "Symptom → hypothesis → isolate → confirm → fix → verify; speak it fluently",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Awesome SRE",
+           "url": "https://github.com/dastergon/awesome-sre",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "You're alone at 2am and the deploy is broken — walk me through the decision: roll forward, roll back, or freeze?",
+         "What's in your runbook that makes the 2am call safe?",
+         "Kill a service, deploy a bad artifact, roll back — do it live and explain each step",
+         "What does 'done' look like at 2am — what proves the system is actually stable again?"
+        ],
+        "practice": "The week-4 drill: kill a service → deploy a bad artifact → roll back with verification — solo, timed, from memory; then write the decision tree for roll-forward-vs-back-vs-freeze.",
+        "depthNote": "This is the ownership litmus — interviewers want to hear calm, ordered, verified recovery, not heroics."
+       }
+      },
+      {
+       "name": "System design for ops",
+       "items": [
+        {
+         "title": "Design a deployment pipeline",
+         "detail": "Stages, gates, rollback, observability; talk through trade-offs",
+         "required": true,
+         "resources": [
+          {
+           "name": "Argo CD docs",
+           "url": "https://argo-cd.readthedocs.io/en/stable/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "GitHub Actions docs",
+           "url": "https://docs.github.com/en/actions",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        },
+        {
+         "title": "Design monitoring for a service",
+         "detail": "SLIs, dashboards, alerting, on-call",
+         "required": true,
+         "resources": [
+          {
+           "name": "Prometheus docs",
+           "url": "https://prometheus.io/docs/introduction/overview/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Design a CI/CD system for a team of 20 — scale, failure modes, cost",
+         "Design a monitoring/alerting system for a microservices fleet — pillars, cardinality, alerting",
+         "Design an autoscaling setup for a stateless API — metrics, cooldown, burst handling",
+         "Design a multi-region deployment — failover, data replication, RTO/RPO",
+         "What breaks at 10x traffic and how do you find it?"
+        ],
+        "practice": "Practice 4 design problems (CI/CD, monitoring, autoscaling, multi-region); draw diagrams; present each aloud in 10 minutes with scale + failure modes + cost.",
+        "depthNote": "Ops system design is scored on structure (requirements → components → failure modes → scale) — always answer in that shape."
+       }
+      },
+      {
+       "name": "Your war-story",
+       "items": [
+        {
+         "title": "Your incident war-story",
+         "detail": "One real (or practiced) incident, told end-to-end: symptom → diagnosis → fix → postmortem → prevention",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE: Postmortem culture",
+           "url": "https://sre.google/sre-book/postmortem-culture/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Blameless (blog)",
+           "url": "https://www.blameless.com/blog",
+           "kind": "community",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Tell me about the worst production incident you've handled — what happened, what did you do, what changed after?",
+         "What's a project you're proud of and what was genuinely hard about it?",
+         "Tell me about a time you automated away a painful task — before/after numbers",
+         "What's a mistake you made and what did it teach you?"
+        ],
+        "practice": "Write 3 STAR war-stories (incident, automation win, hard project); rehearse each in 2 minutes; tighten them until they're 90% outcome-focused.",
+        "depthNote": "War-stories ARE the interview — a calm, quantified, outcome-focused story beats any list of technologies."
+       }
+      },
+      {
+       "name": "Behavioral & ownership",
+       "items": [
+        {
+         "title": "Ownership stories",
+         "detail": "Times you owned a system, escalated well, or mentored someone; STAR format",
+         "required": true,
+         "resources": [
+          {
+           "name": "Google SRE books",
+           "url": "https://sre.google/books/",
+           "kind": "book",
+           "verified": "official-doc"
+          },
+          {
+           "name": "Google eng-practices: Review",
+           "url": "https://google.github.io/eng-practices/review/",
+           "kind": "official-docs",
+           "verified": "official-doc"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Why DevOps/SRE and not pure development? What draws you to ownership?",
+         "Tell me about a time you owned something end-to-end — what did 'done' mean?",
+         "How do you handle being on-call for a system you didn't build?",
+         "How do you prioritize when everything is urgent (framework, not vibes)?",
+         "Why do you want a remote role, and how do you prove you'll be productive without supervision?",
+         "How do you prepare differently for a remote-first product company vs an Indian services firm — what does each screen for?"
+        ],
+        "practice": "Write STAR stories for 10 behavioral scenarios; rehearse 'why SRE/DevOps' until it's 30 seconds and genuine; do a mock behavioral round.",
+        "depthNote": "Behavioral rounds reward ownership language — 'I owned, I measured, I improved' beats 'we/team did' every time."
+       }
+      },
+      {
+       "name": "Portfolio upgrade",
+       "items": [
+        {
+         "title": "Portfolio upgrade",
+         "detail": "One repo that is unmistakably mid-level: GitOps-managed, Terraform-defined, SLO'd, chaos-tested",
+         "required": true,
+         "resources": [
+          {
+           "name": "Argo CD docs",
+           "url": "https://argo-cd.readthedocs.io/en/stable/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Terraform Tutorials",
+           "url": "https://developer.hashicorp.com/terraform/tutorials",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "Prometheus docs",
+           "url": "https://prometheus.io/docs/introduction/overview/",
+           "kind": "official-docs",
+           "verified": "fetch-verified"
+          }
+         ]
+        },
+        {
+         "title": "Community project ladder",
+         "detail": "roadmap.sh's DevOps projects as an externally-validated build list: intermediate → Ansible config mgmt, Terraform IaC, automated DB backups, bastion host; advanced → blue-green deploy, Prometheus+Grafana, service discovery (beginner tier lives in Phase A Capstone)",
+         "required": false,
+         "resources": [
+          {
+           "name": "roadmap.sh DevOps projects",
+           "url": "https://roadmap.sh/devops/projects",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "roadmap.sh AWS projects",
+           "url": "https://roadmap.sh/aws/projects",
+           "kind": "community",
+           "verified": "fetch-verified"
+          },
+          {
+           "name": "roadmap.sh DevOps roadmap",
+           "url": "https://roadmap.sh/devops",
+           "kind": "community",
+           "verified": "fetch-verified"
+          }
+         ]
+        }
+       ],
+       "research": {
+        "interviewFocus": [
+         "Walk me through your GitHub — how is it organized and which 3 repos prove your level?",
+         "What's in a repo that makes a reviewer trust it (README, diagrams, CI badge, runbook, ADR)?",
+         "Record a 3-minute demo — what do you show and what do you leave out?",
+         "How do you tailor your portfolio to the roles you're applying for?"
+        ],
+        "practice": "Polish GitHub (READMEs, diagrams, CI badges, runbooks); record a 3-min walkthrough video; do 3 full mock interview cycles (Linux/cloud, K8s/IaC, behavioral/system design).",
+        "depthNote": "The portfolio is your 24/7 interviewer — repos that look production-owned (docs, CI, runbooks) do half the interview for you."
+       }
+      }
+     ],
+     "research": {
+      "interviewFocus": [
+       "System design for ops: design a CI/CD system, a monitoring/alerting system, an autoscaling setup, a multi-region deployment — scale, failure modes, cost",
+       "Behavioral: why DevOps/SRE vs SDE, on-call experience, incident stories (STAR), collaboration, blameless culture",
+       "Coding: shell + python live tasks (file processing, log parsing, API automation), basic DSA awareness (arrays, strings, hashmaps — SRE coding questions like pacific-atlantic, good nodes)",
+       "Portfolio walkthrough: deploy architecture diagram, GitHub profile, live demo, metrics showing impact",
+       "Mock interviews: 30-min Linux + 30-min cloud/containers + 30-min behavioral per cycle",
+       "Salary anchoring: SRE 6-15 LPA fresher / 13-26 LPA experienced (India, InterviewBit); DevOps comparable band in Pune",
+       "The 2am litmus test: could you deploy AND roll back your service alone at 2am? one-command deploy, automated rollback, decision tree (roll forward vs roll back vs freeze) — the seniority question"
+      ],
+      "demandNotes": "Final polish determines offer level: portfolio + system design + behavioral stories. Candidates who demo a deployed, monitored, GitOps-driven project quote +20-30% over candidates who only list skills. Market references: marketData.regions rows for Pune/remote/international.",
+      "verifiedResources": [
+       {
+        "name": "InterviewBit System Design Interview Questions",
+        "url": "https://www.interviewbit.com/system-design-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "InterviewBit SRE Interview Questions (FAQ + coding)",
+        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "roadmap.sh DevOps Projects (portfolio)",
+        "url": "https://roadmap.sh/devops/projects",
+        "kind": "interactive",
+        "verified": "fetch-verified"
+       },
+       {
+        "name": "Google SRE Book + Workbook (free)",
+        "url": "https://sre.google/books/",
+        "kind": "book",
+        "verified": "official-doc"
+       }
+      ],
+      "depthSequence": [
+       "Week 1: system design for ops — practice 4 design problems (CI/CD, monitoring, autoscaling, multi-region)",
+       "Week 2: behavioral — write STAR stories for 10 scenarios; rehearse 'why SRE/DevOps'",
+       "Week 3: coding — shell + python live drills daily; solve 2 SRE coding problems (pacific-atlantic, good nodes)",
+       "Week 4: portfolio — polish GitHub, READMEs, diagrams; record demo video; schedule mock interviews",
+       "Final: 3 full mock interview cycles (Linux+cloud / K8s+IaC / behavioral+system design) before real interviews",
+       "Week 4 add: 2am drill — kill a service, deploy a bad artifact, roll back within 15 min alone, all from runbooks"
+      ],
+      "certifications": []
+     }
+    }
+   ]
+  }
+ ],
+ "marketData": {
+  "regions": [
+   {
+    "region": "Pune, India (home market)",
+    "rows": [
+     {
+      "level": "Fresher (0–2 yrs)",
+      "range": "₹3.6–8 LPA",
+      "sources": [
+       "devopstraininginstitute 2025",
+       "SalaryExpert entry ₹15.9L (1–3 yrs)",
+       "Tutorac 2026 India fresher ₹4–7L"
+      ]
+     },
+     {
+      "level": "Mid (2–5 yrs)",
+      "range": "₹8–15 LPA",
+      "sources": [
+       "devopstraininginstitute",
+       "Lavatech 2026 ₹8–14L",
+       "salaryinsight.in 2026 mid-career avg ₹19.9L",
+       "Glassdoor India 90th pct ₹16.5L"
+      ]
+     },
+     {
+      "level": "Senior (5–8 yrs)",
+      "range": "₹15–28 LPA",
+      "sources": [
+       "devopstraininginstitute",
+       "SalaryExpert senior ₹25.9L",
+       "salaryinsight.in 2026 senior ₹23.1–50.4L",
+       "Tutorac 2026 senior ₹15–28L"
+      ]
+     },
+     {
+      "level": "Lead/Architect (8+)",
+      "range": "₹23–60+ LPA",
+      "sources": [
+       "devopstraininginstitute",
+       "Tutorac 2026 lead ₹30–60L+",
+       "switchtodevops 2026 lead ₹30–60L+"
+      ]
+     },
+     {
+      "level": "Freelance",
+      "range": "₹800–3,000/hr",
+      "sources": [
+       "devopstraininginstitute",
+       "switchtodevops"
+      ]
+     }
+    ],
+    "facts": [
+     "~450k tech professionals; 25% YoY growth in DevOps openings",
+     "Hubs: Hinjewadi 50% / Magarpatta 30% / Kharadi 15%",
+     "Certs (AWS DevOps, CKA) add ~20–30%; deep K8s + Terraform add another ~15–25% (2026)",
+     "Glassdoor: Pune pays ~3% below national average (90th pct ₹16.5L)",
+     "Big hirers: TCS, Infosys, Accenture, Capgemini, IBM, HCL, Amdocs, ZS, Barclays, PhonePe",
+     "Production-environment ownership (incidents, on-call, SLOs) commands the premium band"
+    ]
+   },
+   {
+    "region": "India (national, 2026 refresh)",
+    "rows": [
+     {
+      "level": "Fresher (0–2 yrs)",
+      "range": "₹4–7 LPA",
+      "sources": [
+       "Tutorac 2026",
+       "switchtodevops 2026"
+      ]
+     },
+     {
+      "level": "Mid (2–5 yrs)",
+      "range": "₹8–15 LPA",
+      "sources": [
+       "Tutorac 2026",
+       "Nexson 2026",
+       "TrueDirectory 2026"
+      ]
+     },
+     {
+      "level": "Senior (5–8 yrs)",
+      "range": "₹15–28 LPA",
+      "sources": [
+       "Tutorac 2026",
+       "switchtodevops 2026 ₹18–35L",
+       "TrueDirectory 2026 ₹18–35L+"
+      ]
+     },
+     {
+      "level": "Lead/Architect (8+)",
+      "range": "₹30–60+ LPA",
+      "sources": [
+       "Tutorac 2026",
+       "switchtodevops 2026",
+       "Nexson 2026 (Hyd/Blr top ₹25–45L)"
+      ]
+     },
+     {
+      "level": "Platform Engineer (India, new role)",
+      "range": "avg ₹17.5L · entry (1–3y) ₹12.65L · Bangalore top-10% ₹45–70L",
+      "sources": [
+       "SalaryExpert 2026",
+       "SIVARO 2026 geographic table"
+      ]
+     }
+    ],
+    "facts": [
+     "GCC (global capability centres) pay more than Indian services firms — same skills, ~20–40% premium",
+     "Multi-cloud + Kubernetes + Terraform unlock the highest bands (Nexson 2026)",
+     "Platform engineer is the 2026 evolution of the DevOps title — owns IDP + SLOs + cloud bill (SIVARO 2026)",
+     "Kubernetes/Terraform skill premium confirmed across Tutorac, TrueDirectory, Nexson, switchtodevops"
+    ]
+   },
+   {
+    "region": "Remote India",
+    "rows": [
+     {
+      "level": "Fresher",
+      "range": "₹4–8 LPA",
+      "sources": [
+       "switchtodevops"
+      ]
+     },
+     {
+      "level": "Mid (2–5 yrs)",
+      "range": "₹10–22 LPA",
+      "sources": [
+       "switchtodevops"
+      ]
+     },
+     {
+      "level": "Senior (5–8 yrs)",
+      "range": "₹20–40 LPA",
+      "sources": [
+       "switchtodevops",
+       "Tutorac 2026 remote ₹18–35L"
+      ]
+     },
+     {
+      "level": "Lead/Architect",
+      "range": "₹35–70 LPA",
+      "sources": [
+       "switchtodevops"
+      ]
+     },
+     {
+      "level": "International remote (US/EU pay)",
+      "range": "$40k–90k (₹33–75L)",
+      "sources": [
+       "switchtodevops"
+      ]
+     }
+    ],
+    "facts": [
+     "Remote pays ~5–15% less than metro on-site, but net win after commute/relocation",
+     "~40% of India DevOps roles have remote flexibility; fully remote ~15–20%, growing ~25% YoY",
+     "Top remote employers (reported): GitLab ₹25–55L · HashiCorp ₹30–60L · Confluent ₹28–55L · Elastic ₹26–50L · Razorpay ₹18–42L · Postman ₹20–45L",
+     "Remote-first firms (GitLab, Stripe, Datadog) pay near-SF rates regardless of location (SIVARO 2026)"
+    ]
+   },
+   {
+    "region": "International",
+    "rows": [
+     {
+      "level": "US DevOps/SRE mid-level",
+      "range": "$129k–142k",
+      "sources": [
+       "ERI/SalaryExpert 2026"
+      ]
+     },
+     {
+      "level": "US platform/SRE — Junior (0–2 yrs)",
+      "range": "$90K–160K TC",
+      "sources": [
+       "SIVARO 2026",
+       "Levels.fyi via SIVARO"
+      ]
+     },
+     {
+      "level": "US platform/SRE — Mid (3–5 yrs)",
+      "range": "$130K–250K TC",
+      "sources": [
+       "SIVARO 2026"
+      ]
+     },
+     {
+      "level": "US platform/SRE — Senior (5–8 yrs)",
+      "range": "$180K–400K TC",
+      "sources": [
+       "SIVARO 2026",
+       "Glassdoor Remote platform 90th pct $195.6K"
+      ]
+     },
+     {
+      "level": "US platform/SRE — Staff+ (8+ yrs)",
+      "range": "$220K–600K+ TC",
+      "sources": [
+       "SIVARO 2026 (OpenAI staff offer $660K yr-1)"
+      ]
+     },
+     {
+      "level": "FAANG senior (L5)",
+      "range": "$350K–500K TC",
+      "sources": [
+       "SIVARO 2026",
+       "Levels.fyi"
+      ]
+     },
+     {
+      "level": "Remote US (LCOL)",
+      "range": "$180K–250K",
+      "sources": [
+       "SIVARO 2026 (Tulsa senior $195K base)"
+      ]
+     },
+     {
+      "level": "UK London",
+      "range": "£130K–180K",
+      "sources": [
+       "SIVARO 2026"
+      ]
+     },
+     {
+      "level": "EU Berlin",
+      "range": "€120K–160K",
+      "sources": [
+       "SIVARO 2026"
+      ]
+     }
+    ],
+    "facts": [
+     "Stack Overflow 2025: 32.4% fully remote (US 45%); Terraform most admired infra tool; GitHub top collab, GitLab #3; India = 3rd-largest respondent base; 84% use AI tools",
+     "DORA: the canonical model = Four Key Metrics + SLOs — exactly what B04/B06 teach",
+     "CNCF 2024: ~1/4 of orgs run nearly all workloads cloud-native; Kubernetes is the default platform",
+     "2026 premium stack (15–25% above base): deep K8s (CNI/CSI/admission controllers), Terraform custom providers, ArgoCD/Flux, Crossplane, Istio/Cilium, OpenTelemetry, Backstage/Port IDPs (SIVARO 2026)",
+     "AI infrastructure skill (GPU orchestration, vLLM/TensorRT-LLM inference) commands +20–30% (SIVARO 2026)",
+     "Legacy stack (Jenkins-only, Puppet/Chef, Nagios) = salary discount; on-call burden usually compensated ~10–15%",
+     "Cert myth (SIVARO 2026): general certs (CKA etc.) don't move salary vs strong projects — rare certs (GCP PCA, NVIDIA AI-infra) do"
+    ]
+   }
+  ],
+  "premiumSkills": [
+   {
+    "skill": "Kubernetes production experience",
+    "premium": "required in ~90% of remote roles",
+    "module": "B01"
+   },
+   {
+    "skill": "Terraform / IaC",
+    "premium": "'non-negotiable'",
+    "module": "B02"
+   },
+   {
+    "skill": "GitOps (Argo CD)",
+    "premium": "~+30%",
+    "module": "B05"
+   },
+   {
+    "skill": "Service mesh (Istio/Linkerd)",
+    "premium": "~+30%",
+    "module": "B01"
+   },
+   {
+    "skill": "Observability stack (Prometheus/Grafana)",
+    "premium": "core",
+    "module": "B04"
+   },
+   {
+    "skill": "DevSecOps / security automation",
+    "premium": "~+30%",
+    "module": "B08"
+   },
+   {
+    "skill": "Multi-cloud",
+    "premium": "~+30%",
+    "module": "B03"
+   },
+   {
+    "skill": "Jenkins + GitLab CI",
+    "premium": "core must-have (India enterprise)",
+    "module": "B05"
+   },
+   {
+    "skill": "Ansible",
+    "premium": "core must-have (India enterprise)",
+    "module": "B07"
+   },
+   {
+    "skill": "Production AI / GPU infra (vLLM, GPU scheduling)",
+    "premium": "+20–30% (2026 fastest-growing)",
+    "module": "B01/B08"
+   },
+   {
+    "skill": "Internal developer platforms (Backstage/Port)",
+    "premium": "top-band differentiator",
+    "module": "B05"
+   },
+   {
+    "skill": "Deep Kubernetes (CNI/CSI/admission controllers)",
+    "premium": "+15–25% vs surface-level k8s",
+    "module": "B01"
+   }
+  ],
+  "certifications": [
+   {
+    "cert": "AWS Certified Cloud Practitioner",
+    "effect": "cheapest entry-level proof",
+    "when": "after Phase A"
+   },
+   {
+    "cert": "AWS DevOps Engineer (associate)",
+    "effect": "~+20–30%",
+    "when": "after B03"
+   },
+   {
+    "cert": "CKA (Certified Kubernetes Admin)",
+    "effect": "~+15–25%",
+    "when": "after B01"
+   },
+   {
+    "cert": "GCP Professional Cloud Architect (rare-signal)",
+    "effect": "commands premium only for GCP-migrating firms",
+    "when": "optional — after B03"
+   },
+   {
+    "cert": "NVIDIA AI Infrastructure (rare-signal)",
+    "effect": "premium for GPU/AI platform roles",
+    "when": "optional — after B01"
+   }
+  ]
+ },
+ "jobRequirements": {
+  "source": "Real JD-requirements audit · 2026-08-14 · Simplilearn 'DevOps Engineer Skills' (live fetch) + SIVARO 2026 platform-engineer stack + roadmap.sh inventories + DORA/CNCF",
+  "note": "Job boards (LinkedIn/Naukri/Indeed) block automated scraping; this matrix was built from the JD-skills sources above and each row maps a real JD requirement to our modules. Status: covered / partial / gap.",
+  "rows": [
+   {
+    "requirement": "Linux fundamentals (files, permissions, processes, systemd, CLI)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A01",
+    "note": "The 20% core — 30-40% of a DevOps interview"
+   },
+   {
+    "requirement": "Coding & scripting (Python, Bash)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B07",
+    "note": "Python + Bash; Go optional read-level"
+   },
+   {
+    "requirement": "Git / source code management (branch, merge, recovery, PR flow)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A02",
+    "note": "Undo/recovery + reflog = interview favorites"
+   },
+   {
+    "requirement": "Docker + container lifecycle (images, compose, multi-stage, non-root)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A04",
+    "note": "Production-grade Dockerfile is the mid-level bar"
+   },
+   {
+    "requirement": "CI/CD pipelines (Jenkins, GitHub Actions, GitLab CI)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A05/B05",
+    "note": "All three mandatory in India enterprise"
+   },
+   {
+    "requirement": "Kubernetes production operation (workloads, netpol, storage, debugging)",
+    "source": "SIVARO",
+    "status": "covered",
+    "module": "B01",
+    "note": "Required in ~90% of remote roles"
+   },
+   {
+    "requirement": "Terraform / IaC (state, modules, providers)",
+    "source": "SIVARO",
+    "status": "covered",
+    "module": "B02",
+    "note": "Listed as non-negotiable"
+   },
+   {
+    "requirement": "Cloud provisioning + cost (AWS VPC/IAM/cost)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B03",
+    "note": "Provision, manage, optimize cost"
+   },
+   {
+    "requirement": "Configuration management (Ansible)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B07",
+    "note": "Core must-have in India enterprise"
+   },
+   {
+    "requirement": "Monitoring & observability (Prometheus, Grafana, SLOs)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B04",
+    "note": "Also error budgets + tracing (SRE math)"
+   },
+   {
+    "requirement": "Security / DevSecOps (SBOM, scanning, secrets, supply chain)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B08",
+    "note": "Trivy, Kyverno, Vault, SLSA; ~+30% premium"
+   },
+   {
+    "requirement": "Automated testing woven into pipelines",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A05",
+    "note": "Gates + deploy verification in A06 capstone"
+   },
+   {
+    "requirement": "System administration (user mgmt, software install, monitoring)",
+    "source": "Simplilearn",
+    "status": "partial",
+    "module": "A01",
+    "note": "Covered at foundation; deepen via B08 runbooks/on-call"
+   },
+   {
+    "requirement": "Database & network management (MySQL/Postgres/NoSQL, network config)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B03",
+    "note": "New sub-topic: SQL vs NoSQL, backups & PITR, pooling & slow queries"
+   },
+   {
+    "requirement": "Computer programming depth (algorithms, design patterns)",
+    "source": "Simplilearn",
+    "status": "partial",
+    "module": "B07/B09",
+    "note": "Python scripting + STAR stories; algorithm fundamentals not taught"
+   },
+   {
+    "requirement": "Agile / Scrum / Kanban methodologies",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "A05",
+    "note": "New sub-topic: Scrum essentials, Kanban & flow, Agile vs Waterfall vs DevOps"
+   },
+   {
+    "requirement": "Soft skills (communication, collaboration, on-call incidents)",
+    "source": "Simplilearn",
+    "status": "covered",
+    "module": "B08/B09",
+    "note": "Incident comms + status updates + STAR behavioral"
+   },
+   {
+    "requirement": "GitOps / service mesh / IDP (Argo CD, Istio, Backstage)",
+    "source": "SIVARO",
+    "status": "covered",
+    "module": "B05/B01",
+    "note": "Premium differentiators; AI/GPU infra +20-30% (2026)"
+   }
+  ],
+  "stats": {
+   "total": 18,
+   "covered": 16,
+   "partial": 2,
+   "gap": 0
+  }
+ },
+ "crossCheck": {
+  "source": "roadmap.sh (2026)",
+  "stats": {
+   "githubStars": "364K (6th most-starred repo)",
+   "users": "2.8M registered",
+   "devopsTrackers": "58K+",
+   "inventoryCounts": {
+    "devops": "~95 topics",
+    "kubernetes": "~68 topics",
+    "aws": "~105 topics",
+    "terraform": "~130 topics",
+    "devsecops": "~95 topics"
+   },
+   "note": "Full-inventory verified from repo content files (github.com/nilbuild/developer-roadmap, roadmaps/<slug>/content/, branch master)"
+  },
+  "rows": [
+   {
+    "area": "Languages",
+    "roadmapHas": "Python, Go, Rust, JS/Node",
+    "weHave": "Python + Bash (B07)",
+    "marketNeed": "Python mandatory · Go optional (read-level)"
+   },
+   {
+    "area": "k8s autoscaling",
+    "roadmapHas": "HPA + VPA + Cluster Autoscaler",
+    "weHave": "HPA (B01)",
+    "marketNeed": "HPA mandatory · VPA/CA optional"
+   },
+   {
+    "area": "k8s scheduling",
+    "roadmapHas": "taints, topology spread, priorities, evictions",
+    "weHave": "taints + PDBs + quotas (B01)",
+    "marketNeed": "basics mandatory · advanced optional"
+   },
+   {
+    "area": "IaC",
+    "roadmapHas": "Terraform + CDK + CloudFormation + Pulumi",
+    "weHave": "Terraform + OpenTofu (B02)",
+    "marketNeed": "Terraform mandatory · CFN/CDK optional · Pulumi optional (TypeScript/Python-native IaC, relevant for dev-heavy platform teams)"
+   },
+   {
+    "area": "Config mgmt",
+    "roadmapHas": "Ansible, Chef, Puppet",
+    "weHave": "Ansible (B07)",
+    "marketNeed": "Ansible mandatory (India)"
+   },
+   {
+    "area": "CI/CD",
+    "roadmapHas": "GH Actions, GitLab CI, Jenkins, CircleCI",
+    "weHave": "GH Actions + Jenkins + GitLab CI (B05)",
+    "marketNeed": "all three mandatory (India)"
+   },
+   {
+    "area": "Secrets",
+    "roadmapHas": "Sealed Secrets, Vault",
+    "weHave": "Vault + SOPS (B08)",
+    "marketNeed": "mandatory at scale"
+   },
+   {
+    "area": "Security",
+    "roadmapHas": "DevSecOps roadmap (SBOM, Zero Trust, IR)",
+    "weHave": "Trivy, Kyverno, SLSA, Vault (B08)",
+    "marketNeed": "DevSecOps ~+30% premium"
+   },
+   {
+    "area": "k8s extensions",
+    "roadmapHas": "CRDs, Operators, custom controllers",
+    "weHave": "B01 (Extensions & Operators)",
+    "marketNeed": "recommended — unlocks GitOps/observability tools"
+   },
+   {
+    "area": "Terraform depth",
+    "roadmapHas": "testing, Checkov/Terrascan, Terragrunt",
+    "weHave": "B02 (quality gates)",
+    "marketNeed": "scanning mandatory for DevSecOps; Terragrunt optional"
+   },
+   {
+    "area": "AWS containers",
+    "roadmapHas": "ECS/Fargate, ECR, API Gateway, DynamoDB",
+    "weHave": "B03",
+    "marketNeed": "common in India — ECS often beats EKS"
+   },
+   {
+    "area": "Security model",
+    "roadmapHas": "threat modeling, Zero Trust, SOC 2/ISO 27001",
+    "weHave": "B08",
+    "marketNeed": "interview + enterprise hiring signal"
+   },
+   {
+    "area": "Projects",
+    "roadmapHas": "DevOps project ladder (beginner→advanced)",
+    "weHave": "A06 (beginner) + B09 (advanced)",
+    "marketNeed": "recommended — community-validated builds"
+   }
+  ],
+  "urls": [
+   "https://roadmap.sh/devops",
+   "https://roadmap.sh/kubernetes",
+   "https://roadmap.sh/aws",
+   "https://roadmap.sh/devsecops",
+   "https://roadmap.sh/devops/projects"
+  ]
+ }
+};
