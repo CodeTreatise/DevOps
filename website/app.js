@@ -548,6 +548,72 @@
     $view.innerHTML = html;
   }
 
+  function viewCompanies() {
+    const cd = D.companies;
+    if (!cd) {
+      $view.innerHTML = '<div class="empty-state">Companies data missing — regenerate from the JSON</div>';
+      return;
+    }
+    let html = '<div class="appendix"><h1>🏢 Companies to Apply</h1>';
+    html += '<p class="sec-desc">Researched employers for Platform / DevOps / SRE roles — Pune, India-wide and remote-first. Openings change fast: always open the careers link and filter by role keyword.</p>';
+
+    // tier legend
+    html += '<div class="tier-legend">';
+    Object.entries(cd.tiers || {}).forEach(([k, v]) => {
+      html += '<div class="tier-chip ' + esc(k) + '"><b>' + esc(k.replace("-", " ").toUpperCase()) + "</b> — " + esc(v) + "</div>";
+    });
+    html += "</div>";
+
+    (cd.categories || []).forEach((cat) => {
+      html += '<section class="company-cat">';
+      html += '<div class="phase-head"><h2>' + esc(cat.name) + "</h2>" +
+        '<span class="ph-badge">' + esc((cat.companies || []).length) + " companies</span></div>";
+      if (cat.strategy) html += '<div class="phase-goal">' + esc(cat.strategy) + "</div>";
+      html += '<div class="company-grid">';
+      (cat.companies || []).forEach((co) => {
+        html += '<div class="company-card">' +
+          '<div class="co-head">' +
+          '<div class="co-name">' + esc(co.name) + "</div>" +
+          (co.location ? '<div class="co-loc">📍 ' + esc(co.location) + "</div>" : "") +
+          "</div>" +
+          (co.roles && co.roles.length
+            ? '<div class="co-roles">' + co.roles.map((r) => '<span class="role-tag">' + esc(r) + "</span>").join("") + "</div>" : "") +
+          (co.stack ? '<div class="co-stack">🛠 ' + esc(co.stack) + "</div>" : "") +
+          (co.modules && co.modules.length
+            ? '<div class="co-modules">📚 Prep: ' + co.modules.map((m) => {
+                const mm = moduleById(m);
+                return '<a href="#" class="mod-chip" data-view="module:' + esc(m) + '" title="' + esc(mm ? mm.title : m) + '">' + esc(m) + "</a>";
+              }).join(" ") + "</div>" : "") +
+          (co.note ? '<div class="co-note">💡 ' + esc(co.note) + "</div>" : "") +
+          '<a class="co-apply" href="' + esc(co.careers) + '" target="_blank" rel="noopener">Apply → ' + esc(co.careers.replace(/^https?:\/\//, "").replace(/\/$/, "")) + "</a>" +
+          "</div>";
+      });
+      html += "</div></section>";
+    });
+
+    // apply channels
+    if (cd.applyChannels && cd.applyChannels.length) {
+      html += "<h2>📡 Where to apply — channels</h2>";
+      html += '<div class="channels-grid">';
+      cd.applyChannels.forEach((ch) => {
+        html += '<div class="channel-card"><b>' + esc(ch.channel) + "</b><span>" + esc(ch.detail) + "</span></div>";
+      });
+      html += "</div>";
+    }
+
+    // playbook
+    if (cd.playbook && cd.playbook.length) {
+      html += "<h2>🗺 4-week application playbook</h2>";
+      html += '<ol class="playbook-list">';
+      cd.playbook.forEach((p) => { html += "<li>" + esc(p) + "</li>"; });
+      html += "</ol>";
+    }
+
+    html += '<p class="sec-desc" style="margin-top:26px;font-size:12px">Source: ' + esc(cd.source) + "</p>";
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
   function render() {
     renderSidebar();
     if (currentView === "overview") viewOverview();
@@ -555,6 +621,7 @@
     else if (currentView === "jobs") viewJobs();
     else if (currentView === "crosscheck") viewCrossCheck();
     else if (currentView === "sources") viewSources();
+    else if (currentView === "companies") viewCompanies();
     else if (currentView.startsWith("module:")) viewModule(currentView.slice(7));
     window.scrollTo(0, 0);
   }
