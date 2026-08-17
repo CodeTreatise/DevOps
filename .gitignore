@@ -17,3 +17,6 @@ Thumbs.db
 
 # Node (if ever added)
 node_modules/
+
+# Companion track (separate repo)
+AI-Agents-Learning-INDEX.md
