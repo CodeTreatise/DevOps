@@ -1017,3 +1017,45 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
   #cheatsheet .cs-foot { color: #666; border-top-color: #ccc; }
   .cs-block { break-inside: avoid; }
 }
+
+/* ---------------- dashboard ---------------- */
+.dash-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin: 20px 0;
+}
+.dash-stat {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border: 1px solid var(--stroke); border-radius: 14px;
+  text-decoration: none; transition: transform .15s ease, border-color .15s ease;
+}
+.dash-stat:hover { transform: translateY(-2px); border-color: var(--accent); }
+.dash-stat-ico { font-size: 26px; }
+.dash-stat-n { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.1; }
+.dash-stat-l { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+
+.dash-group { margin: 26px 0 8px; }
+.dash-group-label {
+  font-size: 13px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-faint);
+  margin-bottom: 12px;
+}
+.dash-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+.dash-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 14px;
+  background: rgba(255,255,255,.03); border: 1px solid var(--stroke);
+  border-radius: 12px; text-decoration: none;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.dash-card:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255,255,255,.05); }
+.dash-card-ico { font-size: 22px; flex-shrink: 0; }
+.dash-card-body { flex: 1; min-width: 0; }
+.dash-card-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.dash-card-desc { font-size: 12px; color: var(--text-faint); margin-top: 2px; line-height: 1.45; }
+.dash-card-go { color: var(--accent); font-size: 16px; opacity: .7; flex-shrink: 0; }
+.dash-path { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }

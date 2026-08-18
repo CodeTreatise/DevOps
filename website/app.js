@@ -348,7 +348,7 @@
   }
 
   /* ---------------- state ---------------- */
-  let currentView = "overview";
+  let currentView = "dashboard";
   const moduleState = {};
   function getMState(id) {
     if (!moduleState[id]) moduleState[id] = { search: "", hideOptional: false, openResearch: false };
@@ -356,6 +356,134 @@
   }
 
   /* ---------------- views ---------------- */
+  /* ---------------- dashboard (front door) ---------------- */
+  function viewDashboard() {
+    const meta = D.meta;
+    const mods = allModules();
+    const sTot = mods.reduce((a, m) => a + moduleStats(m).subtopics, 0);
+    const iTot = mods.reduce((a, m) => a + moduleStats(m).items, 0);
+    const rTot = mods.reduce((a, m) => a + moduleStats(m).res, 0);
+
+    // live progress
+    const p = getProgress();
+    let doneItems = 0;
+    mods.forEach((m) => { doneItems += moduleDone(m); });
+    const pathPct = iTot ? Math.round((doneItems / iTot) * 100) : 0;
+
+    const A = window.ANSWERS_DATA || {};
+    let qTotal = 0, qRated = 0, score = 0;
+    const prat = getPractice();
+    Object.keys(A).forEach((mid) => {
+      (A[mid] || []).forEach((_, idx) => {
+        qTotal++;
+        const rec = prat[qid(mid, idx)];
+        if (rec) { qRated++; score += rec.r; }
+      });
+    });
+    const pracPct = qTotal ? Math.round((score / (qTotal * 2)) * 100) : 0;
+
+    const apps = appStats(getApps());
+    const labD = getLabDone();
+    let labTot = 0, labDone = 0;
+    if (D.labs && D.labs.modules) Object.values(D.labs.modules).forEach((m) => (m.items || []).forEach((_, i) => { labTot++; if (labD[labKey(m.id, i)]) labDone++; }));
+
+    const coTotal = (D.companies && D.companies.categories || []).reduce((a, c) => a + (c.companies || []).length, 0);
+    const certN = (D.certs && D.certs.certs || []).length;
+    const sdN = (D.systemDesign && D.systemDesign.problems || []).length;
+    const starN = (D.starBank && D.starBank.categories || []).reduce((a, c) => a + (c.questions || []).length, 0);
+
+    // ---- stat cards ----
+    const stats = [
+      { v: "overview", ico: "🎯", n: pathPct + "%", l: "Path progress · " + doneItems + "/" + iTot + " items" },
+      { v: "practice", ico: "🎴", n: qRated + "/" + qTotal, l: "Questions rated · " + pracPct + "% mastery" },
+      { v: "tracker", ico: "🗂", n: String(apps.pipeline || 0), l: "Applications in pipeline · " + apps.total + " total" },
+      { v: "labs", ico: "🧪", n: labDone + "/" + labTot, l: "Lab items completed" }
+    ];
+
+    let html = '<div class="hero">';
+    html += '<span class="eyebrow">● Your complete Platform Engineering command center</span>';
+    const titleParts = meta.title.split(" — ");
+    html += "<h1>" + esc(titleParts[0]) + ' <span class="grad-text">' + esc(titleParts[1] || "") + "</span></h1>";
+    html += '<div class="sub">Learn it · drill it · prove it · land it — everything in one place.</div>';
+    html += '<div class="chips">' +
+      '<span class="chip">🧩 <b>' + mods.length + "</b> modules</span>" +
+      '<span class="chip">📑 <b>' + sTot + "</b> sub-topics</span>" +
+      '<span class="chip">✅ <b>' + iTot + "</b> learning items</span>" +
+      '<span class="chip">❓ <b>' + qTotal + "</b> practice Q&A</span>" +
+      '<span class="chip">🏢 <b>' + coTotal + "</b> companies</span>" +
+      '<span class="chip">🎓 <b>' + certN + "</b> certs</span>" +
+      '<span class="chip">🧠 <b>' + sdN + "</b> design problems</span>" +
+      '<span class="chip">🧪 <b>' + labTot + "</b> lab items</span>" +
+      '<span class="chip">🔗 <b>' + rTot + "</b> resources</span>" +
+      '<span class="chip">🗣 <b>' + starN + "</b> STAR prompts</span>" +
+      "</div></div>";
+
+    // ---- your progress ----
+    html += '<div class="dash-stats">';
+    stats.forEach((s) => {
+      html += '<a href="#" class="dash-stat" data-view="' + esc(s.v) + '">' +
+        '<div class="dash-stat-ico">' + esc(s.ico) + "</div>" +
+        '<div class="dash-stat-n">' + esc(s.n) + "</div>" +
+        '<div class="dash-stat-l">' + esc(s.l) + "</div></a>";
+    });
+    html += "</div>";
+
+    // ---- feature hub ----
+    const studyTools = [
+      ["search", "🔍", "Search", "Find any question, answer or topic in seconds. Press <b>/</b> anywhere."],
+      ["practice", "🎴", "Practice Mode", "426-question active-recall deck — reveal, self-rate, or have it read aloud."],
+      ["mastery", "📈", "Mastery", "Turns your ratings into weakest-first modules + spaced review schedule."],
+      ["cheats", "📄", "Cheat Sheets", "One-page printable recap per module — mental model, must-knows, exit test."],
+      ["star", "🗣", "STAR Stories", "20 behavioral prompts in 5 categories with S/T/A/R templates + worked examples."]
+    ];
+    const jobToolkit = [
+      ["market", "📊", "Market Data", "Salary + demand research for Pune, national India and remote roles."],
+      ["jobs", "💼", "Job Requirements", "What real postings ask per tier, with premium skills to target."],
+      ["certs", "🎓", "Certifications", "Timeline, cost and ROI for the 5 certifications that move shortlists."],
+      ["companies", "🏢", "Companies", coTotal + " researched employers with apply channels and a playbook."],
+      ["companyqs", "🎯", "Company Q-Sets", "Real company-specific question sets, mapped to the modules they test."],
+      ["tracker", "🗂", "App Tracker", "Manage every application — stage, notes, CSV/JSON export, offline."],
+      ["resume", "📄", "Resume Kit", "ATS-tuned template + keyword centers for DevOps / Platform / SRE roles."],
+      ["sysdesign", "🧠", "System Design", sdN + " DevOps-flavored scenarios with walkthroughs and talk tracks."],
+      ["labs", "🧪", "Lab Checklists", "83 hands-on do/verify items across 14 modules — the confidence builder."],
+      ["crosscheck", "🔗", "Cross-Check", "Verify community claims and build your own evidence-backed answers."],
+      ["sources", "📚", "Sources", rTot + " verified, deduplicated resources across every module."]
+    ];
+
+    const hub = (label, cards) => {
+      let h = '<div class="dash-group"><div class="dash-group-label">' + label + "</div><div class='dash-grid'>";
+      cards.forEach((c) => {
+        h += '<a href="#" class="dash-card" data-view="' + esc(c[0]) + '">' +
+          '<div class="dash-card-ico">' + c[1] + "</div>" +
+          '<div class="dash-card-body"><div class="dash-card-title">' + esc(c[2]) + "</div>" +
+          '<div class="dash-card-desc">' + c[3] + "</div></div>" +
+          '<div class="dash-card-go">→</div></a>';
+      });
+      return h + "</div></div>";
+    };
+    html += hub("Study Tools", studyTools);
+    html += hub("Job Toolkit", jobToolkit);
+
+    // ---- the path ----
+    html += '<div class="dash-group"><div class="dash-group-label">The Path — ' + mods.length + " modules in order</div><div class='dash-path'>";
+    mods.forEach((m) => {
+      html += '<a href="#" class="mod-chip" data-view="module:' + esc(m.id) + '" title="' + esc(m.title) + '">' + esc(m.icon + " " + m.id) + "</a>";
+    });
+    html += '<a href="#" class="chip-link" data-view="overview">🗺 Open the full path →</a>';
+    html += "</div></div>";
+
+    // ---- how to use ----
+    html += '<div class="howto-card"><div class="howto-title">🧭 How to use this system</div><div class="howto-grid">' +
+      '<div class="howto-step"><b>1 · Learn in order</b><span>Follow the 15-module path (A01 → B09). Each card shows what it needs first. Open the full path to start ticking items.</span></div>' +
+      '<div class="howto-step"><b>2 · Drill with Practice</b><span>Run the 🎴 Practice deck daily — answer out loud, then rate yourself. 🔍 Search any topic instantly.</span></div>' +
+      '<div class="howto-step"><b>3 · Track & apply</b><span>Use the Job Toolkit while applying: 🏢 companies, 🎯 their questions, 🗂 tracker, 📄 resume. Mastery shows what to review next.</span></div>' +
+      "</div></div>";
+
+    html += "<footer><span>Version " + esc(meta.version) + " · generated " + esc(meta.generated) + "</span>" +
+      '<span class="dot">•</span><span>offline-capable · progress saved in your browser</span></footer>';
+    $view.innerHTML = html;
+  }
+
   function viewOverview() {
     const meta = D.meta;
     let html = '<div class="hero">';
@@ -1257,7 +1385,8 @@
 
   function render() {
     renderSidebar();
-    if (currentView === "overview") viewOverview();
+    if (currentView === "dashboard") viewDashboard();
+    else if (currentView === "overview") viewOverview();
     else if (currentView === "market") viewMarket();
     else if (currentView === "jobs") viewJobs();
     else if (currentView === "crosscheck") viewCrossCheck();

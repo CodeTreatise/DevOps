@@ -64,6 +64,7 @@ platform-engineering/
 
 ## 🧰 Study tools (Study Tools nav group)
 
+- **🏠 Dashboard** — the front door: live progress stats (path %, questions rated, applications, labs), a feature hub for every tool, and the 15-module path at a glance
 - **🔍 Search** — instant site-wide search across all 426 answers, module topics and STAR prompts (press `/` anywhere to jump in)
 - **🎴 Practice Mode** — active-recall deck: module filter, shuffle, reveal answer+rubric+why, self-rate; **🔊 Read question** (browser TTS) reads the question aloud
 - **📈 Mastery** — aggregates self-ratings into per-module % (weakest first) + spaced-repetition "due for review" list
