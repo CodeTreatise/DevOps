@@ -1140,12 +1140,10 @@ body.sidebar-collapsed .sidebar-toggle { padding: 8px 0; font-size: 13px; text-a
   border-radius: 12px;
   box-shadow: var(--shadow);
   padding: 8px;
-  opacity: 0; visibility: hidden;
-  transform: translateX(-8px);
-  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+  display: none;
   pointer-events: auto;
 }
-.flyout.show { opacity: 1; visibility: visible; transform: translateX(0); }
+.flyout.show { display: block; }
 .flyout-title {
   font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
   color: var(--text-faint); padding: 6px 10px 8px;

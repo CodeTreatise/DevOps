@@ -398,6 +398,15 @@
   /* ---------------- rail flyouts (icon-rail hover panels) ---------------- */
   let flyoutTimer = null;
   let flyoutPinned = false;
+  let lastMX = -1, lastMY = -1;
+  document.addEventListener("mousemove", (e) => {
+    lastMX = e.clientX; lastMY = e.clientY;
+  }, { passive: true });
+  function pointerInFlyout() {
+    if (lastMX < 0) return false;
+    const el = document.elementFromPoint(lastMX, lastMY);
+    return !!(el && el.closest && el.closest(".flyout"));
+  }
   function linkLabel(a) {
     const c = a.cloneNode(true);
     c.querySelectorAll(".nav-ico, .nav-count").forEach((n) => n.remove());
@@ -427,25 +436,36 @@
   function showFlyout(gid, anchor, pin) {
     const f = document.getElementById("flyout-" + gid);
     if (!f) return;
+    document.querySelectorAll("#flyouts .flyout").forEach((x) => {
+      x.classList.remove("show");
+      x.style.display = "none";
+    });
+    f.classList.add("show");
+    f.style.display = "block";
     const r = anchor.getBoundingClientRect();
     const fh = f.offsetHeight || 360;
     let top = r.top;
     if (top + fh > window.innerHeight - 12) top = Math.max(8, window.innerHeight - fh - 12);
     if (top < 8) top = 8;
     f.style.top = top + "px";
-    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
-    f.classList.add("show");
     flyoutPinned = !!pin;
     clearTimeout(flyoutTimer);
   }
   function hideFlyout() {
     if (flyoutPinned) return;
-    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
+    if (pointerInFlyout()) { clearTimeout(flyoutTimer); return; }
+    document.querySelectorAll("#flyouts .flyout").forEach((x) => {
+      x.classList.remove("show");
+      x.style.display = "none";
+    });
     clearTimeout(flyoutTimer);
   }
   function hideFlyoutHard() {
     flyoutPinned = false;
-    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
+    document.querySelectorAll("#flyouts .flyout").forEach((x) => {
+      x.classList.remove("show");
+      x.style.display = "none";
+    });
     clearTimeout(flyoutTimer);
   }
   function toggleFlyout(gid, anchor) {
@@ -455,6 +475,7 @@
   }
   function hideFlyoutSoon() {
     clearTimeout(flyoutTimer);
+    if (pointerInFlyout()) return;
     flyoutTimer = setTimeout(hideFlyout, 320);
   }
 
@@ -1544,7 +1565,10 @@
     const g = el.closest(".nav-group");
     if (g) showFlyout(g.dataset.group, g.querySelector(".nav-group-head"));
   });
-  document.getElementById("nav").addEventListener("mouseleave", hideFlyoutSoon);
+  document.getElementById("nav").addEventListener("mouseleave", (e) => {
+    if (e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(".flyout")) return;
+    hideFlyoutSoon();
+  });
   // keyboard: Enter/Space on a group head toggles it (or opens the flyout in rail mode)
   document.getElementById("nav").addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
