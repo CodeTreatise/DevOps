@@ -31,7 +31,7 @@
   --radius: 14px;
   --radius-sm: 9px;
   --sidebar-w: 290px;
-  --sidebar-w-rail: 62px;
+  --sidebar-w-rail: 180px;
   --shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
   --glow: 0 0 0 1px rgba(109, 141, 255, 0.35), 0 8px 40px -8px rgba(109, 141, 255, 0.45);
 
@@ -1099,21 +1099,19 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
 .nav-group.collapsible.closed .nav-group-body { display: none; }
 .nav-group.phase .nav-group-head { color: var(--accent); }
 
-/* ---------------- sidebar: icon rail (collapsed) ---------------- */
+/* ---------------- sidebar: compact (collapsed, text stays visible) ---------------- */
 body.sidebar-collapsed #sidebar { width: var(--sidebar-w-rail); }
-body.sidebar-collapsed .sidebar-header { padding: 16px 0 14px; justify-content: center; }
-body.sidebar-collapsed .logo { width: 38px; height: 38px; font-size: 20px; }
-body.sidebar-collapsed .logo-text { display: none; }
-body.sidebar-collapsed #nav { padding: 10px 6px 16px; }
-body.sidebar-collapsed .nav-group.collapsible .nav-group-head { justify-content: center; padding: 10px 0; }
-body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-label,
-body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-caret { display: none; }
-body.sidebar-collapsed .nav-group.collapsible .nav-group-body { display: none; }
-body.sidebar-collapsed .nav-group .nav-link { justify-content: center; padding: 11px 0; }
-body.sidebar-collapsed .nav-label, body.sidebar-collapsed .nav-count { display: none; }
+body.sidebar-collapsed .sidebar-header { padding: 16px 12px 14px; justify-content: flex-start; gap: 10px; }
+body.sidebar-collapsed .logo { width: 34px; height: 34px; font-size: 18px; flex-shrink: 0; }
+body.sidebar-collapsed .logo-text { display: block; min-width: 0; }
+body.sidebar-collapsed .sidebar-title { font-size: 12.5px; line-height: 1.2; }
+body.sidebar-collapsed .sidebar-sub { display: none; }
+body.sidebar-collapsed #nav { padding: 10px 8px 16px; }
+body.sidebar-collapsed .nav-group.collapsible .nav-group-head { justify-content: flex-start; padding: 9px 10px 7px; }
+body.sidebar-collapsed .nav-group .nav-link { justify-content: flex-start; padding: 8px 11px; }
+body.sidebar-collapsed .nav-count { display: none; }
 body.sidebar-collapsed .phase-progress { display: none; }
-body.sidebar-collapsed .nav-link.active::before { left: -6px; }
-body.sidebar-collapsed .sidebar-footer { padding: 10px 6px; }
+body.sidebar-collapsed .sidebar-footer { padding: 10px 8px; }
 body.sidebar-collapsed .progress-block { display: none; }
 
 .sidebar-toggle {

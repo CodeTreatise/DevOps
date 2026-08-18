@@ -1508,12 +1508,6 @@
     if (head) {
       const g = head.closest(".nav-group");
       if (!g) return;
-      if (isRail()) {
-        const f = document.getElementById("flyout-" + g.dataset.group);
-        if (f && f.classList.contains("show")) hideFlyout();
-        else showFlyout(g.dataset.group, head);
-        return;
-      }
       toggleGroup(g);
       return;
     }
@@ -1539,12 +1533,6 @@
     e.preventDefault();
     const g = head.closest(".nav-group");
     if (!g) return;
-    if (isRail()) {
-      const f = document.getElementById("flyout-" + g.dataset.group);
-      if (f && f.classList.contains("show")) hideFlyout();
-      else showFlyout(g.dataset.group, head);
-      return;
-    }
     toggleGroup(g);
   });
 
