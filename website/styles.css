@@ -783,6 +783,22 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
     transition: transform .28s ease;
     box-shadow: 0 12px 44px rgba(0,0,0,.6);
   }
+  /* mobile drawer always shows the full sidebar - reset any rail collapse */
+  body.sidebar-collapsed #sidebar { width: min(310px, 86vw); }
+  body.sidebar-collapsed .sidebar-header { padding: 20px 18px 16px; justify-content: flex-start; }
+  body.sidebar-collapsed .logo { width: 42px; height: 42px; font-size: 22px; }
+  body.sidebar-collapsed .logo-text { display: block; }
+  body.sidebar-collapsed #nav { padding: 14px 10px 18px; }
+  body.sidebar-collapsed .nav-group.collapsible .nav-group-head { justify-content: flex-start; padding: 9px 10px 7px; }
+  body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-label { display: inline; }
+  body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-caret { display: inline; }
+  body.sidebar-collapsed .nav-group.collapsible .nav-group-body { display: block; }
+  body.sidebar-collapsed .nav-group .nav-link { justify-content: flex-start; padding: 8px 11px; }
+  body.sidebar-collapsed .nav-label, body.sidebar-collapsed .nav-count { display: inline; }
+  body.sidebar-collapsed .phase-progress { display: block; }
+  body.sidebar-collapsed .progress-block { display: block; }
+  body.sidebar-collapsed .sidebar-footer { padding: 14px 16px; }
+  #sidebar-toggle { display: none; }
   #sidebar.open { transform: translateX(0); }
   body.nav-open { overflow: hidden; }
   #content { padding: 66px 18px 70px; }
@@ -1001,12 +1017,12 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
 
 /* print: only the cheat sheet, clean white background */
 @media print {
-  body { background: #fff \!important; }
+  body { background: #fff !important; }
   body * { visibility: hidden; }
   #cheatsheet, #cheatsheet * { visibility: visible; }
   #cheatsheet {
     position: absolute; left: 0; top: 0; width: 100%;
-    border: none; background: #fff \!important; color: #111;
+    border: none; background: #fff !important; color: #111;
     padding: 8mm;
   }
   #cheatsheet .cs-title, #cheatsheet .cs-id { color: #111; }
@@ -1111,7 +1127,7 @@ body.sidebar-collapsed .progress-block { display: none; }
   transition: color .15s, border-color .15s, background .15s;
 }
 .sidebar-toggle:hover { background: var(--panel); color: var(--text); border-color: var(--stroke-2); }
-body.sidebar-collapsed .sidebar-toggle { padding: 8px 0; font-size: 13px; }
+body.sidebar-collapsed .sidebar-toggle { padding: 8px 0; font-size: 13px; text-align: center; }
 
 /* ---------------- rail flyouts ---------------- */
 #flyouts { position: fixed; inset: 0; z-index: 300; pointer-events: none; }

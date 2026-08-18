@@ -329,9 +329,9 @@
     let html = "";
     D.phases.forEach((ph) => {
       html += '<div class="nav-group collapsible phase" data-group="phase' + esc(ph.id) + '">';
-      html += '<div class="nav-group-head"><span class="ng-ico">' + (ph.id === "A" ? "📘" : "📙") + '</span>' +
+      html += '<div class="nav-group-head" role="button" tabindex="0" aria-expanded="true" aria-controls="grp-phase' + esc(ph.id) + '"><span class="ng-ico">' + (ph.id === "A" ? "📘" : "📙") + '</span>' +
         '<span class="ng-label">Phase ' + esc(ph.id + " — " + ph.name) + '</span><span class="ng-caret">▾</span></div>';
-      html += '<div class="nav-group-body">';
+      html += '<div class="nav-group-body" id="grp-phase' + esc(ph.id) + '">';
       html += '<div class="phase-progress"><div data-phase="' + esc(ph.id) + '" style="width:0%"></div></div>';
       (ph.modules || []).forEach((m) => {
         const s = moduleStats(m);
@@ -363,7 +363,10 @@
     const prefs = getNavPrefs();
     const gs = prefs.groups || {};
     document.querySelectorAll("#nav .nav-group[data-group]").forEach((g) => {
-      g.classList.toggle("closed", gs[g.dataset.group] === false);
+      const closed = gs[g.dataset.group] === false;
+      g.classList.toggle("closed", closed);
+      const head = g.querySelector(".nav-group-head");
+      if (head) head.setAttribute("aria-expanded", String(!closed));
     });
   }
   function toggleGroup(g) {
@@ -372,6 +375,8 @@
     if (!prefs.groups) prefs.groups = {};
     prefs.groups[g.dataset.group] = !g.classList.contains("closed");
     saveNavPrefs(prefs);
+    const head = g.querySelector(".nav-group-head");
+    if (head) head.setAttribute("aria-expanded", String(!g.classList.contains("closed")));
   }
   function setRail(on) {
     document.body.classList.toggle("sidebar-collapsed", on);
@@ -379,14 +384,14 @@
     prefs.rail = on;
     saveNavPrefs(prefs);
     const tb = document.getElementById("sidebar-toggle");
-    if (tb) { tb.textContent = on ? "» Expand" : "« Collapse"; tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons"; }
-    if (on) hideFlyout();
+    if (tb) { tb.textContent = on ? "» Expand" : "« Collapse sidebar"; tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons"; }
+    hideFlyout();
   }
   function updateToggleLabel() {
     const tb = document.getElementById("sidebar-toggle");
     if (!tb) return;
     const on = isRail();
-    tb.textContent = on ? "» Expand" : "« Collapse";
+    tb.textContent = on ? "» Expand" : "« Collapse sidebar";
     tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons";
   }
 
@@ -1525,6 +1530,22 @@
     if (head) showFlyout(head.closest(".nav-group").dataset.group, head);
   });
   document.getElementById("nav").addEventListener("mouseleave", hideFlyoutSoon);
+  // keyboard: Enter/Space on a group head toggles it (or opens the flyout in rail mode)
+  document.getElementById("nav").addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const head = e.target.closest(".nav-group-head");
+    if (!head) return;
+    e.preventDefault();
+    const g = head.closest(".nav-group");
+    if (!g) return;
+    if (isRail()) {
+      const f = document.getElementById("flyout-" + g.dataset.group);
+      if (f && f.classList.contains("show")) hideFlyout();
+      else showFlyout(g.dataset.group, head);
+      return;
+    }
+    toggleGroup(g);
+  });
 
   const flyoutsWrap = document.getElementById("flyouts");
   if (flyoutsWrap) {
@@ -1760,7 +1781,7 @@
   }
   navToggle.addEventListener("click", () => setNavOpen(!sidebarEl.classList.contains("open")));
   navBackdrop.addEventListener("click", () => setNavOpen(false));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setNavOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { setNavOpen(false); hideFlyout(); } });
   document.addEventListener("keydown", (e) => {
     if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
       e.preventDefault();

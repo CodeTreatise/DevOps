@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 <div class="bg-orbs" aria-hidden="true">
@@ -31,16 +31,16 @@
     </div>
     <nav id="nav">
       <div class="nav-group collapsible" data-group="start">
-        <div class="nav-group-head"><span class="ng-ico">🧭</span><span class="ng-label">Start</span><span class="ng-caret">▾</span></div>
-        <div class="nav-group-body">
+        <div class="nav-group-head" role="button" tabindex="0" aria-expanded="true" aria-controls="grp-start"><span class="ng-ico">🧭</span><span class="ng-label">Start</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body" id="grp-start">
           <a href="#" data-view="dashboard" class="nav-link"><span class="nav-ico">🏠</span><span class="nav-label">Dashboard</span></a>
           <a href="#" data-view="overview" class="nav-link"><span class="nav-ico">🗺</span><span class="nav-label">Learning Path</span></a>
         </div>
       </div>
       <div id="nav-phases"></div>
       <div class="nav-group collapsible" data-group="study">
-        <div class="nav-group-head"><span class="ng-ico">🎴</span><span class="ng-label">Study Tools</span><span class="ng-caret">▾</span></div>
-        <div class="nav-group-body">
+        <div class="nav-group-head" role="button" tabindex="0" aria-expanded="true" aria-controls="grp-study"><span class="ng-ico">📖</span><span class="ng-label">Study Tools</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body" id="grp-study">
           <a href="#" data-view="search" class="nav-link"><span class="nav-ico">🔍</span><span class="nav-label">Search</span></a>
           <a href="#" data-view="practice" class="nav-link"><span class="nav-ico">🎴</span><span class="nav-label">Practice Mode</span></a>
           <a href="#" data-view="mastery" class="nav-link"><span class="nav-ico">📈</span><span class="nav-label">Mastery</span></a>
@@ -49,8 +49,8 @@
         </div>
       </div>
       <div class="nav-group collapsible" data-group="job">
-        <div class="nav-group-head"><span class="ng-ico">🧰</span><span class="ng-label">Job Toolkit</span><span class="ng-caret">▾</span></div>
-        <div class="nav-group-body">
+        <div class="nav-group-head" role="button" tabindex="0" aria-expanded="true" aria-controls="grp-job"><span class="ng-ico">🧰</span><span class="ng-label">Job Toolkit</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body" id="grp-job">
           <a href="#" data-view="market" class="nav-link"><span class="nav-ico">📊</span><span class="nav-label">Market Data</span></a>
           <a href="#" data-view="jobs" class="nav-link"><span class="nav-ico">💼</span><span class="nav-label">Job Requirements</span></a>
           <a href="#" data-view="certs" class="nav-link"><span class="nav-ico">🎓</span><span class="nav-label">Certifications</span></a>
@@ -79,7 +79,7 @@
     </div>
   </aside>
 
-  <div id="flyouts" aria-hidden="true"></div>
+  <div id="flyouts"></div>
 
   <main id="content">
     <div id="view"></div>
@@ -88,8 +88,8 @@
 
 <button id="to-top" class="to-top" aria-label="Back to top" hidden>↑</button>
 
-<script src="data.js?v=11"></script>
-<script src="answers.js?v=11"></script>
-<script src="app.js?v=11"></script>
+<script src="data.js?v=12"></script>
+<script src="answers.js?v=12"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
