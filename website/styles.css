@@ -1133,7 +1133,7 @@ body.sidebar-collapsed .sidebar-toggle { padding: 8px 0; font-size: 13px; text-a
 /* ---------------- rail flyouts ---------------- */
 #flyouts { position: fixed; inset: 0; z-index: 400; pointer-events: none; }
 .flyout {
-  position: fixed; top: 0; left: calc(var(--sidebar-w-rail) + 10px);
+  position: fixed; top: 0; left: calc(var(--sidebar-w-rail) - 4px);
   width: 250px; max-height: min(74vh, calc(100vh - 24px)); overflow-y: auto;
   background: rgba(11, 16, 32, 0.97);
   border: 1px solid var(--stroke-2);

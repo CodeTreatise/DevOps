@@ -455,7 +455,7 @@
   }
   function hideFlyoutSoon() {
     clearTimeout(flyoutTimer);
-    flyoutTimer = setTimeout(hideFlyout, 200);
+    flyoutTimer = setTimeout(hideFlyout, 320);
   }
 
   /* ---------------- state ---------------- */
@@ -1539,8 +1539,10 @@
   // rail: hover a group head → flyout; leaving hides it (with grace delay)
   document.getElementById("nav").addEventListener("mouseover", (e) => {
     if (!isRail()) return;
-    const head = e.target.closest(".nav-group-head");
-    if (head) showFlyout(head.closest(".nav-group").dataset.group, head);
+    const el = e.target.closest(".nav-group-head, .nav-link");
+    if (!el) return;
+    const g = el.closest(".nav-group");
+    if (g) showFlyout(g.dataset.group, g.querySelector(".nav-group-head"));
   });
   document.getElementById("nav").addEventListener("mouseleave", hideFlyoutSoon);
   // keyboard: Enter/Space on a group head toggles it (or opens the flyout in rail mode)
@@ -1557,8 +1559,12 @@
 
   const flyoutsWrap = document.getElementById("flyouts");
   if (flyoutsWrap) {
-    flyoutsWrap.addEventListener("mouseenter", () => clearTimeout(flyoutTimer));
-    flyoutsWrap.addEventListener("mouseleave", hideFlyoutSoon);
+    flyoutsWrap.addEventListener("mouseover", (e) => {
+      if (e.target.closest(".flyout")) clearTimeout(flyoutTimer);
+    });
+    flyoutsWrap.addEventListener("mouseout", (e) => {
+      if (!e.relatedTarget || !e.relatedTarget.closest(".flyout")) hideFlyoutSoon();
+    });
     flyoutsWrap.addEventListener("click", (e) => {
       const a = e.target.closest("a[data-view]");
       if (!a) return;
