@@ -7832,7 +7832,7 @@
     },
     "example": {
      "title": "Config drift check — 2h of manual audits → a 10-minute cron job",
-     "story": "S: Every release, a senior dev manually checked that production configs matched the repo — 2 hours, and it still missed drift twice. T: I owned making that check automatic before the next release. A: I wrote a Python script that pulled live config from the servers, diffed against the versioned files, and posted a report to the team channel; wired it as a cron job plus a pre-release gate in CI. T: scripted the same check the team had been doing by hand and verified it caught the two past drift cases before rollout. R: the audit became 10 minutes of review, drift was caught pre-release instead of in prod, and the script became the basis for our config-as-code work.",
+     "story": "S: Every release, a senior dev manually checked that production configs matched the repo — 2 hours, and it still missed drift twice. T: I owned making that check automatic before the next release. A: I wrote a Python script that pulled live config from the servers, diffed against the versioned files, and posted a report to the team channel; wired it as a cron job plus a pre-release gate in CI, and verified it caught the two past drift cases before rollout. R: the audit became 10 minutes of review, drift was caught pre-release instead of in prod, and the script became the basis for our config-as-code work.",
      "signal": "Interviewer listens for: measuring the before/after, testing your own automation, and team adoption — not just 'I wrote a script'."
     }
    },
