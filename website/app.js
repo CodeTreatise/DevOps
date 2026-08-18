@@ -410,7 +410,8 @@
       const gid = g.dataset.group;
       const title = (g.querySelector(".ng-label") || {}).textContent || gid;
       const ico = (g.querySelector(".ng-ico") || {}).textContent || "•";
-      html += '<div class="flyout" id="flyout-' + esc(gid) + '" data-group="' + esc(gid) + '">' +
+      const phaseCls = g.classList.contains("phase") ? " phase" : "";
+      html += '<div class="flyout' + phaseCls + '" id="flyout-' + esc(gid) + '" data-group="' + esc(gid) + '">' +
         '<div class="flyout-title">' + esc(ico + " " + title) + "</div>";
       g.querySelectorAll(".nav-link").forEach((a) => {
         const i = (a.querySelector(".nav-ico") || {}).textContent || "";
