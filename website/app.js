@@ -385,7 +385,7 @@
     saveNavPrefs(prefs);
     const tb = document.getElementById("sidebar-toggle");
     if (tb) { tb.textContent = on ? "» Expand" : "« Collapse sidebar"; tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons"; }
-    hideFlyout();
+    hideFlyoutHard();
   }
   function updateToggleLabel() {
     const tb = document.getElementById("sidebar-toggle");
@@ -397,6 +397,7 @@
 
   /* ---------------- rail flyouts (icon-rail hover panels) ---------------- */
   let flyoutTimer = null;
+  let flyoutPinned = false;
   function linkLabel(a) {
     const c = a.cloneNode(true);
     c.querySelectorAll(".nav-ico, .nav-count").forEach((n) => n.remove());
@@ -423,18 +424,34 @@
     });
     wrap.innerHTML = html;
   }
-  function showFlyout(gid, anchor) {
+  function showFlyout(gid, anchor, pin) {
     const f = document.getElementById("flyout-" + gid);
     if (!f) return;
     const r = anchor.getBoundingClientRect();
-    f.style.top = Math.max(8, Math.min(r.top, window.innerHeight - 80)) + "px";
+    const fh = f.offsetHeight || 360;
+    let top = r.top;
+    if (top + fh > window.innerHeight - 12) top = Math.max(8, window.innerHeight - fh - 12);
+    if (top < 8) top = 8;
+    f.style.top = top + "px";
     document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
     f.classList.add("show");
+    flyoutPinned = !!pin;
     clearTimeout(flyoutTimer);
   }
   function hideFlyout() {
+    if (flyoutPinned) return;
     document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
     clearTimeout(flyoutTimer);
+  }
+  function hideFlyoutHard() {
+    flyoutPinned = false;
+    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
+    clearTimeout(flyoutTimer);
+  }
+  function toggleFlyout(gid, anchor) {
+    const f = document.getElementById("flyout-" + gid);
+    if (f && f.classList.contains("show") && flyoutPinned) { hideFlyoutHard(); return; }
+    showFlyout(gid, anchor, true);
   }
   function hideFlyoutSoon() {
     clearTimeout(flyoutTimer);
@@ -1508,6 +1525,7 @@
     if (head) {
       const g = head.closest(".nav-group");
       if (!g) return;
+      if (isRail()) { toggleFlyout(g.dataset.group, head); return; }
       toggleGroup(g);
       return;
     }
@@ -1533,6 +1551,7 @@
     e.preventDefault();
     const g = head.closest(".nav-group");
     if (!g) return;
+    if (isRail()) { toggleFlyout(g.dataset.group, head); return; }
     toggleGroup(g);
   });
 
@@ -1545,7 +1564,7 @@
       if (!a) return;
       e.preventDefault();
       currentView = a.dataset.view;
-      hideFlyout();
+      hideFlyoutHard();
       render();
     });
   }
@@ -1770,7 +1789,7 @@
   }
   navToggle.addEventListener("click", () => setNavOpen(!sidebarEl.classList.contains("open")));
   navBackdrop.addEventListener("click", () => setNavOpen(false));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { setNavOpen(false); hideFlyout(); } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { setNavOpen(false); hideFlyoutHard(); } });
   document.addEventListener("keydown", (e) => {
     if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
       e.preventDefault();
