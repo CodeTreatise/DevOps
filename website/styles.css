@@ -758,6 +758,52 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
 .like-btn .like-heart { font-size: 16px; line-height: 1; }
 .like-btn:hover { border-color: rgba(255,107,138,.55); transform: scale(1.06); }
 .like-btn.liked { color: var(--text); border-color: rgba(255,107,138,.65); box-shadow: 0 0 14px rgba(255,107,138,.25); }
+
+/* like button delight animations */
+.like-btn .like-heart { display: inline-block; }
+.like-btn.pop .like-heart { animation: heart-pop .45s cubic-bezier(.175,.885,.32,1.275); }
+.like-btn.pop .like-count { animation: count-bump .45s ease; }
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.55) rotate(-10deg); }
+  70% { transform: scale(.9) rotate(5deg); }
+  100% { transform: scale(1); }
+}
+@keyframes count-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.sparkle {
+  position: fixed; z-index: 300; pointer-events: none;
+  line-height: 1;
+  animation: sparkle-fly .75s ease-out forwards;
+}
+@keyframes sparkle-fly {
+  0% { transform: translate(0, 0) scale(.4) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.15) rotate(var(--rot)); opacity: 0; }
+}
+.like-toast {
+  position: fixed; z-index: 300; pointer-events: none;
+  background: rgba(11, 16, 32, .92);
+  border: 1px solid rgba(255, 107, 138, .6);
+  color: var(--text); font-size: 13px; font-weight: 700;
+  padding: 7px 14px; border-radius: 999px;
+  box-shadow: 0 0 16px rgba(255, 107, 138, .35);
+  white-space: nowrap;
+  opacity: 1;
+  animation: toast-pop 1.6s ease forwards;
+}
+@keyframes toast-pop {
+  0% { transform: translate(-50%, 6px) scale(.8); opacity: 0; }
+  12% { transform: translate(-50%, 0) scale(1.06); opacity: 1; }
+  20% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(-50%, -10px) scale(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .like-btn.pop .like-heart, .like-btn.pop .like-count, .sparkle, .like-toast { animation: none !important; }
+}
 .nav-backdrop {
   position: fixed; inset: 0; z-index: 40;
   background: rgba(3, 5, 10, 0.65);

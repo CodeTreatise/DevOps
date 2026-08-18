@@ -1873,11 +1873,52 @@
       likeBtn.classList.toggle("liked", likePrefs.liked);
       likeBtn.setAttribute("aria-pressed", likePrefs.liked ? "true" : "false");
     }
+    function spawnSparkles(btn) {
+      const r = btn.getBoundingClientRect();
+      const cx = r.x + r.width / 2;
+      const cy = r.y + r.height / 2;
+      const glyphs = ["✨", "✦", "💖", "⭐"];
+      for (let i = 0; i < 12; i++) {
+        const s = document.createElement("span");
+        s.className = "sparkle";
+        s.textContent = glyphs[i % glyphs.length];
+        const ang = (Math.PI * 2 * i) / 12 + Math.random() * 0.5;
+        const dist = 36 + Math.random() * 44;
+        s.style.left = cx + "px";
+        s.style.top = cy + "px";
+        s.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+        s.style.setProperty("--dy", Math.sin(ang) * dist + "px");
+        s.style.setProperty("--rot", (Math.random() * 240 - 120) + "deg");
+        s.style.fontSize = (11 + Math.random() * 9) + "px";
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 800);
+      }
+    }
+    function showLikeToast(btn) {
+      const r = btn.getBoundingClientRect();
+      const t = document.createElement("div");
+      t.className = "like-toast";
+      t.textContent = "Thank you! 💖";
+      t.style.left = (r.x + r.width / 2) + "px";
+      t.style.top = (r.y + r.height + 12) + "px";
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 1700);
+    }
     likeBtn.addEventListener("click", () => {
+      const wasLiked = likePrefs.liked;
       likePrefs.liked = !likePrefs.liked;
       likePrefs.count = Math.max(0, likePrefs.count + (likePrefs.liked ? 1 : -1));
       try { localStorage.setItem(LIKE_KEY, JSON.stringify(likePrefs)); } catch (e) {}
       renderLike();
+      if (likePrefs.liked && !wasLiked) {
+        likeBtn.classList.remove("pop");
+        void likeBtn.offsetWidth;
+        likeBtn.classList.add("pop");
+        spawnSparkles(likeBtn);
+        showLikeToast(likeBtn);
+      } else if (!likePrefs.liked) {
+        likeBtn.classList.remove("pop");
+      }
     });
     renderLike();
   }
