@@ -1110,9 +1110,9 @@ body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-label,
 body.sidebar-collapsed .nav-group.collapsible .nav-group-head .ng-caret { display: none; }
 body.sidebar-collapsed .nav-group.collapsible .nav-group-body { display: none; }
 body.sidebar-collapsed .nav-group .nav-link { justify-content: center; padding: 11px 0; }
-body.sidebar-collapsed .nav-label, body.sidebar-collapsed .nav-count { display: none; }
+body.sidebar-collapsed #sidebar .nav-label, body.sidebar-collapsed #sidebar .nav-count { display: none; }
 body.sidebar-collapsed .phase-progress { display: none; }
-body.sidebar-collapsed .nav-link.active::before { left: -6px; }
+body.sidebar-collapsed #sidebar .nav-link.active::before { left: -6px; }
 body.sidebar-collapsed .sidebar-footer { padding: 10px 6px; }
 body.sidebar-collapsed .progress-block { display: none; }
 
