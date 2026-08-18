@@ -736,6 +736,28 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
   transition: transform .15s, border-color .15s;
 }
 .nav-toggle:hover { border-color: rgba(109,141,255,.5); transform: scale(1.05); }
+
+/* ---------------- like button (top-right) ---------------- */
+.like-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  position: fixed; top: 14px; right: 22px; z-index: 60;
+  padding: 8px 14px;
+  background: rgba(11, 16, 32, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--stroke-2);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .15s, border-color .15s, color .15s;
+}
+.like-btn .like-heart { font-size: 16px; line-height: 1; }
+.like-btn:hover { border-color: rgba(255,107,138,.55); transform: scale(1.06); }
+.like-btn.liked { color: var(--text); border-color: rgba(255,107,138,.65); box-shadow: 0 0 14px rgba(255,107,138,.25); }
 .nav-backdrop {
   position: fixed; inset: 0; z-index: 40;
   background: rgba(3, 5, 10, 0.65);

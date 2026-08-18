@@ -1858,4 +1858,27 @@
   /* ---------------- init ---------------- */
   render();
   updateProgressUI();
+
+  /* ---------------- like button (top-right, localStorage) ---------------- */
+  const LIKE_KEY = "platform-path-like-v1";
+  const likeBtn = document.getElementById("like-btn");
+  if (likeBtn) {
+    let likePrefs = { liked: false, count: 0 };
+    try { likePrefs = Object.assign(likePrefs, JSON.parse(localStorage.getItem(LIKE_KEY) || "{}")); } catch (e) {}
+    const heartEl = likeBtn.querySelector(".like-heart");
+    const countEl = likeBtn.querySelector(".like-count");
+    function renderLike() {
+      heartEl.textContent = likePrefs.liked ? "❤️" : "💔";
+      countEl.textContent = likePrefs.count;
+      likeBtn.classList.toggle("liked", likePrefs.liked);
+      likeBtn.setAttribute("aria-pressed", likePrefs.liked ? "true" : "false");
+    }
+    likeBtn.addEventListener("click", () => {
+      likePrefs.liked = !likePrefs.liked;
+      likePrefs.count = Math.max(0, likePrefs.count + (likePrefs.liked ? 1 : -1));
+      try { localStorage.setItem(LIKE_KEY, JSON.stringify(likePrefs)); } catch (e) {}
+      renderLike();
+    });
+    renderLike();
+  }
 })();
