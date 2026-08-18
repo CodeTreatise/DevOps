@@ -61,3 +61,11 @@ platform-engineering/
 - **426 interview questions** (Phase A: 109, Phase B: 317) — every question has a model answer + 1/2/3 rubric + why-asked
 - **15 modules** · 65 sub-topics · 188 learning items
 - Market data for Pune / national India / international, job requirements, 239+ verified sources
+
+## 🧰 Study tools (Study Tools nav group)
+
+- **🔍 Search** — instant site-wide search across all 426 answers, module topics and STAR prompts (press `/` anywhere to jump in)
+- **🎴 Practice Mode** — active-recall deck: module filter, shuffle, reveal answer+rubric+why, self-rate; **🔊 Read question** (browser TTS) reads the question aloud
+- **📈 Mastery** — aggregates self-ratings into per-module % (weakest first) + spaced-repetition "due for review" list
+- **📄 Cheat Sheets** — one-page printable must-know recap per module (mental model, topics, practice questions, exit test); 🖨 Print
+- **🗣 STAR Stories** — 5 behavioral categories × 4 prompts, S/T/A/R templates + worked examples

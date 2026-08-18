@@ -139,6 +139,9 @@
   }
   function savePractice(p) { localStorage.setItem(PRACTICE_KEY, JSON.stringify(p)); }
   function qid(mid, idx) { return mid + "-" + idx; }
+  function stopSpeak() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
 
   function allQuestions() {
     const A = window.ANSWERS_DATA || {};
@@ -998,6 +1001,126 @@
     $view.innerHTML = html;
   }
 
+  /* ---------------- global search view ---------------- */
+  const searchState = { q: "", scope: "all", results: 0 };
+  function searchableDocs() {
+    const docs = [];
+    allModules().forEach((m) => {
+      docs.push({ type: "module", mid: m.id, icon: m.icon, title: m.id + " " + m.title,
+        text: [m.title, m.goal, m.mentalModel, m.exitTest].join(" ") });
+      (m.subTopics || []).forEach((st) => (st.items || []).forEach((i) => {
+        docs.push({ type: "item", mid: m.id, icon: m.icon, title: i.title,
+          text: (i.title + " " + (i.detail || "")).trim() });
+      }));
+    });
+    const A = window.ANSWERS_DATA || {};
+    Object.keys(A).forEach((mid) => (A[mid] || []).forEach((x, idx) => {
+      const mm = moduleById(mid);
+      docs.push({ type: "q", mid, idx, icon: mm ? mm.icon : "❓", title: x.q,
+        text: (x.q + " " + (x.a || "") + " " + (x.r || "") + " " + (x.w || "")).trim() });
+    }));
+    const sd = D.starBank;
+    (sd && sd.categories || []).forEach((c) => {
+      (c.questions || []).forEach((q) => {
+        docs.push({ type: "star", mid: c.id, icon: c.icon, title: q, text: q });
+      });
+    });
+    return docs;
+  }
+  function runSearch(q, scope) {
+    if (!q) return [];
+    const ql = q.toLowerCase();
+    const doc = searchableDocs();
+    const out = [];
+    doc.forEach((d) => {
+      if (scope === "q" && d.type !== "q") return;
+      if (scope === "mod" && d.type !== "module" && d.type !== "item") return;
+      const ti = d.title.toLowerCase().indexOf(ql);
+      if (ti >= 0) { out.push(Object.assign({}, d, { hit: d.title, pos: ti })); return; }
+      const tx = d.text.toLowerCase().indexOf(ql);
+      if (tx >= 0) out.push(Object.assign({}, d, { hit: d.text, pos: tx }));
+    });
+    return out.slice(0, 120);
+  }
+  function viewSearch() {
+    let html = '<div class="appendix"><h1>🔍 Search</h1>';
+    html += '<p class="sec-desc">Search every question, model answer, module topic and STAR prompt. Press <b>/</b> anywhere to jump here.</p>';
+    html += '<div class="toolbar">' +
+      '<input type="search" id="sr-input" placeholder="Search 426 answers + 15 modules…" value="' + esc(searchState.q) + '" autofocus>' +
+      '<select id="sr-scope">' +
+      '<option value="all"' + (searchState.scope === "all" ? " selected" : "") + ">Everything</option>" +
+      '<option value="q"' + (searchState.scope === "q" ? " selected" : "") + ">Questions & answers</option>" +
+      '<option value="mod"' + (searchState.scope === "mod" ? " selected" : "") + ">Modules & topics</option>" +
+      "</select>" +
+      '<span class="counts" id="sr-count">' + (searchState.q ? searchState.results + " hit" + (searchState.results === 1 ? "" : "s") : "") + "</span></div>";
+    if (!searchState.q) {
+      html += '<div class="empty-state">Type to search — try <b>“etcd”</b>, <b>“rollback”</b>, <b>“thundering herd”</b>.</div>';
+      html += "</div>";
+      $view.innerHTML = html;
+      const inp = document.getElementById("sr-input");
+      if (inp && document.activeElement !== inp) inp.focus();
+      return;
+    }
+    const res = runSearch(searchState.q, searchState.scope);
+    if (!res.length) {
+      html += '<div class="empty-state">No matches for “' + esc(searchState.q) + '”. Try a shorter term.</div></div>';
+      $view.innerHTML = html; return;
+    }
+    html += '<div class="sr-list">';
+    res.forEach((r) => {
+      const m = r.mid && (r.type === "q" || r.type === "item" || r.type === "module") ? moduleById(r.mid) : null;
+      const v = r.type === "q" ? "module:" + r.mid : r.type === "module" ? "module:" + r.mid
+        : r.type === "item" ? "module:" + r.mid : r.type === "star" ? "star" : "overview";
+      const head = (m ? m.icon + " " + r.mid : (r.type === "star" ? "🗣 STAR" : "")) + (r.type === "q" ? " · Q" + (r.idx + 1) : "");
+      html += '<div class="sr-item"><a href="#" data-view="' + esc(v) + '">' +
+        '<div class="sr-head">' + esc(head) + " · " + esc(r.type === "item" ? r.mid + " " + (m ? m.title : "") : r.title.length > 70 ? r.title.slice(0, 70) + "…" : r.title) + "</div>" +
+        '<div class="sr-snip">' + esc(r.hit.slice(Math.max(0, r.pos - 50), r.pos + 110)) + "</div>" +
+        "</a></div>";
+    });
+    html += "</div></div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- cheat sheets view ---------------- */
+  const cheatsState = { mid: "A01" };
+  function viewCheats() {
+    const m = moduleById(cheatsState.mid) || allModules()[0];
+    if (!m) { $view.innerHTML = '<div class="empty-state">No modules.</div>'; return; }
+    let html = '<div class="appendix"><h1>📄 Cheat Sheets</h1>';
+    html += '<p class="sec-desc">One-page must-know recap per module. Print it, fold it, drill it on the train.</p>';
+    html += '<div class="toolbar">' +
+      '<select id="ch-module">' +
+      allModules().map((x) => '<option value="' + esc(x.id) + '"' + (x.id === m.id ? " selected" : "") + ">" + esc(x.id + " " + shortTitle(x.title)) + "</option>").join("") +
+      "</select>" +
+      '<button class="toggle-btn" id="ch-print">🖨 Print this sheet</button>' +
+      '<span class="counts">' + esc(m.id) + " · " + (m.subTopics || []).reduce((a, s) => a + (s.items || []).length, 0) + " must-know points</span></div>";
+    html += '<div class="cheatsheet" id="cheatsheet">';
+    html += '<div class="cs-head"><div class="cs-icon">' + esc(m.icon || "📘") + "</div>" +
+      '<div class="cs-title"><span class="cs-id">' + esc(m.id) + "</span> " + esc(m.title) + "</div></div>";
+    if (m.mentalModel) html += '<div class="cs-block"><div class="rb-label">🧠 Mental model</div><p>' + esc(m.mentalModel) + "</p></div>";
+    if (m.goal) html += '<div class="cs-block"><div class="rb-label">🎯 Goal</div><p>' + esc(m.goal) + "</p></div>";
+    if (m.dependsOn && m.dependsOn.length) html += '<div class="cs-block"><div class="rb-label">🧱 Builds on</div><p>' + m.dependsOn.map((c) => '<span class="mod-chip">' + esc(c) + "</span>").join(" ") + "</p></div>";
+    html += '<div class="cs-block"><div class="rb-label">📋 Must know</div>';
+    (m.subTopics || []).forEach((st) => {
+      html += '<div class="cs-sub"><div class="cs-sub-name">' + esc(st.name) + "</div><ul class='cs-items'>";
+      (st.items || []).forEach((i) => {
+        html += "<li><b>" + esc(i.title) + "</b>" + (i.detail ? " <span class='cs-detail'>— " + esc(i.detail) + "</span>" : "") + "</li>";
+      });
+      html += "</ul></div>";
+    });
+    html += "</div>";
+    const focus = (m.research && m.research.interviewFocus) || [];
+    if (focus.length) {
+      html += '<div class="cs-block"><div class="rb-label">🎤 Practice questions</div><ol class="cs-focus">';
+      focus.forEach((f) => { html += "<li>" + esc(f) + "</li>"; });
+      html += "</ol></div>";
+    }
+    if (m.exitTest) html += '<div class="cs-block"><div class="rb-label">✅ Exit test</div><p>' + esc(m.exitTest) + "</p></div>";
+    html += '<div class="cs-foot">Platform Engineering — ' + esc(m.id + " " + m.title) + " · codetreatise.github.io/DevOps</div>";
+    html += "</div></div>";
+    $view.innerHTML = html;
+  }
+
   /* ---------------- practice mode view ---------------- */
   function viewPractice() {
     const A = window.ANSWERS_DATA;
@@ -1047,7 +1170,8 @@
       html += '<div class="practice-rate"><span class="rate-label">Rate yourself:</span>' +
         RATE_NAMES.map((n, i) => '<button class="rate-btn" data-rate="' + i + '" data-mid="' + esc(q.mid) + '" data-idx="' + q.idx + '">' + n + "</button>").join("") + "</div>";
     } else {
-      html += '<div class="practice-act"><button class="co-apply" id="pr-reveal">👁 Show answer</button></div>';
+      html += '<div class="practice-act"><button class="co-apply" id="pr-reveal">👁 Show answer</button> ' +
+        '<button class="toggle-btn" id="pr-speak">🔊 Read question</button></div>';
     }
     html += '<div class="practice-nav">' +
       '<button class="ghost-btn" id="pr-prev"' + (practiceState.pos === 0 ? " disabled" : "") + ">← Prev</button> " +
@@ -1148,6 +1272,8 @@
     else if (currentView === "practice") viewPractice();
     else if (currentView === "mastery") viewMastery();
     else if (currentView === "star") viewStar();
+    else if (currentView === "search") viewSearch();
+    else if (currentView === "cheats") viewCheats();
     else if (currentView.startsWith("module:")) viewModule(currentView.slice(7));
     window.scrollTo(0, 0);
   }
@@ -1177,23 +1303,40 @@
       return;
     }
     // practice mode: reveal / nav / shuffle / rate / clear
-    if (e.target.id === "pr-reveal") { e.preventDefault(); practiceState.revealed = true; viewPractice(); return; }
+    if (e.target.id === "pr-reveal") { e.preventDefault(); stopSpeak(); practiceState.revealed = true; viewPractice(); return; }
     if (e.target.id === "pr-next") {
       e.preventDefault();
       if (practiceState.pos < practiceState.order.length - 1) { practiceState.pos++; practiceState.revealed = false; }
+      stopSpeak();
       viewPractice(); return;
     }
     if (e.target.id === "pr-prev") {
       e.preventDefault();
       if (practiceState.pos > 0) { practiceState.pos--; practiceState.revealed = false; }
+      stopSpeak();
       viewPractice(); return;
     }
     if (e.target.id === "pr-shuffle") {
       e.preventDefault();
       practiceState.order = buildPracticeOrder(practiceState.mid, false);
       practiceState.pos = 0; practiceState.revealed = false;
+      stopSpeak();
       viewPractice(); return;
     }
+    if (e.target.id === "pr-speak") {
+      e.preventDefault();
+      const q = practiceState.order[practiceState.pos];
+      if (!q) return;
+      if (window.speechSynthesis && window.speechSynthesis.speaking) { stopSpeak(); viewPractice(); return; }
+      const u = new SpeechSynthesisUtterance(q.q);
+      u.lang = "en-US"; u.rate = 0.95; u.pitch = 1;
+      u.onend = () => viewPractice();
+      window.speechSynthesis.speak(u);
+      const b = document.getElementById("pr-speak");
+      if (b) b.textContent = "⏹ Stop";
+      return;
+    }
+    if (e.target.id === "ch-print") { e.preventDefault(); window.print(); return; }
     if (e.target.id === "pr-all") {
       e.preventDefault();
       practiceState.dueOnly = false; practiceState.order = []; practiceState.pos = 0; practiceState.revealed = false;
@@ -1223,6 +1366,7 @@
       rec.n = (rec.n || 0) + 1;
       p[k] = rec;
       savePractice(p);
+      stopSpeak();
       if (practiceState.pos < practiceState.order.length - 1) { practiceState.pos++; practiceState.revealed = false; }
       viewPractice();
       return;
@@ -1300,7 +1444,21 @@
       practiceState.order = [];
       practiceState.pos = 0;
       practiceState.revealed = false;
+      stopSpeak();
       viewPractice();
+      return;
+    }
+    if (e.target.id === "ch-module") {
+      cheatsState.mid = e.target.value;
+      viewCheats();
+      return;
+    }
+    if (e.target.id === "sr-scope") {
+      searchState.scope = e.target.value;
+      searchState.results = searchState.q ? runSearch(searchState.q, searchState.scope).length : 0;
+      viewSearch();
+      const inp = document.getElementById("sr-input");
+      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
       return;
     }
     if (e.target.dataset && e.target.dataset.trStage !== undefined) {
@@ -1324,6 +1482,18 @@
     }
   });
 
+  $view.addEventListener("input", (e) => {
+    if (e.target.id === "sr-input") {
+      searchState.q = e.target.value.trim();
+      if (!searchState.q) { searchState.results = 0; viewSearch(); return; }
+      searchState.results = runSearch(searchState.q, searchState.scope).length;
+      viewSearch();
+      const inp = document.getElementById("sr-input");
+      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+      return;
+    }
+  });
+
   /* ---------------- mobile nav drawer ---------------- */
   const sidebarEl = document.getElementById("sidebar");
   const navToggle = document.getElementById("nav-toggle");
@@ -1338,6 +1508,15 @@
   navToggle.addEventListener("click", () => setNavOpen(!sidebarEl.classList.contains("open")));
   navBackdrop.addEventListener("click", () => setNavOpen(false));
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setNavOpen(false); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+      e.preventDefault();
+      currentView = "search";
+      render();
+      const inp = document.getElementById("sr-input");
+      if (inp) inp.focus();
+    }
+  });
   // close drawer when a nav destination is chosen on mobile
   document.getElementById("nav").addEventListener("click", (e) => {
     if (e.target.closest("a[data-view]") && window.innerWidth <= 900) setNavOpen(false);
