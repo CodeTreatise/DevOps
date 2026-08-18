@@ -20,12 +20,16 @@ platform-engineering/
 │   └── Platform-Answer-Bank-B.md          Phase B: 317 model answers
 ├── website/               ← Interactive site (open index.html)
 │   ├── index.html · app.js · data.js · styles.css
+│   └── answers.js                         auto-generated (Practice Mode / Mastery)
 ├── scripts/               ← Generators + validators + audits
 │   ├── gen_answer_bank_a.py / gen_answer_bank_b.py   build the banks
 │   ├── ans_bank_b1.py / b2.py / b3.py                Phase B answer data
+│   ├── export_answers_js.py               builds website/answers.js (426 answers)
+│   ├── star_data.js                       STAR story bank (5 categories, 20 Qs)
 │   ├── check_answers.py / check_answers_b.py         tuple validation
 │   ├── audit_coverage.py                             426/426 coverage audit
 │   ├── check_site_sync.js                            JSON ↔ site sync check
+│   ├── check_crossrefs.js / check_completeness.js    reference + structure audits
 │   └── dump_qa.py                                     list questions per phase
 ├── analysis/
 │   ├── PLATFORM_PATH_GAP_ANALYSIS.md      gap analysis (2026-08-17)
@@ -39,14 +43,18 @@ platform-engineering/
 | Task | Command (from `platform-engineering/`) |
 | --- | --- |
 | Rebuild both answer banks | `python3 scripts/gen_answer_bank_a.py && python3 scripts/gen_answer_bank_b.py` |
+| Rebuild site answers (Practice/Mastery) | `python3 scripts/export_answers_js.py` |
+| Inject extras (certs/sysdesign/labs/resume/STAR…) | `node scripts/sync_companies.js && node scripts/sync_extras.js` |
 | Validate answer data | `python3 scripts/check_answers.py && python3 scripts/check_answers_b.py` |
 | Prove full coverage (426 Qs) | `python3 scripts/audit_coverage.py` |
 | Prove site ↔ JSON in sync | `node scripts/check_site_sync.js` |
+| Prove cross-refs + structure | `node scripts/check_crossrefs.js && node scripts/check_completeness.js` |
 | Open the site | open `website/index.html` in a browser |
 
 > **Rule:** curriculum is the source of truth. Any change to questions goes in
 > `curriculum/Platform-Engineering-Path.json` **and** `website/data.js` **and**
-> the PATH.md research blocks — then regenerate the banks.
+> the PATH.md research blocks — then regenerate the banks and `answers.js`.
+> After touching `app.js` always run `node --check website/app.js`.
 
 ## 📊 Scale
 

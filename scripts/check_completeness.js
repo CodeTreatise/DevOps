@@ -38,6 +38,7 @@ const docs = {
   "Labs-CHECKLISTS.md": "labs",
   "Resume-Kit.md": "resumeTemplate",
   "Company-Question-Sets.md": "companyQs",
+  "STAR-Story-Bank.md": "starBank",
 };
 for (const [doc, key] of Object.entries(docs)) {
   const docPath = path.join(ROOT, "curriculum", doc);

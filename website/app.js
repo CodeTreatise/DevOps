@@ -127,6 +127,61 @@
     localStorage.setItem(LABS_KEY, JSON.stringify(d));
   }
 
+  /* ---------------- practice mode + mastery ---------------- */
+  const PRACTICE_KEY = "platform-path-practice-v1";
+  const RATE_NAMES = ["🧠 Forgot", "🤏 Partial", "👍 Knew"];
+  const RATE_DUE_DAYS = [0, 1, 3];
+  const practiceState = { mid: "all", dueOnly: false, order: [], pos: 0, revealed: false };
+
+  function getPractice() {
+    try { return JSON.parse(localStorage.getItem(PRACTICE_KEY) || "{}"); }
+    catch (e) { return {}; }
+  }
+  function savePractice(p) { localStorage.setItem(PRACTICE_KEY, JSON.stringify(p)); }
+  function qid(mid, idx) { return mid + "-" + idx; }
+
+  function allQuestions() {
+    const A = window.ANSWERS_DATA || {};
+    const out = [];
+    allModules().forEach((m) => {
+      (A[m.id] || []).forEach((x, idx) => {
+        out.push({ mid: m.id, title: m.title, icon: m.icon, idx, q: x.q, a: x.a, r: x.r, w: x.w });
+      });
+    });
+    return out;
+  }
+
+  function buildPracticeOrder(mid, dueOnly) {
+    const p = getPractice();
+    const now = Date.now();
+    const qs = allQuestions().filter((x) => mid === "all" || x.mid === mid);
+    if (dueOnly) {
+      return qs.filter((x) => { const rec = p[qid(x.mid, x.idx)]; return !rec || rec.d <= now; });
+    }
+    for (let i = qs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = qs[i]; qs[i] = qs[j]; qs[j] = t;
+    }
+    const due = qs.filter((x) => { const rec = p[qid(x.mid, x.idx)]; return rec && rec.d <= now; });
+    const rest = qs.filter((x) => { const rec = p[qid(x.mid, x.idx)]; return !rec || rec.d > now; });
+    return due.concat(rest);
+  }
+
+  function rateColor(r) {
+    return r === 2 ? "var(--green)" : r === 1 ? "var(--cyan)" : "var(--accent)";
+  }
+
+  function masteryFor(mid, p) {
+    const A = (window.ANSWERS_DATA || {})[mid] || [];
+    if (!A.length) return { answered: 0, total: 0, pct: 0, avg: 0 };
+    let score = 0, answered = 0;
+    A.forEach((_, idx) => {
+      const rec = p[qid(mid, idx)];
+      if (rec) { answered++; score += rec.r; }
+    });
+    return { answered, total: A.length, pct: Math.round((score / (A.length * 2)) * 100), avg: answered ? score / answered : 0 };
+  }
+
   function updateProgressUI() {
     const p = getProgress();
     let total = 0, done = 0;
@@ -943,6 +998,139 @@
     $view.innerHTML = html;
   }
 
+  /* ---------------- practice mode view ---------------- */
+  function viewPractice() {
+    const A = window.ANSWERS_DATA;
+    if (!A) { $view.innerHTML = '<div class="empty-state">answers.js missing — regenerate with python3 scripts/export_answers_js.py</div>'; return; }
+    if (!practiceState.order.length) practiceState.order = buildPracticeOrder(practiceState.mid, practiceState.dueOnly);
+    const order = practiceState.order;
+    const q = order[practiceState.pos];
+    const p = getPractice();
+    let html = '<div class="appendix"><h1>🎴 Practice Mode</h1>';
+    html += '<p class="sec-desc">Active recall beats re-reading: answer OUT LOUD before revealing, then rate yourself. Ratings feed the 📈 Mastery view and space out reviews.</p>';
+
+    html += '<div class="toolbar">' +
+      '<select id="pr-module">' +
+      '<option value="all">All modules</option>' +
+      allModules().map((m) => '<option value="' + esc(m.id) + '"' + (practiceState.mid === m.id ? " selected" : "") + ">" + esc(m.id + " " + shortTitle(m.title)) + "</option>").join("") +
+      "</select>" +
+      (practiceState.dueOnly
+        ? '<span class="chip">🔁 Due now</span>'
+        : '<button class="toggle-btn" id="pr-shuffle">🔀 Shuffle</button>') +
+      '<span class="counts">' + (order.length ? practiceState.pos + 1 : 0) + " / " + order.length + (practiceState.dueOnly ? " due" : "") + "</span></div>";
+
+    if (!order.length) {
+      html += '<div class="empty-state" style="margin:24px 0">' +
+        (practiceState.dueOnly ? "Nothing due right now 🎉 — practice everything or come back later." : "No questions here.") + "</div>";
+      if (practiceState.dueOnly) html += '<button class="co-apply" id="pr-all">🎴 Practice all questions</button>';
+      html += "</div>";
+      $view.innerHTML = html;
+      return;
+    }
+
+    const rec = p[qid(q.mid, q.idx)];
+    const dueTxt = rec
+      ? (rec.d <= Date.now() ? " · 🔁 due now" : " · next review " + Math.ceil((rec.d - Date.now()) / 86400000) + "d")
+      : " · new";
+    html += '<div class="practice-card">';
+    html += '<div class="practice-top">' +
+      '<span class="mod-chip" data-view="module:' + esc(q.mid) + '">' + esc(q.mid) + "</span>" +
+      '<span class="practice-sub">' + esc(q.title) + "</span>" +
+      '<span class="practice-due" style="color:' + (rec ? rateColor(rec.r) : "var(--text-dim)") + '">' +
+      (rec ? RATE_NAMES[rec.r] + dueTxt : "Unrated") + "</span></div>";
+    html += '<div class="practice-q">' + esc(q.q) + "</div>";
+
+    if (practiceState.revealed) {
+      html += '<div class="practice-ans"><div class="rb-label">Model answer</div><p>' + esc(q.a) + "</p>" +
+        (q.r ? '<div class="rb-label">Rubric</div><p>' + esc(q.r) + "</p>" : "") +
+        (q.w ? '<div class="rb-label">Why asked</div><p>' + esc(q.w) + "</p>" : "") + "</div>";
+      html += '<div class="practice-rate"><span class="rate-label">Rate yourself:</span>' +
+        RATE_NAMES.map((n, i) => '<button class="rate-btn" data-rate="' + i + '" data-mid="' + esc(q.mid) + '" data-idx="' + q.idx + '">' + n + "</button>").join("") + "</div>";
+    } else {
+      html += '<div class="practice-act"><button class="co-apply" id="pr-reveal">👁 Show answer</button></div>';
+    }
+    html += '<div class="practice-nav">' +
+      '<button class="ghost-btn" id="pr-prev"' + (practiceState.pos === 0 ? " disabled" : "") + ">← Prev</button> " +
+      '<button class="ghost-btn" id="pr-next"' + (practiceState.pos >= order.length - 1 ? " disabled" : "") + ">Next →</button></div>";
+    html += "</div></div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- mastery view ---------------- */
+  function viewMastery() {
+    const A = window.ANSWERS_DATA;
+    if (!A) { $view.innerHTML = '<div class="empty-state">answers.js missing</div>'; return; }
+    const p = getPractice();
+    let totalA = 0, totalQ = 0, totalScore = 0;
+    const rows = allModules().map((m) => {
+      const mm = masteryFor(m.id, p);
+      totalA += mm.answered; totalQ += mm.total; totalScore += Math.round(mm.avg * mm.answered);
+      return { m: m, mm: mm };
+    }).filter((r) => r.mm.total > 0).sort((a, b) => a.mm.pct - b.mm.pct);
+
+    const overall = totalQ ? Math.round((totalScore / (totalQ * 2)) * 100) : 0;
+    let html = '<div class="appendix"><h1>📈 Mastery</h1>';
+    html += '<p class="sec-desc">Built from your 🎴 Practice Mode self-ratings (👍 knew = 2 · 🤏 partial = 1 · 🧠 forgot = 0). Weakest modules float to the top.</p>';
+    html += '<div class="chips">' +
+      '<span class="chip">🎴 <b>' + totalA + "/" + totalQ + "</b> rated</span>" +
+      '<span class="chip">📈 <b>' + overall + "%</b> overall</span>" +
+      '<button class="ghost-btn" id="pr-clear">↺ Reset ratings</button></div>';
+
+    html += "<h2>🔻 Weakest modules — practice these first</h2>";
+    if (!rows.length) html += '<div class="empty-state">No ratings yet — start with 🎴 Practice Mode.</div>';
+    rows.forEach((r) => {
+      const pct = r.mm.pct;
+      html += '<div class="mastery-row"><div class="mastery-name">' +
+        '<a href="#" data-view="module:' + esc(r.m.id) + '" class="mod-chip">' + esc(r.m.id) + "</a> " + esc(shortTitle(r.m.title)) + "</div>" +
+        '<div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%;background:' + (pct < 40 ? "var(--accent)" : pct < 70 ? "var(--cyan)" : "var(--green)") + '"></div></div>' +
+        '<div class="mastery-pct">' + pct + "%</div>" +
+        '<div class="mastery-sub">' + r.mm.answered + "/" + r.mm.total + " rated</div></div>";
+    });
+
+    const now = Date.now();
+    const due = allQuestions().filter((x) => { const rec = p[qid(x.mid, x.idx)]; return rec && rec.d <= now; });
+    html += "<h2>🔁 Due for review</h2>";
+    if (!due.length) html += '<div class="empty-state">Nothing due — ratings are fresh. 🎉</div>';
+    else {
+      html += '<p class="sec-desc"><b>' + due.length + "</b> questions due. <button class='co-apply' id='pr-due'>🎴 Practice due now</button></p>";
+      due.slice(0, 10).forEach((x) => {
+        const rec = p[qid(x.mid, x.idx)];
+        html += '<div class="due-row"><span class="mod-chip" data-view="module:' + esc(x.mid) + '">' + esc(x.mid) + "</span> " + esc(x.q.slice(0, 90)) + "… <span style='color:" + rateColor(rec.r) + "'>" + RATE_NAMES[rec.r] + "</span></div>";
+      });
+      if (due.length > 10) html += '<p class="sec-desc">…and ' + (due.length - 10) + " more.</p>";
+    }
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
+  /* ---------------- STAR story bank view ---------------- */
+  function viewStar() {
+    const sd = D.starBank;
+    if (!sd) { $view.innerHTML = '<div class="empty-state">starBank missing — run node scripts/sync_extras.js</div>'; return; }
+    let html = '<div class="appendix"><h1>🗣 STAR Story Bank</h1>';
+    html += '<p class="sec-desc">Behavioral rounds decide offers. Write 5-10 real S/T/A/R stories from these prompts and practise them aloud in 90 seconds.</p>';
+    html += '<details class="research-block" open><summary><span class="caret">▶</span> How to use</summary><div class="rb-body"><ul>' +
+      sd.howToUse.map((h) => "<li>" + esc(h) + "</li>").join("") + "</ul></div></details>";
+    (sd.categories || []).forEach((c) => {
+      html += '<div class="star-cat"><h2>' + esc(c.icon + " " + c.name) + "</h2><ul class='star-qs'>";
+      (c.questions || []).forEach((q) => { html += "<li>" + esc(q) + "</li>"; });
+      html += "</ul>";
+      if (c.template) {
+        html += '<div class="star-tpl"><div class="rb-label">S/T/A/R template</div><ul>' +
+          [["S", c.template.s], ["T", c.template.t], ["A", c.template.a], ["R", c.template.r]]
+            .map((kv) => "<li><b>" + kv[0] + ":</b> " + esc(kv[1]) + "</li>").join("") + "</ul></div>";
+      }
+      if (c.example) {
+        html += '<details class="research-block"><summary><span class="caret">▶</span> Worked example — ' + esc(c.example.title) + "</summary><div class='rb-body'>" +
+          "<p>" + esc(c.example.story) + "</p>" +
+          '<div class="rb-label">What the interviewer listens for</div><p>' + esc(c.example.signal) + "</p></div></details>";
+      }
+      html += "</div>";
+    });
+    html += "</div>";
+    $view.innerHTML = html;
+  }
+
   function render() {
     renderSidebar();
     if (currentView === "overview") viewOverview();
@@ -957,6 +1145,9 @@
     else if (currentView === "resume") viewResume();
     else if (currentView === "labs") viewLabs();
     else if (currentView === "tracker") viewTracker();
+    else if (currentView === "practice") viewPractice();
+    else if (currentView === "mastery") viewMastery();
+    else if (currentView === "star") viewStar();
     else if (currentView.startsWith("module:")) viewModule(currentView.slice(7));
     window.scrollTo(0, 0);
   }
@@ -983,6 +1174,57 @@
       e.preventDefault();
       const el = document.getElementById(anch.dataset.anchor);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    // practice mode: reveal / nav / shuffle / rate / clear
+    if (e.target.id === "pr-reveal") { e.preventDefault(); practiceState.revealed = true; viewPractice(); return; }
+    if (e.target.id === "pr-next") {
+      e.preventDefault();
+      if (practiceState.pos < practiceState.order.length - 1) { practiceState.pos++; practiceState.revealed = false; }
+      viewPractice(); return;
+    }
+    if (e.target.id === "pr-prev") {
+      e.preventDefault();
+      if (practiceState.pos > 0) { practiceState.pos--; practiceState.revealed = false; }
+      viewPractice(); return;
+    }
+    if (e.target.id === "pr-shuffle") {
+      e.preventDefault();
+      practiceState.order = buildPracticeOrder(practiceState.mid, false);
+      practiceState.pos = 0; practiceState.revealed = false;
+      viewPractice(); return;
+    }
+    if (e.target.id === "pr-all") {
+      e.preventDefault();
+      practiceState.dueOnly = false; practiceState.order = []; practiceState.pos = 0; practiceState.revealed = false;
+      viewPractice(); return;
+    }
+    if (e.target.id === "pr-due") {
+      e.preventDefault();
+      practiceState.mid = "all"; practiceState.dueOnly = true; practiceState.order = []; practiceState.pos = 0; practiceState.revealed = false;
+      currentView = "practice"; render(); return;
+    }
+    if (e.target.id === "pr-clear") {
+      e.preventDefault();
+      if (confirm("Reset ALL practice ratings? This cannot be undone.")) {
+        localStorage.removeItem(PRACTICE_KEY);
+        viewMastery();
+      }
+      return;
+    }
+    const rateBtn = e.target.closest("button[data-rate]");
+    if (rateBtn) {
+      e.preventDefault();
+      const p = getPractice();
+      const k = qid(rateBtn.dataset.mid, parseInt(rateBtn.dataset.idx, 10));
+      const rec = p[k] || {};
+      rec.r = parseInt(rateBtn.dataset.rate, 10);
+      rec.d = Date.now() + RATE_DUE_DAYS[rec.r] * 86400000;
+      rec.n = (rec.n || 0) + 1;
+      p[k] = rec;
+      savePractice(p);
+      if (practiceState.pos < practiceState.order.length - 1) { practiceState.pos++; practiceState.revealed = false; }
+      viewPractice();
       return;
     }
     // application tracker: add / delete / clear
@@ -1052,6 +1294,15 @@
 
   // tracker: stage change + lab checkbox changes
   $view.addEventListener("change", (e) => {
+    if (e.target.id === "pr-module") {
+      practiceState.mid = e.target.value;
+      practiceState.dueOnly = false;
+      practiceState.order = [];
+      practiceState.pos = 0;
+      practiceState.revealed = false;
+      viewPractice();
+      return;
+    }
     if (e.target.dataset && e.target.dataset.trStage !== undefined) {
       const idx = parseInt(e.target.dataset.trStage, 10);
       const list = getApps();

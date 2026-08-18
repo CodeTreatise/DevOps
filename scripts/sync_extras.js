@@ -21,6 +21,7 @@ const sysdesign = loadJs("sysdesign_data.js", "SYSDESIGN_DATA");
 const labs = loadJs("labs_data.js", "LABS_DATA");
 const resume = loadJs("resume_data.js", "RESUME_DATA");
 const companyQs = loadJs("company_qs_data.js", "COMPANY_QS_DATA");
+const star = loadJs("star_data.js", "STAR_DATA");
 
 const cur = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
 cur.certs = certs;
@@ -28,6 +29,7 @@ cur.systemDesign = sysdesign;
 cur.labs = labs;
 cur.resumeTemplate = resume;
 cur.companyQs = companyQs;
+cur.starBank = star;
 
 fs.writeFileSync(jsonPath, JSON.stringify(cur, null, 1) + "\n", "utf8");
 fs.writeFileSync(dataJsPath, "window.PATH_DATA = " + JSON.stringify(cur, null, 1) + ";\n", "utf8");
@@ -37,6 +39,7 @@ console.log(
   ", sysdesign problems=" + sysdesign.problems.length +
   ", labs modules=" + labs.modules.length +
   ", companyQs tiers=" + companyQs.tiers.length +
+  ", star categories=" + star.categories.length +
   ", resume sections ok"
 );
 console.log("JSON + data.js written. Run check_site_sync.js to verify.");
