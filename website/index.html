@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 <div class="bg-orbs" aria-hidden="true">
@@ -30,32 +30,39 @@
       </div>
     </div>
     <nav id="nav">
-      <div class="nav-group">
-        <a href="#" data-view="dashboard" class="nav-link"><span class="nav-ico">🏠</span>Dashboard</a>
-        <a href="#" data-view="overview" class="nav-link"><span class="nav-ico">🗺</span>Learning Path</a>
+      <div class="nav-group collapsible" data-group="start">
+        <div class="nav-group-head"><span class="ng-ico">🧭</span><span class="ng-label">Start</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body">
+          <a href="#" data-view="dashboard" class="nav-link"><span class="nav-ico">🏠</span><span class="nav-label">Dashboard</span></a>
+          <a href="#" data-view="overview" class="nav-link"><span class="nav-ico">🗺</span><span class="nav-label">Learning Path</span></a>
+        </div>
       </div>
       <div id="nav-phases"></div>
-      <div class="nav-group">
-        <div class="nav-group-label">Study Tools</div>
-        <a href="#" data-view="search" class="nav-link"><span class="nav-ico">🔍</span>Search</a>
-        <a href="#" data-view="practice" class="nav-link"><span class="nav-ico">🎴</span>Practice Mode</a>
-        <a href="#" data-view="mastery" class="nav-link"><span class="nav-ico">📈</span>Mastery</a>
-        <a href="#" data-view="cheats" class="nav-link"><span class="nav-ico">📄</span>Cheat Sheets</a>
-        <a href="#" data-view="star" class="nav-link"><span class="nav-ico">🗣</span>STAR Stories</a>
+      <div class="nav-group collapsible" data-group="study">
+        <div class="nav-group-head"><span class="ng-ico">🎴</span><span class="ng-label">Study Tools</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body">
+          <a href="#" data-view="search" class="nav-link"><span class="nav-ico">🔍</span><span class="nav-label">Search</span></a>
+          <a href="#" data-view="practice" class="nav-link"><span class="nav-ico">🎴</span><span class="nav-label">Practice Mode</span></a>
+          <a href="#" data-view="mastery" class="nav-link"><span class="nav-ico">📈</span><span class="nav-label">Mastery</span></a>
+          <a href="#" data-view="cheats" class="nav-link"><span class="nav-ico">📄</span><span class="nav-label">Cheat Sheets</span></a>
+          <a href="#" data-view="star" class="nav-link"><span class="nav-ico">🗣</span><span class="nav-label">STAR Stories</span></a>
+        </div>
       </div>
-      <div class="nav-group">
-        <div class="nav-group-label">Job Toolkit</div>
-        <a href="#" data-view="market" class="nav-link"><span class="nav-ico">📊</span>Market Data</a>
-        <a href="#" data-view="jobs" class="nav-link"><span class="nav-ico">💼</span>Job Requirements</a>
-        <a href="#" data-view="certs" class="nav-link"><span class="nav-ico">🎓</span>Certifications</a>
-        <a href="#" data-view="companies" class="nav-link"><span class="nav-ico">🏢</span>Companies</a>
-        <a href="#" data-view="companyqs" class="nav-link"><span class="nav-ico">🎯</span>Company Q-Sets</a>
-        <a href="#" data-view="tracker" class="nav-link"><span class="nav-ico">🗂</span>App Tracker</a>
-        <a href="#" data-view="resume" class="nav-link"><span class="nav-ico">📄</span>Resume Kit</a>
-        <a href="#" data-view="sysdesign" class="nav-link"><span class="nav-ico">🧠</span>System Design</a>
-        <a href="#" data-view="labs" class="nav-link"><span class="nav-ico">🧪</span>Lab Checklists</a>
-        <a href="#" data-view="crosscheck" class="nav-link"><span class="nav-ico">🔗</span>Cross-Check</a>
-        <a href="#" data-view="sources" class="nav-link"><span class="nav-ico">📚</span>Sources</a>
+      <div class="nav-group collapsible" data-group="job">
+        <div class="nav-group-head"><span class="ng-ico">🧰</span><span class="ng-label">Job Toolkit</span><span class="ng-caret">▾</span></div>
+        <div class="nav-group-body">
+          <a href="#" data-view="market" class="nav-link"><span class="nav-ico">📊</span><span class="nav-label">Market Data</span></a>
+          <a href="#" data-view="jobs" class="nav-link"><span class="nav-ico">💼</span><span class="nav-label">Job Requirements</span></a>
+          <a href="#" data-view="certs" class="nav-link"><span class="nav-ico">🎓</span><span class="nav-label">Certifications</span></a>
+          <a href="#" data-view="companies" class="nav-link"><span class="nav-ico">🏢</span><span class="nav-label">Companies</span></a>
+          <a href="#" data-view="companyqs" class="nav-link"><span class="nav-ico">🎯</span><span class="nav-label">Company Q-Sets</span></a>
+          <a href="#" data-view="tracker" class="nav-link"><span class="nav-ico">🗂</span><span class="nav-label">App Tracker</span></a>
+          <a href="#" data-view="resume" class="nav-link"><span class="nav-ico">📄</span><span class="nav-label">Resume Kit</span></a>
+          <a href="#" data-view="sysdesign" class="nav-link"><span class="nav-ico">🧠</span><span class="nav-label">System Design</span></a>
+          <a href="#" data-view="labs" class="nav-link"><span class="nav-ico">🧪</span><span class="nav-label">Lab Checklists</span></a>
+          <a href="#" data-view="crosscheck" class="nav-link"><span class="nav-ico">🔗</span><span class="nav-label">Cross-Check</span></a>
+          <a href="#" data-view="sources" class="nav-link"><span class="nav-ico">📚</span><span class="nav-label">Sources</span></a>
+        </div>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -67,9 +74,12 @@
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
         <div class="progress-text" id="progress-text">0 / — items</div>
       </div>
+      <button id="sidebar-toggle" class="sidebar-toggle" title="Toggle sidebar">« Collapse sidebar</button>
       <button id="reset-btn" class="ghost-btn">↺ Reset progress</button>
     </div>
   </aside>
+
+  <div id="flyouts" aria-hidden="true"></div>
 
   <main id="content">
     <div id="view"></div>
@@ -78,8 +88,8 @@
 
 <button id="to-top" class="to-top" aria-label="Back to top" hidden>↑</button>
 
-<script src="data.js?v=9"></script>
-<script src="answers.js?v=9"></script>
-<script src="app.js?v=9"></script>
+<script src="data.js?v=11"></script>
+<script src="answers.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

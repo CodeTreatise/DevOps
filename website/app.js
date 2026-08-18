@@ -328,23 +328,111 @@
     const phasesEl = document.getElementById("nav-phases");
     let html = "";
     D.phases.forEach((ph) => {
-      html += '<div class="phase-label">Phase ' + esc(ph.id) + " — " + esc(ph.name) + "</div>";
+      html += '<div class="nav-group collapsible phase" data-group="phase' + esc(ph.id) + '">';
+      html += '<div class="nav-group-head"><span class="ng-ico">' + (ph.id === "A" ? "📘" : "📙") + '</span>' +
+        '<span class="ng-label">Phase ' + esc(ph.id + " — " + ph.name) + '</span><span class="ng-caret">▾</span></div>';
+      html += '<div class="nav-group-body">';
       html += '<div class="phase-progress"><div data-phase="' + esc(ph.id) + '" style="width:0%"></div></div>';
       (ph.modules || []).forEach((m) => {
         const s = moduleStats(m);
-        const pct = modulePct(m);
         html +=
           '<a href="#" data-view="module:' + esc(m.id) + '" class="nav-link">' +
           '<span class="nav-ico">' + esc(m.icon) + "</span>" +
-          "<span>" + esc(m.id + " " + m.title) + "</span>" +
+          '<span class="nav-label">' + esc(m.id + " " + m.title) + "</span>" +
           '<span class="nav-count" data-module="' + esc(m.id) + '">' + moduleDone(m) + "/" + s.items + "</span></a>";
       });
+      html += "</div></div>";
     });
     phasesEl.innerHTML = html;
     document.querySelectorAll("#nav .nav-link").forEach((a) => {
       a.classList.toggle("active", a.dataset.view === currentView);
     });
+    applyGroupStates();
     updateProgressUI();
+  }
+
+  /* ---------------- sidebar accordion + icon rail ---------------- */
+  const NAV_KEY = "platform-path-nav-v1";
+  function getNavPrefs() {
+    try { return JSON.parse(localStorage.getItem(NAV_KEY) || "{}"); }
+    catch (e) { return {}; }
+  }
+  function saveNavPrefs(p) { localStorage.setItem(NAV_KEY, JSON.stringify(p)); }
+  function isRail() { return document.body.classList.contains("sidebar-collapsed"); }
+  function applyGroupStates() {
+    const prefs = getNavPrefs();
+    const gs = prefs.groups || {};
+    document.querySelectorAll("#nav .nav-group[data-group]").forEach((g) => {
+      g.classList.toggle("closed", gs[g.dataset.group] === false);
+    });
+  }
+  function toggleGroup(g) {
+    g.classList.toggle("closed");
+    const prefs = getNavPrefs();
+    if (!prefs.groups) prefs.groups = {};
+    prefs.groups[g.dataset.group] = !g.classList.contains("closed");
+    saveNavPrefs(prefs);
+  }
+  function setRail(on) {
+    document.body.classList.toggle("sidebar-collapsed", on);
+    const prefs = getNavPrefs();
+    prefs.rail = on;
+    saveNavPrefs(prefs);
+    const tb = document.getElementById("sidebar-toggle");
+    if (tb) { tb.textContent = on ? "» Expand" : "« Collapse"; tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons"; }
+    if (on) hideFlyout();
+  }
+  function updateToggleLabel() {
+    const tb = document.getElementById("sidebar-toggle");
+    if (!tb) return;
+    const on = isRail();
+    tb.textContent = on ? "» Expand" : "« Collapse";
+    tb.title = on ? "Expand sidebar" : "Collapse sidebar to icons";
+  }
+
+  /* ---------------- rail flyouts (icon-rail hover panels) ---------------- */
+  let flyoutTimer = null;
+  function linkLabel(a) {
+    const c = a.cloneNode(true);
+    c.querySelectorAll(".nav-ico, .nav-count").forEach((n) => n.remove());
+    return c.textContent.trim();
+  }
+  function buildFlyouts() {
+    const wrap = document.getElementById("flyouts");
+    if (!wrap) return;
+    let html = "";
+    document.querySelectorAll("#nav .nav-group[data-group]").forEach((g) => {
+      const gid = g.dataset.group;
+      const title = (g.querySelector(".ng-label") || {}).textContent || gid;
+      const ico = (g.querySelector(".ng-ico") || {}).textContent || "•";
+      html += '<div class="flyout" id="flyout-' + esc(gid) + '" data-group="' + esc(gid) + '">' +
+        '<div class="flyout-title">' + esc(ico + " " + title) + "</div>";
+      g.querySelectorAll(".nav-link").forEach((a) => {
+        const i = (a.querySelector(".nav-ico") || {}).textContent || "";
+        html += '<a href="#" data-view="' + esc(a.dataset.view || "") + '" class="nav-link' +
+          (a.dataset.view === currentView ? " active" : "") + '"><span class="nav-ico">' + esc(i) + "</span>" +
+          '<span class="nav-label">' + esc(linkLabel(a)) + "</span></a>";
+      });
+      html += "</div>";
+    });
+    wrap.innerHTML = html;
+  }
+  function showFlyout(gid, anchor) {
+    const f = document.getElementById("flyout-" + gid);
+    if (!f) return;
+    const r = anchor.getBoundingClientRect();
+    f.style.top = Math.max(8, Math.min(r.top, window.innerHeight - 80)) + "px";
+    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
+    f.classList.add("show");
+    clearTimeout(flyoutTimer);
+  }
+  function hideFlyout() {
+    document.querySelectorAll("#flyouts .flyout.show").forEach((x) => x.classList.remove("show"));
+    clearTimeout(flyoutTimer);
+  }
+  function hideFlyoutSoon() {
+    clearTimeout(flyoutTimer);
+    flyoutTimer = setTimeout(hideFlyout, 200);
   }
 
   /* ---------------- state ---------------- */
@@ -1404,17 +1492,53 @@
     else if (currentView === "search") viewSearch();
     else if (currentView === "cheats") viewCheats();
     else if (currentView.startsWith("module:")) viewModule(currentView.slice(7));
+    buildFlyouts();
     window.scrollTo(0, 0);
   }
 
   /* ---------------- events ---------------- */
   document.getElementById("nav").addEventListener("click", (e) => {
+    const head = e.target.closest(".nav-group-head");
+    if (head) {
+      const g = head.closest(".nav-group");
+      if (!g) return;
+      if (isRail()) {
+        const f = document.getElementById("flyout-" + g.dataset.group);
+        if (f && f.classList.contains("show")) hideFlyout();
+        else showFlyout(g.dataset.group, head);
+        return;
+      }
+      toggleGroup(g);
+      return;
+    }
     const a = e.target.closest("a[data-view]");
     if (!a) return;
     e.preventDefault();
     currentView = a.dataset.view;
     render();
   });
+
+  // rail: hover a group head → flyout; leaving hides it (with grace delay)
+  document.getElementById("nav").addEventListener("mouseover", (e) => {
+    if (!isRail()) return;
+    const head = e.target.closest(".nav-group-head");
+    if (head) showFlyout(head.closest(".nav-group").dataset.group, head);
+  });
+  document.getElementById("nav").addEventListener("mouseleave", hideFlyoutSoon);
+
+  const flyoutsWrap = document.getElementById("flyouts");
+  if (flyoutsWrap) {
+    flyoutsWrap.addEventListener("mouseenter", () => clearTimeout(flyoutTimer));
+    flyoutsWrap.addEventListener("mouseleave", hideFlyoutSoon);
+    flyoutsWrap.addEventListener("click", (e) => {
+      const a = e.target.closest("a[data-view]");
+      if (!a) return;
+      e.preventDefault();
+      currentView = a.dataset.view;
+      hideFlyout();
+      render();
+    });
+  }
 
   $view.addEventListener("click", (e) => {
     const a = e.target.closest("a[data-view]");
@@ -1650,6 +1774,20 @@
   document.getElementById("nav").addEventListener("click", (e) => {
     if (e.target.closest("a[data-view]") && window.innerWidth <= 900) setNavOpen(false);
   });
+
+  /* ---------------- sidebar collapse toggle ---------------- */
+  const sidebarToggle = document.getElementById("sidebar-toggle");
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", () => {
+      if (window.innerWidth <= 900) return; // drawer handles mobile
+      setRail(!isRail());
+    });
+  }
+  // restore persisted rail state
+  const navPrefs = getNavPrefs();
+  if (navPrefs.rail && window.innerWidth > 900) setRail(true);
+  else updateToggleLabel();
+  applyGroupStates();
 
   /* ---------------- scroll-to-top ---------------- */
   const toTopBtn = document.getElementById("to-top");
