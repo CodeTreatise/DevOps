@@ -227,14 +227,14 @@ window.PATH_DATA = {
       "demandNotes": "Linux is the #1 screening topic for platform/DevOps roles in Pune and remote-India market (see marketData premiumSkills: systemd + troubleshooting appear in nearly every JD). 30-40% of a DevOps interview is Linux + shell. Salary uplift: candidates who nail diagnosis scenarios quote 15-25% above base.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Linux Interview Questions",
-        "url": "https://www.interviewbit.com/linux-interview-questions/",
+        "name": "GeeksforGeeks Linux Interview Questions",
+        "url": "https://www.geeksforgeeks.org/linux-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
        {
-        "name": "InterviewBit Shell Scripting Interview Questions",
-        "url": "https://www.interviewbit.com/shell-scripting-interview-questions/",
+        "name": "Shell Scripting Tutorial (shellscript.sh)",
+        "url": "https://www.shellscript.sh/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -402,8 +402,8 @@ window.PATH_DATA = {
       "demandNotes": "Git questions are universal and cheap to ask — expect 5-10 min in every round. Advanced recovery/reset/rebase questions separate mid-level from junior; strong GitOps story (Git as source of truth) maps directly to ArgoCD adoption in Indian product companies.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Git Interview Questions",
-        "url": "https://www.interviewbit.com/git-interview-questions/",
+        "name": "Pro Git book (official)",
+        "url": "https://git-scm.com/book/en/v2",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -636,8 +636,8 @@ window.PATH_DATA = {
       "demandNotes": "Networking is the most commonly under-prepared area — interviewers love it. Subnetting and TCP handshake are near-guaranteed questions; SNAT/DNAT and TLS handshake show depth. Strong networking = edge over 60% of candidates who skip it.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Networking Interview Questions",
-        "url": "https://www.interviewbit.com/networking-interview-questions/",
+        "name": "GeeksforGeeks Networking Interview Questions",
+        "url": "https://www.geeksforgeeks.org/networking-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -832,8 +832,8 @@ window.PATH_DATA = {
       "demandNotes": "Docker is the must-have baseline — every Pune/remote JD lists it. Mid-level bar: you should be able to write a production Dockerfile (multi-stage, non-root, healthcheck) and debug container networking. Docker + compose is also the fastest path to portfolio demos for A06.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Docker Interview Questions",
-        "url": "https://www.interviewbit.com/docker-interview-questions/",
+        "name": "GeeksforGeeks Docker Interview Questions",
+        "url": "https://www.geeksforgeeks.org/docker-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -1125,7 +1125,7 @@ window.PATH_DATA = {
      ],
      "research": {
       "interviewFocus": [
-       "Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 6 phases of DevOps lifecycle",
+       "Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 8 phases of DevOps lifecycle",
        "CI: build/test automation, continuous testing, shift-left testing, git hooks (pre-commit, pre-receive/update/post-receive)",
        "CD: continuous delivery vs continuous deployment (one explicit approval vs zero), deployment strategies (blue/green, canary, rolling)",
        "KPIs: deploy frequency, failed deployment %, MTTR/MTTD, change failure rate",
@@ -1137,8 +1137,8 @@ window.PATH_DATA = {
       "demandNotes": "CI/CD is the core of the DevOps role — expect scenario questions ('how would you roll out to production safely?'). Blue/green + canary answers earn senior-level credit. In remote-India market, GitHub Actions familiarity is increasingly expected alongside Jenkins.",
       "verifiedResources": [
        {
-        "name": "InterviewBit DevOps Interview Questions",
-        "url": "https://www.interviewbit.com/devops-interview-questions/",
+        "name": "GeeksforGeeks DevOps Interview Questions",
+        "url": "https://www.geeksforgeeks.org/devops-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -2053,8 +2053,8 @@ window.PATH_DATA = {
       "demandNotes": "Kubernetes is the #1 premium skill in the mid-level market (see marketData.premiumSkills). Expect a dedicated K8s round: architecture + troubleshooting (Pending/CrashLoopBackOff) are the most-asked. CKA-style hands-on is a differentiator for remote India roles.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Kubernetes Interview Questions",
-        "url": "https://www.interviewbit.com/kubernetes-interview-questions/",
+        "name": "GeeksforGeeks Kubernetes Interview Questions",
+        "url": "https://www.geeksforgeeks.org/kubernetes-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -2483,8 +2483,8 @@ window.PATH_DATA = {
       "demandNotes": "Terraform is co-listed with Kubernetes in most senior JDs. State management + modules + backend questions are the differentiator. Terragrunt knowledge gives strong bonus points in product companies running multi-env IaC.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Terraform Interview Questions",
-        "url": "https://www.interviewbit.com/terraform-interview-questions/",
+        "name": "GeeksforGeeks Terraform Interview Questions",
+        "url": "https://www.geeksforgeeks.org/terraform-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -3067,8 +3067,8 @@ window.PATH_DATA = {
       "demandNotes": "AWS is the dominant cloud in the Indian market (see marketData). Focus on the core trio (EC2/VPC/S3) + IAM for interviews; serverless (Lambda) is a plus. Hands-on free-tier projects (ec2-instance, iac-digitalocean/AWS equivalent) prove real experience.",
       "verifiedResources": [
        {
-        "name": "InterviewBit AWS Interview Questions",
-        "url": "https://www.interviewbit.com/aws-interview-questions/",
+        "name": "GeeksforGeeks AWS Interview Questions",
+        "url": "https://www.geeksforgeeks.org/aws-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -3431,8 +3431,8 @@ window.PATH_DATA = {
       "demandNotes": "Observability is a premium skill in mid-level JDs (Prometheus + Grafana appear in ~70% of senior postings). SRE salaries in India: 6-15 LPA fresher, 13-26 LPA experienced (InterviewBit). The prometheus-grafana project (296 starters) is the go-to portfolio piece.",
       "verifiedResources": [
        {
-        "name": "InterviewBit SRE Interview Questions",
-        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "name": "Google SRE Book (free)",
+        "url": "https://sre.google/sre-book/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -4187,8 +4187,8 @@ window.PATH_DATA = {
       "demandNotes": "SRE roles pay premium (13-26 LPA experienced in India). Reliability questions combine ops + engineering judgment — practice the 'how would you handle an outage' scenario. Chaos engineering and error budgets are the senior differentiators.",
       "verifiedResources": [
        {
-        "name": "InterviewBit SRE Interview Questions",
-        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "name": "Google SRE Book (free)",
+        "url": "https://sre.google/sre-book/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -4596,14 +4596,14 @@ window.PATH_DATA = {
       "demandNotes": "Automation is where 'senior' is proven — interviewers ask you to write a script live. Shell + Python + Ansible is the standard toolkit; jq appears in cloud automation tasks. Ansible roles + vault are expected mid-level depth.",
       "verifiedResources": [
        {
-        "name": "InterviewBit Ansible Interview Questions",
-        "url": "https://www.interviewbit.com/ansible-interview-questions/",
+        "name": "GeeksforGeeks Ansible Interview Questions",
+        "url": "https://www.geeksforgeeks.org/ansible-interview-questions/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
        {
-        "name": "InterviewBit Shell Scripting Interview Questions",
-        "url": "https://www.interviewbit.com/shell-scripting-interview-questions/",
+        "name": "Shell Scripting Tutorial (shellscript.sh)",
+        "url": "https://www.shellscript.sh/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -4971,7 +4971,7 @@ window.PATH_DATA = {
           },
           {
            "name": "Zero Trust architecture (Google Cloud)",
-           "url": "https://cloud.google.com/architecture/security/zero-trust",
+           "url": "https://cloud.google.com/security/zero-trust",
            "kind": "official-docs",
            "verified": "official-doc"
           }
@@ -5168,7 +5168,9 @@ window.PATH_DATA = {
        "Week 4: cost — tag all cloud resources, build a cost dashboard, right-size + schedule instances, budget alerts",
        "Practice: every project ships with a runbook, ADR, and security checklist"
       ],
-      "certifications": []
+      "certifications": [
+       "CKS (Certified Kubernetes Security Specialist) — optional, only after CKA + B08, for DevSecOps-targeted roles"
+      ]
      }
     },
     {
@@ -5447,14 +5449,14 @@ window.PATH_DATA = {
       "demandNotes": "Final polish determines offer level: portfolio + system design + behavioral stories. Candidates who demo a deployed, monitored, GitOps-driven project quote +20-30% over candidates who only list skills. Market references: marketData.regions rows for Pune/remote/international.",
       "verifiedResources": [
        {
-        "name": "InterviewBit System Design Interview Questions",
-        "url": "https://www.interviewbit.com/system-design-interview-questions/",
+        "name": "System Design Primer (GitHub)",
+        "url": "https://github.com/donnemartin/system-design-primer",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
        {
-        "name": "InterviewBit SRE Interview Questions (FAQ + coding)",
-        "url": "https://www.interviewbit.com/sre-interview-questions/",
+        "name": "Google SRE Book (free) (FAQ + coding)",
+        "url": "https://sre.google/sre-book/",
         "kind": "interactive",
         "verified": "fetch-verified"
        },
@@ -6160,7 +6162,7 @@ window.PATH_DATA = {
        "B05",
        "B04"
       ],
-      "careers": "https://cred.club/careers",
+      "careers": "https://careers.cred.club/",
       "note": "Startup pay + equity; expects ownership stories."
      },
      {
@@ -6230,7 +6232,7 @@ window.PATH_DATA = {
        "B02",
        "B04"
       ],
-      "careers": "https://www.thoughtspot.com/company/careers",
+      "careers": "https://www.thoughtspot.com/careers",
       "note": "AIOps angle (per research) — data-platform reliability."
      },
      {

@@ -1014,9 +1014,9 @@
 ### Module research
 
 <details>
-<summary>❓ Q1: Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 6 phases of DevOps lifecycle</summary>
+<summary>❓ Q1: Culture: CAMS (Culture, Automation, Measurement, Sharing), Agile vs DevOps, 8 phases of DevOps lifecycle</summary>
 
-**Model answer:** CAMS: Culture (collab over blame), Automation (repeatable), Measurement (data-driven), Sharing (knowledge/ownership). Agile vs DevOps: Agile is about how teams build (iterations, feedback); DevOps extends to operations — how software is delivered and run (culture + tooling across dev and ops). 6-phase lifecycle: Plan → Code → Build → Test → Release → Deploy → Operate → Monitor (loop).
+**Model answer:** CAMS: Culture (collab over blame), Automation (repeatable), Measurement (data-driven), Sharing (knowledge/ownership). Agile vs DevOps: Agile is about how teams build (iterations, feedback); DevOps extends to operations — how software is delivered and run (culture + tooling across dev and ops). 8-phase lifecycle: Plan → Code → Build → Test → Release → Deploy → Operate → Monitor (loop).
 
 **Rubric:** 1 = knows CAMS acronym. 2 = Agile vs DevOps distinction. 3 = lifecycle loop + how CAMS shows up in day-to-day behavior.
 

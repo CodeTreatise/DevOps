@@ -1215,7 +1215,7 @@
 <details>
 <summary>❓ Q1: Compute: EC2 (types by use: general/compute/memory/storage/accelerated; T2 burstable), on-demand vs spot vs reserved, stop vs terminate, key pairs, AMI components, private IP immutable</summary>
 
-**Model answer:** EC2 families map to workload bottleneck (M general, C compute, R memory, I/D storage, G/P accelerated); T = burstable (CPU credits). Pricing: on-demand (flex), spot (90% off, reclaimable), reserved/SP (commit for baseline). stop keeps EBS, terminate destroys root volume. Key pairs = SSH auth; AMI = OS+config template (region-scoped); private IP stable while running (changes on stop/start unless ENI-attached/EIP).
+**Model answer:** EC2 families map to workload bottleneck (M general, C compute, R memory, I/D storage, G/P accelerated); T = burstable (CPU credits). Pricing: on-demand (flex), spot (90% off, reclaimable), reserved/SP (commit for baseline). stop keeps EBS, terminate destroys root volume. Key pairs = SSH auth; AMI = OS+config template (region-scoped); private IP persists across stop/start (bound to the ENI); public IP may change unless an EIP is attached.
 
 **Rubric:** 1 = family mapping. 2 = pricing + stop/terminate. 3 = burstable credits + AMI/region + IP immutability nuance.
 
@@ -2460,7 +2460,7 @@ Points: 3 attempts max, exponential backoff (1→2→4s), logs failures to stder
 <details>
 <summary>❓ Q3: Exit codes, $?, positional params, $@ vs $* — scripting fundamentals</summary>
 
-**Model answer:** Exit codes: 0 = success, non-zero = failure (1 generic, 2 usage, 126/127 command-not-found, 130 SIGINT); $? holds the last command's exit code (check it immediately — it's overwritten by the next command). Positional params: $1..$9, ${10}+; $0 = script name; $# = count. $@ vs $*: both expand all positional params — but $@ keeps each argument INTACT as separate words ("$@" is the safe form: preserves quoting/spaces); $* joins them into one word ("$*" = single string) — use "$@" in almost all cases, "$*" only when you explicitly want concatenation. Also: $? last exit, $$ PID, $! last background PID.
+**Model answer:** Exit codes: 0 = success, non-zero = failure (1 generic, 2 usage, 126 found-but-not-executable, 127 command-not-found, 130 SIGINT); $? holds the last command's exit code (check it immediately — it's overwritten by the next command). Positional params: $1..$9, ${10}+; $0 = script name; $# = count. $@ vs $*: both expand all positional params — but $@ keeps each argument INTACT as separate words ("$@" is the safe form: preserves quoting/spaces); $* joins them into one word ("$*" = single string) — use "$@" in almost all cases, "$*" only when you explicitly want concatenation. Also: $? last exit, $$ PID, $! last background PID.
 
 **Rubric:** 1 = $? + $1. 2 = $@ vs $* distinction. 3 = the quoting nuance ("$@" vs unquoted) + exit-code semantics + $! usage.
 
@@ -2561,7 +2561,7 @@ Points: config validated (KeyError → traceback = loud), secret from env not fi
 <details>
 <summary>❓ Q5: YAML/JSON parsing with pyyaml — how do you validate config before acting on it?</summary>
 
-**Model answer:** Steps: 1) parse — yaml.safe_load (NEVER yaml.load — unsafe by default, can execute arbitrary objects); json.load for JSON; 2) validate SCHEMA — check required keys/types/values before acting: manual checks, or better a schema validator (jsonschema library — define the expected schema, raise on mismatch); 3) validate RANGES/ENUMS — port numbers, mode strings, allowed values; 4) fail loudly on invalid (clear message naming the field, not a cryptic KeyError); 5) use dataclasses/pydantic for typed config in bigger tools (pydantic gives automatic validation + typed access). Golden rule: validate early, fail fast with specific errors, never act on partially-understood config. Also: handle duplicate keys, unexpected fields (reject or warn), and interpolate env vars only where intended.
+**Model answer:** Steps: 1) parse — yaml.safe_load (prefer over yaml.load — since PyYAML 5.1 it defaults to FullLoader, but safe_load stays the safe default for untrusted input); json.load for JSON; 2) validate SCHEMA — check required keys/types/values before acting: manual checks, or better a schema validator (jsonschema library — define the expected schema, raise on mismatch); 3) validate RANGES/ENUMS — port numbers, mode strings, allowed values; 4) fail loudly on invalid (clear message naming the field, not a cryptic KeyError); 5) use dataclasses/pydantic for typed config in bigger tools (pydantic gives automatic validation + typed access). Golden rule: validate early, fail fast with specific errors, never act on partially-understood config. Also: handle duplicate keys, unexpected fields (reject or warn), and interpolate env vars only where intended.
 
 **Rubric:** 1 = safe_load. 2 = schema check before use. 3 = jsonschema/pydantic + specific errors + fail-fast philosophy.
 
@@ -2653,7 +2653,7 @@ Points: config validated (KeyError → traceback = loud), secret from env not fi
 <details>
 <summary>❓ Q4: Log rotation: how do you stop logs from filling the disk (logrotate, retention)?</summary>
 
-**Model answer:** logrotate: the standard — config per app (size-based: rotate 100M; time-based: daily; keep N; compress; delaycompress; postrotate reload). Journald: SystemMaxUse= / systemctl stop vacuum — cap journal size; `journalctl --vacuum-size=500M`. App-level: max log size + sampling; container logs: Docker/kubelet rotation (container-log-max-size). Retention policy per env: dev few days, prod weeks-months, compliance longer — SHIP to a central store (Loki/ES/S3) and keep local small (local = boot-time + last N MB). Monitors: disk alerts at 70-80% (before full) + log-growth alerts (a busy-loop spamming logs is a bug signal). Test: logrotate -d (dry run). The trap being asked about: unrotated logs filling disk → everything breaks — rotation + alerts are the fix.
+**Model answer:** logrotate: the standard — config per app (size-based: rotate 100M; time-based: daily; keep N; compress; delaycompress; postrotate reload). Journald: SystemMaxUse= caps journal size; `journalctl --vacuum-size=500M` reclaims now. App-level: max log size + sampling; container logs: Docker/kubelet rotation (container-log-max-size). Retention policy per env: dev few days, prod weeks-months, compliance longer — SHIP to a central store (Loki/ES/S3) and keep local small (local = boot-time + last N MB). Monitors: disk alerts at 70-80% (before full) + log-growth alerts (a busy-loop spamming logs is a bug signal). Test: logrotate -d (dry run). The trap being asked about: unrotated logs filling disk → everything breaks — rotation + alerts are the fix.
 
 **Rubric:** 1 = logrotate exists. 2 = size/time + retention + compression. 3 = journald caps + ship-forward + disk/growth alerts + container rotation.
 
@@ -2721,7 +2721,7 @@ Points: config validated (KeyError → traceback = loud), secret from env not fi
 <details>
 <summary>❓ Q5: Dynamic inventory (aws_ec2 plugin) — how does Ansible know about your cloud hosts?</summary>
 
-**Model answer:** Dynamic inventory: instead of a static hosts file, a plugin queries the cloud provider at runtime. aws_ec2 plugin (community.aws): configure in inventory file — `plugin: amazon.aws.aws_ec2` + filters (by tag: Name, env; by region; by instance state) → it lists running instances matching filters, groups them (by tags/security groups), and exposes hostvars (IPs, tags, AZ). Flow: ansible-playbook -i aws_ec2.yml playbook.yml → plugin calls AWS API (boto3, creds from env/instance role) → builds inventory → runs against the discovered hosts. Benefits: no stale host lists, hosts added/removed automatically (ASG), group by tag (web:, db:) for targeted runs. Related: other plugins (gcp_compute, azure_rm), and combining with --limit for subsets.
+**Model answer:** Dynamic inventory: instead of a static hosts file, a plugin queries the cloud provider at runtime. aws_ec2 plugin (in the amazon.aws collection): configure in inventory file — `plugin: amazon.aws.aws_ec2` + filters (by tag: Name, env; by region; by instance state) → it lists running instances matching filters, groups them (by tags/security groups), and exposes hostvars (IPs, tags, AZ). Flow: ansible-playbook -i aws_ec2.yml playbook.yml → plugin calls AWS API (boto3, creds from env/instance role) → builds inventory → runs against the discovered hosts. Benefits: no stale host lists, hosts added/removed automatically (ASG), group by tag (web:, db:) for targeted runs. Related: other plugins (gcp_compute, azure_rm), and combining with --limit for subsets.
 
 **Rubric:** 1 = plugin queries AWS. 2 = aws_ec2 + tag filters + grouping. 3 = hostvars/grouping + auto-discovery-with-ASG + creds source.
 

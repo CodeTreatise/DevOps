@@ -59,7 +59,7 @@ window.COMPANIES_DATA = {
           "roles": ["DevOps Engineer", "Platform Engineer"],
           "stack": "AWS, K8s, Terraform, ArgoCD, Grafana",
           "modules": ["B01", "B02", "B05", "B04"],
-          "careers": "https://cred.club/careers",
+          "careers": "https://careers.cred.club/",
           "note": "Startup pay + equity; expects ownership stories."
         },
         {
@@ -95,7 +95,7 @@ window.COMPANIES_DATA = {
           "roles": ["DevOps Engineer", "SRE"],
           "stack": "AWS, K8s, Terraform, Airflow, observability",
           "modules": ["B03", "B01", "B02", "B04"],
-          "careers": "https://www.thoughtspot.com/company/careers",
+          "careers": "https://www.thoughtspot.com/careers",
           "note": "AIOps angle (per research) — data-platform reliability."
         },
         {

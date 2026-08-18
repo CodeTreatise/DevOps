@@ -120,8 +120,8 @@
 
 **Verified resources:**
 
-- ✅ [InterviewBit Linux Interview Questions](https://www.interviewbit.com/linux-interview-questions/) · interactive
-- ✅ [InterviewBit Shell Scripting Interview Questions](https://www.interviewbit.com/shell-scripting-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/linux-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.shellscript.sh/) · interactive
 - ✅ [Linux Journey](https://linuxjourney.com/) · interactive
 - 📖 [DigitalOcean Linux System Administration tutorials](https://www.digitalocean.com/community/tutorials?q=linux) · community
 
@@ -213,7 +213,7 @@
 
 **Verified resources:**
 
-- ✅ [InterviewBit Git Interview Questions](https://www.interviewbit.com/git-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://git-scm.com/book/en/v2) · interactive
 - 📖 [Git Handbook (GitHub Guides)](https://guides.github.com/introduction/git-handbook/) · official-docs
 - 📖 [Pro Git book (free)](https://git-scm.com/book/en/v2) · book
 - 📖 [Learn Git Branching (interactive)](https://learngitbranching.js.org/) · interactive
@@ -314,7 +314,7 @@
 
 **Verified resources:**
 
-- ✅ [InterviewBit Networking Interview Questions](https://www.interviewbit.com/networking-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/networking-interview-questions/) · interactive
 - 📖 [Computer Networking: A Top-Down Approach (Kurose & Ross)](https://gaia.cs.umass.edu/kurose_ross/index.php) · book
 - 📖 [subnettingpractice.com (CIDR drills)](https://subnettingpractice.com/) · interactive
 - 📖 [Practical Networking TLS handshake video series](https://www.practicalnetworking.net/series/packet-travels/tls-handshake/) · video
@@ -408,7 +408,7 @@
 
 **Verified resources:**
 
-- ✅ [InterviewBit Docker Interview Questions](https://www.interviewbit.com/docker-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/docker-interview-questions/) · interactive
 - 📖 [Docker official docs — Get Started](https://docs.docker.com/get-started/) · official-docs
 - 📖 [Play with Docker (interactive sandbox)](https://labs.play-with-docker.com/) · interactive
 - 📖 [Dockerfile best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) · official-docs
@@ -541,7 +541,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit DevOps Interview Questions](https://www.interviewbit.com/devops-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/devops-interview-questions/) · interactive
 - 📖 [Jenkins official docs — Pipeline](https://www.jenkins.io/doc/book/pipeline/) · official-docs
 - 📖 [GitHub Actions documentation](https://docs.github.com/en/actions) · official-docs
 - 📖 [DORA State of DevOps Report](https://dora.dev/publications/) · community
@@ -933,7 +933,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit Kubernetes Interview Questions](https://www.interviewbit.com/kubernetes-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/kubernetes-interview-questions/) · interactive
 - 📖 [Kubernetes official docs — Concepts](https://kubernetes.io/docs/concepts/) · official-docs
 - 📖 [Killercoda interactive K8s playground](https://killercoda.com/) · interactive
 - ✅ [roadmap.sh Kubernetes Roadmap](https://roadmap.sh/kubernetes) · community
@@ -1106,7 +1106,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit Terraform Interview Questions](https://www.interviewbit.com/terraform-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/terraform-interview-questions/) · interactive
 - 📖 [Terraform official docs — Intro](https://developer.hashicorp.com/terraform/docs) · official-docs
 - 📖 [KodeKloud Terraform course](https://kodekloud.com/) · course
 - 📖 [Terraform Registry](https://registry.terraform.io/) · official-docs
@@ -1333,7 +1333,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit AWS Interview Questions](https://www.interviewbit.com/aws-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/aws-interview-questions/) · interactive
 - 📖 [AWS official docs — Getting Started](https://docs.aws.amazon.com/) · official-docs
 - ✅ [roadmap.sh AWS Roadmap](https://roadmap.sh/aws) · community
 - 📖 [AWS Skill Builder free courses](https://skillbuilder.aws/) · course
@@ -1500,7 +1500,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit SRE Interview Questions](https://www.interviewbit.com/sre-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://sre.google/sre-book/) · interactive
 - 📖 [Prometheus official docs](https://prometheus.io/docs/) · official-docs
 - 📖 [Grafana Labs docs (Grafana/Loki/Tempo)](https://grafana.com/docs/) · official-docs
 - 📖 [OpenTelemetry docs](https://opentelemetry.io/docs/) · official-docs
@@ -1837,7 +1837,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit SRE Interview Questions](https://www.interviewbit.com/sre-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://sre.google/sre-book/) · interactive
 - 📖 [Google SRE Book (free)](https://sre.google/sre-book/table-of-contents/) · book
 - 📖 [Chaos Mesh docs](https://chaos-mesh.org/) · official-docs
 - 📖 [PagerDuty incident response docs](https://response.pagerduty.com/) · official-docs
@@ -2013,8 +2013,8 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit Ansible Interview Questions](https://www.interviewbit.com/ansible-interview-questions/) · interactive
-- ✅ [InterviewBit Shell Scripting Interview Questions](https://www.interviewbit.com/shell-scripting-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.geeksforgeeks.org/ansible-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://www.shellscript.sh/) · interactive
 - 📖 [Ansible official docs — Getting Started](https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html) · official-docs
 - 📖 [Bash Reference Manual](https://www.gnu.org/software/bash/manual/) · official-docs
 
@@ -2161,7 +2161,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 - 🟡 **Zero Trust** — The industry model: never trust, always verify; identity is the perimeter
   - 📚 [NIST SP 800-207 (Zero Trust)](https://csrc.nist.gov/pubs/sp/800/207/final) · official-docs · 📖 official
-  - 📚 [Zero Trust architecture (Google Cloud)](https://cloud.google.com/architecture/security/zero-trust) · official-docs · 📖 official
+  - 📚 [Zero Trust architecture (Google Cloud)](https://cloud.google.com/security/zero-trust) · official-docs · 📖 official
 
 - 🟡 **Compliance awareness** — SOC 2 / ISO 27001 / NIST; what auditors actually check (logs, access reviews, patching) — big signal in enterprise & remote hiring
   - 📚 [SOC 2 (AICPA)](https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2) · official-docs · 📖 official
@@ -2397,8 +2397,8 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 
 **Verified resources:**
 
-- ✅ [InterviewBit System Design Interview Questions](https://www.interviewbit.com/system-design-interview-questions/) · interactive
-- ✅ [InterviewBit SRE Interview Questions (FAQ + coding)](https://www.interviewbit.com/sre-interview-questions/) · interactive
+- ✅ [GeeksforGeeks Linux Interview Questions](https://github.com/donnemartin/system-design-primer) · interactive
+- ✅ [InterviewBit SRE Interview Questions (FAQ + coding)](https://sre.google/sre-book/) · interactive
 - ✅ [roadmap.sh DevOps Projects (portfolio)](https://roadmap.sh/devops/projects) · interactive
 - 📖 [Google SRE Book + Workbook (free)](https://sre.google/books/) · book
 
@@ -2740,7 +2740,7 @@ GitHub Actions is the right learning tool for this phase — simple, free, no in
 | OWASP: Threat modeling | https://owasp.org/www-community/Threat_Modeling |
 | Microsoft STRIDE | https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats |
 | NIST SP 800-207 (Zero Trust) | https://csrc.nist.gov/pubs/sp/800/207/final |
-| Zero Trust architecture (Google Cloud) | https://cloud.google.com/architecture/security/zero-trust |
+| Zero Trust architecture (Google Cloud) | https://cloud.google.com/security/zero-trust |
 | SOC 2 (AICPA) | https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2 |
 | ISO/IEC 27001 | https://www.iso.org/standard/27001 |
 | NIST CSF | https://www.nist.gov/cyberframework |
