@@ -1875,11 +1875,21 @@
       return String(n);
     }
     function renderLike() {
-      heartEl.textContent = likePrefs.liked ? "❤️" : "💔";
       likeBtn.classList.toggle("liked", likePrefs.liked);
       likeBtn.setAttribute("aria-pressed", likePrefs.liked ? "true" : "false");
     }
+    // The heart reflects the repo's real star count — it "warms up" as stars grow.
+    const HEART_TIERS = [
+      [0, "💔"], [1, "🖤"], [10, "💙"], [25, "💚"], [50, "💛"],
+      [100, "🧡"], [250, "❤️"], [500, "💗"], [1000, "💖"], [5000, "🔥"]
+    ];
+    function heartFor(count) {
+      let g = "💔";
+      for (const [t, e] of HEART_TIERS) if (count >= t) g = e;
+      return g;
+    }
     function renderStars(count) {
+      if (count != null) heartEl.textContent = heartFor(count);
       countEl.textContent = count == null ? "…" : formatCount(count);
       likeBtn.title = count == null
         ? "Star us on GitHub"
