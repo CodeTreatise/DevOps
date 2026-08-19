@@ -756,6 +756,7 @@ a.needs-chip:hover { background: rgba(109,141,255,.25); color: var(--text); tran
   transition: transform .15s, border-color .15s, color .15s;
 }
 .like-btn .like-heart { font-size: 16px; line-height: 1; }
+.like-btn .like-count { display: inline-block; min-width: 1.4em; text-align: left; }
 .like-btn:hover { border-color: rgba(255,107,138,.55); transform: scale(1.06); }
 .like-btn.liked { color: var(--text); border-color: rgba(255,107,138,.65); box-shadow: 0 0 14px rgba(255,107,138,.25); }
 

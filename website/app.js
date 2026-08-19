@@ -1859,19 +1859,31 @@
   render();
   updateProgressUI();
 
-  /* ---------------- like button (top-right, localStorage) ---------------- */
-  const LIKE_KEY = "platform-path-like-v1";
+  /* ---------------- like/star button (GitHub stars + repo CTA) ---------------- */
+  const GITHUB_REPO_URL = "https://github.com/CodeTreatise/DevOps";
+  const LIKE_KEY = "platform-path-like-v1";   // { liked: bool } — this browser has engaged
+  const STARS_KEY = "platform-path-stars-v1"; // { count: int, ts: number } — cached GitHub star count
+  const STARS_TTL = 30 * 60 * 1000;           // re-fetch GitHub stars at most every 30 min
   const likeBtn = document.getElementById("like-btn");
   if (likeBtn) {
-    let likePrefs = { liked: false, count: 0 };
+    let likePrefs = { liked: false };
     try { likePrefs = Object.assign(likePrefs, JSON.parse(localStorage.getItem(LIKE_KEY) || "{}")); } catch (e) {}
     const heartEl = likeBtn.querySelector(".like-heart");
     const countEl = likeBtn.querySelector(".like-count");
+    function formatCount(n) {
+      if (n >= 1000) return (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "") + "k";
+      return String(n);
+    }
     function renderLike() {
       heartEl.textContent = likePrefs.liked ? "❤️" : "💔";
-      countEl.textContent = likePrefs.count;
       likeBtn.classList.toggle("liked", likePrefs.liked);
       likeBtn.setAttribute("aria-pressed", likePrefs.liked ? "true" : "false");
+    }
+    function renderStars(count) {
+      countEl.textContent = count == null ? "…" : formatCount(count);
+      likeBtn.title = count == null
+        ? "Star us on GitHub"
+        : "Star us on GitHub — " + count + " star" + (count === 1 ? "" : "s");
     }
     function spawnSparkles(btn) {
       const r = btn.getBoundingClientRect();
@@ -1898,28 +1910,49 @@
       const r = btn.getBoundingClientRect();
       const t = document.createElement("div");
       t.className = "like-toast";
-      t.textContent = "Thank you! 💖";
+      t.textContent = "Star us on GitHub! ⭐";
       t.style.left = (r.x + r.width / 2) + "px";
       t.style.top = (r.y + r.height + 12) + "px";
       document.body.appendChild(t);
       setTimeout(() => t.remove(), 1700);
     }
+    function fetchStars() {
+      let cached = null;
+      try { cached = JSON.parse(localStorage.getItem(STARS_KEY) || "null"); } catch (e) {}
+      if (cached && typeof cached.count === "number" && Date.now() - cached.ts < STARS_TTL) {
+        renderStars(cached.count);
+        return;
+      }
+      fetch("https://api.github.com/repos/CodeTreatise/DevOps", { headers: { Accept: "application/vnd.github+json" } })
+        .then(r => { if (!r.ok) throw new Error("stars fetch " + r.status); return r.json(); })
+        .then(d => {
+          const n = Number(d.stargazers_count);
+          if (Number.isFinite(n)) {
+            try { localStorage.setItem(STARS_KEY, JSON.stringify({ count: n, ts: Date.now() })); } catch (e) {}
+            renderStars(n);
+          }
+        })
+        .catch(() => {
+          if (cached && typeof cached.count === "number") renderStars(cached.count); // stale fallback
+        });
+    }
     likeBtn.addEventListener("click", () => {
-      const wasLiked = likePrefs.liked;
-      likePrefs.liked = !likePrefs.liked;
-      likePrefs.count = Math.max(0, likePrefs.count + (likePrefs.liked ? 1 : -1));
-      try { localStorage.setItem(LIKE_KEY, JSON.stringify(likePrefs)); } catch (e) {}
-      renderLike();
-      if (likePrefs.liked && !wasLiked) {
+      if (!likePrefs.liked) {
+        likePrefs.liked = true;
+        try { localStorage.setItem(LIKE_KEY, JSON.stringify(likePrefs)); } catch (e) {}
+        renderLike();
         likeBtn.classList.remove("pop");
         void likeBtn.offsetWidth;
         likeBtn.classList.add("pop");
         spawnSparkles(likeBtn);
-        showLikeToast(likeBtn);
-      } else if (!likePrefs.liked) {
-        likeBtn.classList.remove("pop");
       }
+      showLikeToast(likeBtn);
+      const w = window.open(GITHUB_REPO_URL, "_blank", "noopener,noreferrer");
+      if (w) w.opener = null;
     });
     renderLike();
+    renderStars(null);
+    fetchStars();
   }
 })();
+
